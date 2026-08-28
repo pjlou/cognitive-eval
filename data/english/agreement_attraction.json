@@ -1,0 +1,43 @@
+[
+  {
+    "id": "en-agr-001a",
+    "module": "english",
+    "tier": "tier_1_morphological",
+    "phenomenon": "agreement_attraction",
+    "language": "en",
+    "prompt": "Complete the sentence by selecting the correct verb ('is' or 'are'): 'The list of changes to the report ___ ready.' Respond with only the correct verb.",
+    "gold_structure": {
+      "syntactic_head": "list",
+      "head_number": "singular",
+      "attractor": "changes",
+      "attractor_number": "plural",
+      "expected_verb": "is"
+    },
+    "rule_node_id": "RULE_EN_AGR_HEAD",
+    "verification_method": "dependency_parse",
+    "difficulty": "medium",
+    "source": "Bock & Miller 1991",
+    "notes": "Singular head subject with plural distractor noun."
+  },
+  {
+    "id": "en-agr-001b",
+    "module": "english",
+    "tier": "tier_1_morphological",
+    "phenomenon": "agreement_attraction",
+    "language": "en",
+    "prompt": "Complete the sentence by selecting the correct verb ('is' or 'are'): 'The lists of changes to the report ___ ready.' Respond with only the correct verb.",
+    "gold_structure": {
+      "syntactic_head": "lists",
+      "head_number": "plural",
+      "attractor": "report",
+      "attractor_number": "singular",
+      "expected_verb": "are"
+    },
+    "rule_node_id": "RULE_EN_AGR_HEAD",
+    "verification_method": "dependency_parse",
+    "difficulty": "medium",
+    "source": "Bock & Miller 1991",
+    "minimal_pair_of": "en-agr-001a",
+    "notes": "Plural head subject with singular distractor noun."
+  }
+]

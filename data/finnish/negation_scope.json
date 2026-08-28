@@ -1,0 +1,20 @@
+[
+  {
+    "id": "fi-neg-001a",
+    "module": "finnish",
+    "tier": "tier_2_clausal",
+    "phenomenon": "negation_scope",
+    "language": "fi",
+    "prompt": "Read the sentence: 'Kaikki eivät läpäisseet tenttiä.' Does this mean: (a) Nobody passed the exam, (b) Not everybody passed but some did, or (c) Everybody passed? Reply with the correct letter.",
+    "gold_structure": {
+      "negation_construction": "connegative",
+      "quantifier": "kaikki",
+      "correct_reading": "b"
+    },
+    "rule_node_id": "RULE_FI_NEG_CONNEGATIVE",
+    "verification_method": "hybrid_parse_morph",
+    "difficulty": "hard",
+    "source": "VISK",
+    "notes": "Requires native-speaker naturalness review."
+  }
+]

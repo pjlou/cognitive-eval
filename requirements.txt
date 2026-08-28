@@ -1,0 +1,21 @@
+# Evaluation Harness & LLM Interfaces
+inspect-ai
+ollama
+openai
+
+# English Parsing & NLP
+spacy>=3.7.0
+
+# Finnish Parsing & Morphology
+uralicNLP
+ufal.udpipe
+
+# Graph Modeling & Utilities
+networkx
+pydantic>=2.0
+pandas
+streamlit
+
+# Development Tools
+pytest
+jupyter

@@ -1,0 +1,20 @@
+[
+  {
+    "id": "en-neg-001a",
+    "module": "english",
+    "tier": "tier_2_clausal",
+    "phenomenon": "negation_scope",
+    "language": "en",
+    "prompt": "Read the sentence: 'Not all students failed the exam.' Does this mean: (a) No student passed, (b) At least one student passed, or (c) All students passed? Reply with the correct letter.",
+    "gold_structure": {
+      "negation_governor": "failed",
+      "scope_subtree": "all students ... failed",
+      "correct_reading": "b"
+    },
+    "rule_node_id": "RULE_EN_NEG_SCOPE",
+    "verification_method": "dependency_parse",
+    "difficulty": "hard",
+    "source": "ScoNe 2023",
+    "notes": "Tests external negation of universal quantifier."
+  }
+]

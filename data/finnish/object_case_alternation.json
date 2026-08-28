@@ -1,0 +1,39 @@
+[
+  {
+    "id": "fi-case-001a",
+    "module": "finnish",
+    "tier": "tier_1_morphological",
+    "phenomenon": "object_case_alternation",
+    "language": "fi",
+    "prompt": "Complete the Finnish sentence to express an ongoing, uncompleted action: 'Söin ___ (omena).'",
+    "gold_structure": {
+      "condition": "C2",
+      "expected_case": "Partitive",
+      "expected_form": "omenaa"
+    },
+    "rule_node_id": "RULE_FI_C2_ATELIC",
+    "verification_method": "morphological_feature",
+    "difficulty": "easy",
+    "source": "Kiparsky 1998",
+    "notes": "Affirmative + Atelic = Partitive case."
+  },
+  {
+    "id": "fi-case-001b",
+    "module": "finnish",
+    "tier": "tier_1_morphological",
+    "phenomenon": "object_case_alternation",
+    "language": "fi",
+    "prompt": "Complete the Finnish sentence to express a fully finished action: 'Söin ___ (omena).'",
+    "gold_structure": {
+      "condition": "C3",
+      "expected_case": "Accusative",
+      "expected_form": "omenan"
+    },
+    "rule_node_id": "RULE_FI_C3_TELIC_ACCUSATIVE",
+    "verification_method": "morphological_feature",
+    "difficulty": "easy",
+    "source": "Kiparsky 1998",
+    "minimal_pair_of": "fi-case-001a",
+    "notes": "Affirmative + Telic + Quantized = Accusative case."
+  }
+]
