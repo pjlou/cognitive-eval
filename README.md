@@ -45,7 +45,7 @@ python -c "import uralicNLP"
 ```
 
 ### 2. Run Evaluations via Inspect AI
-Execute the benchmark across local (Ollama) and API-based model targets:
+Execute the benchmark across local (Ollama) targets:
 
 ```bash
 python run_evals.py
