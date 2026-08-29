@@ -15,6 +15,26 @@
     "verification_method": "forced_choice_truth_conditional",
     "difficulty": "hard",
     "source": "ScoNe 2023",
+    "minimal_pair_of": "en-neg-001b",
     "notes": "Tests external negation of universal quantifier."
+  },
+  {
+    "id": "en-neg-001b",
+    "module": "english",
+    "tier": "tier_2_clausal",
+    "phenomenon": "negation_scope",
+    "language": "en",
+    "prompt": "Read the sentence: 'None of the students failed the exam.' Does this mean: (a) No student passed, (b) At least one student passed, or (c) All students passed? Respond with only the correct letter, no explanation.",
+    "gold_structure": {
+      "negation_governor": "failed",
+      "scope_subtree": "none of the students ... failed",
+      "correct_reading": "c"
+    },
+    "rule_node_id": "RULE_EN_NEG_UNIVERSAL_QUANT",
+    "verification_method": "forced_choice_truth_conditional",
+    "difficulty": "hard",
+    "source": "ScoNe 2023",
+    "minimal_pair_of": "en-neg-001a",
+    "notes": "Minimal pair for en-neg-001a: negates an existential ('none of') rather than a universal ('not all'), so the correct reading flips from 'at least one passed' to 'all passed'. Isolates whether the model distinguishes \u00ac\u2203 from \u00ac\u2200 rather than pattern-matching negation+quantifier surface forms to a single default reading."
   }
 ]

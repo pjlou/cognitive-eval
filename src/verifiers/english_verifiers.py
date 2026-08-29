@@ -26,15 +26,18 @@ def verify_english_agreement_attraction(model_output: str, gold_structure: Dict[
             "raw_gold": gold_structure,
         }
 
-    candidates = [t.text.lower() for t in nlp_en(str(model_output or "")) if t.text.lower() in ("is", "are")]
-    if not candidates:
+    # Prefer an explicit final-answer marker over the first is/are mentioned
+    # anywhere in the output -- a model that reasons out loud before answering
+    # (e.g. "the changes are plural, but the list is ready") would otherwise
+    # get scored on an incidental token from its own reasoning, not its answer.
+    chosen_verb = extract_final_choice(str(model_output or ""), valid_choices=("is", "are"))
+    if chosen_verb is None:
         return False, "FAIL_INVALID_OUTPUT", {
             "raw_output": model_output,
             "expected_verb": expected_verb,
             "gold_head": gold_head,
             "attractor_noun": attractor,
         }
-    chosen_verb = candidates[0]
 
     metadata = {
         "chosen_verb": chosen_verb,

@@ -100,6 +100,22 @@ def build_v02_rule_graph() -> nx.DiGraph:
     )
     G.add_edge("FEAT_EN_EXTERNAL_NEG", "RULE_EN_NEG_SCOPE", relation="TRIGGERS")
 
+    G.add_node("FEAT_EN_NEG_EXISTENTIAL", type="Feature", label="Negation=OfExistential(\u00ac\u2203\u2192\u2200\u00ac)")
+    G.add_node(
+        "RULE_EN_NEG_UNIVERSAL_QUANT",
+        type="Rule",
+        citation="Barwise & Cooper (1981) generalized quantifiers; contrastive design per ScoNe (2023)",
+        label="Negation of Existential Quantifier ('none of the X')",
+        explanation=(
+            "'None of the X V' negates an existential claim (\u00ac\u2203x.Vx), which by quantifier "
+            "duality is equivalent to a universal negative (\u2200x.\u00acVx) -- every member fails to "
+            "satisfy V. This is the minimal contrast to RULE_EN_NEG_SCOPE: 'not all X V' negates "
+            "a universal (\u00ac\u2200x.Vx, some don't), while 'none of the X V' negates an existential "
+            "(\u00ac\u2203x.Vx, none do) -- a distinction LLMs are known to conflate."
+        )
+    )
+    G.add_edge("FEAT_EN_NEG_EXISTENTIAL", "RULE_EN_NEG_UNIVERSAL_QUANT", relation="TRIGGERS")
+
     # -------------------------------------------------------------------------
     # FINNISH TIER 2: Connegative Construction & Clitic Scope
     # -------------------------------------------------------------------------
@@ -113,6 +129,22 @@ def build_v02_rule_graph() -> nx.DiGraph:
         explanation="'Kaikki eivät V' realizes the same ¬∀ ≡ ∃¬ scope relation as English external negation, but through the negative auxiliary + connegative verb form rather than a sentential negator — the reading is 'not everybody', not 'nobody'."
     )
     G.add_edge("FEAT_FI_CONNEGATIVE", "RULE_FI_NEG_CONNEGATIVE", relation="TRIGGERS")
+
+    G.add_node("FEAT_FI_NEG_EXISTENTIAL_KUKAAN", type="Feature", label="Negation=OfExistential(kukaan+ei)")
+    G.add_node(
+        "RULE_FI_NEG_KUKAAN_UNIVERSAL",
+        type="Rule",
+        citation="VISK \u00a71154 (kukaan as negative-polarity existential); contrastive design vs. RULE_FI_NEG_CONNEGATIVE",
+        label="Negative-Polarity Existential Negation ('kukaan ei', singular agreement)",
+        explanation=(
+            "'Kukaan ei V' negates an existential claim over persons (\u00ac\u2203x.Vx) and takes singular "
+            "connegative agreement, unlike the plural 'kaikki eivät' construction which negates a "
+            "universal (\u00ac\u2200x.Vx). This is the minimal contrast to RULE_FI_NEG_CONNEGATIVE: the same "
+            "connegative negation strategy realizes two logically distinct scope relations depending "
+            "on which quantifier host it attaches to."
+        )
+    )
+    G.add_edge("FEAT_FI_NEG_EXISTENTIAL_KUKAAN", "RULE_FI_NEG_KUKAAN_UNIVERSAL", relation="TRIGGERS")
 
     return G
 
