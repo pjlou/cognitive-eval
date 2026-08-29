@@ -1,25 +1,55 @@
 # dashboard/app.py
-import streamlit as st
+import altair as alt
 import pandas as pd
 import spacy
+import streamlit as st
 from spacy import displacy
-from utils import load_eval_logs
-from src.schema.rule_graph import build_v02_rule_graph, audit_rule
+from src.schema.rule_graph import build_v02_rule_graph
+from utils import build_answer_pattern_summary, get_model_family, load_eval_logs, model_sort_key
 
 # Page Configuration
 st.set_page_config(
     page_title="Cognitive-Eval Dashboard",
     page_icon="🧠",
-    layout="wide"
+    layout="wide",
 )
+
 
 # Load spaCy model for live visualization
 @st.cache_resource
 def load_spacy_model():
     return spacy.load("en_core_web_trf")
 
+
 nlp_en = load_spacy_model()
 rule_graph = build_v02_rule_graph()
+
+
+def render_answer_pattern_chart(summary_df: pd.DataFrame, selected_models: list[str] | None = None, title: str = "Answer pattern comparison"):
+    """Render a stacked bar chart of answer categories aggregated by model."""
+    chart_df = summary_df.copy()
+    if selected_models is not None:
+        chart_df = chart_df[chart_df["model"].isin(selected_models)]
+
+    if chart_df.empty:
+        return None
+
+    chart_df = chart_df[["model", "pattern", "count"]].copy()
+    model_order = sorted(chart_df["model"].unique(), key=lambda name: model_sort_key(name))
+
+    return (
+        alt.Chart(chart_df)
+        .mark_bar()
+        .encode(
+            x=alt.X("model:N", sort=model_order, title="Model"),
+            y=alt.Y("count:Q", title="Response count"),
+            color=alt.Color("pattern:N", title="Answer pattern"),
+            tooltip=["model:N", "pattern:N", "count:Q"],
+        )
+        .properties(title=title, height=280)
+        .interactive()
+    )
+
 
 # Header & Overview
 st.title("🧠 Cognitive-Eval: Structural LLM Diagnostic Benchmark")
@@ -62,7 +92,50 @@ filtered_df = df[
     (df["tier"].isin(selected_tier))
 ]
 
-# Section 1: Accuracy Matrix by Language, Phenomenon & Model
+pattern_summary = build_answer_pattern_summary(filtered_df)
+
+# Section 1: Model-Pattern Comparison Charts
+st.subheader("Answer Pattern Comparison")
+
+qwen_models = sorted(
+    {model for model in filtered_df["model"].unique() if get_model_family(model) == "qwen2.5"},
+    key=lambda name: model_sort_key(name),
+)
+if len(qwen_models) >= 3:
+    st.subheader("Within-family: Qwen 2.5 size scaling")
+    qwen_chart = render_answer_pattern_chart(
+        pattern_summary,
+        selected_models=qwen_models,
+        title="Qwen 2.5 answer patterns across sizes",
+    )
+    if qwen_chart is not None:
+        st.altair_chart(qwen_chart, use_container_width=True)
+else:
+    st.caption("Add at least three Qwen 2.5 models to the active filter to compare intra-family scaling.")
+
+preferred_cross_family = {"qwen2.5", "ministral-3", "llama3.1"}
+available_cross_family = [
+    model for model in filtered_df["model"].unique()
+    if get_model_family(model) in preferred_cross_family
+]
+if not available_cross_family and len(filtered_df["model"].unique()) >= 2:
+    available_cross_family = sorted(filtered_df["model"].unique(), key=lambda name: model_sort_key(name))[:3]
+
+if len(available_cross_family) >= 2:
+    st.subheader("Across families: model comparison")
+    cross_family_chart = render_answer_pattern_chart(
+        pattern_summary,
+        selected_models=available_cross_family,
+        title="Answer patterns across families",
+    )
+    if cross_family_chart is not None:
+        st.altair_chart(cross_family_chart, use_container_width=True)
+else:
+    st.caption("Add more models to the active filter to compare cross-family answer patterns.")
+
+st.divider()
+
+# Section 2: Accuracy Matrix by Language, Phenomenon & Model
 st.subheader("Accuracy Breakdown by Language, Phenomenon & Model Family")
 
 pivot_df = (
@@ -75,7 +148,7 @@ pivot_df["phenomenon"] = pivot_df["language"].str.upper() + " - " + pivot_df["ph
 pivot_df = pivot_df.drop(columns="language").set_index("phenomenon")
 st.dataframe(pivot_df.style.highlight_max(axis=1, color="lightgreen").format("{:.1f}%"), use_container_width=True)
 
-# Section 2: Error Taxonomy Analysis
+# Section 3: Error Taxonomy Analysis
 st.subheader("Structured Error Taxonomy")
 error_df = filtered_df[filtered_df["status"] == "INCORRECT"]["error_code"].value_counts().reset_index()
 error_df.columns = ["Error Code / Failure Mode", "Occurrences"]
@@ -83,7 +156,7 @@ st.bar_chart(error_df.set_index("Error Code / Failure Mode"))
 
 st.divider()
 
-# Section 3: Interactive Inspector & Dependency Parser Visualizer
+# Section 4: Interactive Inspector & Dependency Parser Visualizer
 st.subheader("Interactive Inspector & Dependency Parse Audit Trail")
 
 inspector_model = st.selectbox("Select Target Model", options=filtered_df["model"].unique())
@@ -96,9 +169,9 @@ inspect_col1, inspect_col2 = st.columns(2)
 with inspect_col1:
     st.markdown(f"**Sample ID:** `{sample_data['sample_id']}`")
     st.markdown(f"**Target Model:** `{sample_data['model']}`")
-    st.markdown(f"**Prompt Sent to LLM:**")
+    st.markdown("**Prompt Sent to LLM:**")
     st.info(sample_data["prompt"])
-    st.markdown(f"**Raw Model Response:**")
+    st.markdown("**Raw Model Response:**")
     st.code(sample_data["raw_output"])
     status_color = "#1565c0" if sample_data["status"] == "CORRECT" else "#c62828"
     st.markdown(
@@ -113,7 +186,7 @@ with inspect_col2:
         "rule_id": sample_data["rule_node_id"],
         "citation": sample_data["rule_citation"],
         "explanation": sample_data["rule_explanation"],
-        "verifier_metadata": sample_data["verifier_metadata"]
+        "verifier_metadata": sample_data["verifier_metadata"],
     })
 
 # Render spaCy Dependency Parse Tree for English Samples

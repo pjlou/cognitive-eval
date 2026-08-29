@@ -2,10 +2,70 @@
 import json
 from pathlib import Path
 import pandas as pd
-from typing import List, Dict, Any
+from typing import Any
 from inspect_ai.log import read_eval_log
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
+
+
+def get_model_family(model_name: str | None) -> str:
+    """Return the canonical family segment for names like 'ollama/qwen2.5:7b'."""
+    if model_name is None:
+        return "unknown"
+    model = str(model_name).strip().lower()
+    family = model.split(":", 1)[0]
+    if "/" in family:
+        family = family.rsplit("/", 1)[1]
+    return family
+
+
+def get_model_size(model_name: str | None) -> str:
+    """Return the size segment for model names like 'ollama/qwen2.5:7b'."""
+    if model_name is None:
+        return ""
+    model = str(model_name).strip().lower()
+    if ":" in model:
+        return model.split(":", 1)[1]
+    return ""
+
+
+def model_sort_key(model_name: str | None) -> tuple[str, float]:
+    """Sort model names by family then size for consistent chart ordering."""
+    family = get_model_family(model_name)
+    size = get_model_size(model_name)
+    size_value = 0.0
+    if size:
+        size_token = size.lower().rstrip("b")
+        try:
+            size_value = float(size_token)
+        except ValueError:
+            size_value = 0.0
+    return family, size_value
+
+
+def build_answer_pattern_summary(df: pd.DataFrame) -> pd.DataFrame:
+    """Aggregate model response categories such as CORRECT or each failure code."""
+    if df.empty:
+        return pd.DataFrame(columns=["model", "family", "size", "pattern", "count", "share"])
+
+    summary = df.copy()
+    summary["pattern"] = summary["status"].where(
+        summary["status"].eq("CORRECT"), summary["error_code"].fillna("UNKNOWN")
+    )
+    summary["family"] = summary["model"].map(get_model_family)
+    summary["size"] = summary["model"].map(get_model_size)
+
+    aggregated = (
+        summary.groupby(["model", "family", "size", "pattern"], dropna=False)
+        .size()
+        .reset_index(name="count")
+    )
+    aggregated["share"] = (
+        aggregated["count"] / aggregated.groupby("model")["count"].transform("sum") * 100
+    )
+
+    return aggregated.sort_values(["family", "model", "count"], ascending=[True, True, False]).reset_index(drop=True)
+
 
 def load_eval_logs(log_dir: str | Path | None = None) -> pd.DataFrame:
     """Parses Inspect AI log files into a normalized pandas DataFrame."""
@@ -49,6 +109,7 @@ def load_eval_logs(log_dir: str | Path | None = None) -> pd.DataFrame:
             })
 
     return pd.DataFrame(records)
+
 
 def _get_field(value: Any, field: str, default: Any = None) -> Any:
     if isinstance(value, dict):

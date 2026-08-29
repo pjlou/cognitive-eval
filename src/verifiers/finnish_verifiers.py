@@ -1,6 +1,7 @@
 # src/verifiers/finnish_verifiers.py
 from typing import Dict, Any, Tuple
 from uralicNLP import uralicApi as uralicNLP
+from src.verifiers.common import extract_final_choice
 import re
 
 def verify_finnish_object_case(model_output: str, gold_structure: Dict[str, Any]) -> Tuple[bool, str, Dict[str, Any]]:
@@ -49,12 +50,13 @@ def verify_finnish_negation_scope(model_output: str, gold_structure: Dict[str, A
     Checks reading selection for scope Interaction with quantifiers (kaikki eivät...).
     """
     expected_choice = gold_structure["correct_reading"].lower()
-    cleaned = model_output.strip().lower()
-    
-    if cleaned.startswith(expected_choice) or f"({expected_choice})" in cleaned:
+    selected_choice = extract_final_choice(model_output)
+
+    if selected_choice == expected_choice:
         return True, "PASS", {"matched_scope_choice": expected_choice}
     else:
         return False, "FAIL_FI_NEGATION_SCOPE_ERROR", {
+            "selected_choice": selected_choice,
             "expected_choice": expected_choice,
             "raw_output": model_output
         }

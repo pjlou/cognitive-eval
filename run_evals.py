@@ -10,7 +10,7 @@ def run_full_suite():
     # Set OLLAMA_MODELS to a comma-separated list to run only installed models.
     configured_models = os.getenv(
         "OLLAMA_MODELS",
-        "qwen2.5:7b,ministral-3:8b,llama3.1:8b",
+        "qwen2.5:1.5b,qwen2.5:3b,qwen2.5:7b,ministral-3:8b,llama3.1:8b",
     )
     model_names = [model.strip() for model in configured_models.split(",") if model.strip()]
     installed_models = subprocess.run(

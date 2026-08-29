@@ -4,9 +4,9 @@
 [![Inspect AI Framework](https://img.shields.io/badge/Inspect_AI-UK_AISI-purple.svg)](https://github.com/UKGovernmentBEIS/inspect_ai)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-**Cognitive-Eval** is an open-source diagnostic evaluation framework designed to identify structural semantic and morphosyntactic failure modes in Large Language Models (LLMs). 
+**Cognitive-Eval** is an open-source diagnostic evaluation framework designed to identify structural semantic and morphosyntactic failure modes in Large Language Models (LLMs).  Its primary purpose is to examine whether LLMs retain cross-linguistic reasoning when reduced to a size that can run on resource-constrained, consumer-grade devices.
 
-Unlike subjective "LLM-as-a-judge" evaluation pipelines, every test in this suite is verified **deterministically** against dependency parse trees (`spaCy`), morphological feature sets (`UralicNLP`), and a grounded rule graph (`NetworkX`).
+This framework does not use "LLM-as-a-judge" evaluation pipelines. Instead, it relies on two sources of truth.  Tier 1 tests in this suite are verified deterministically against dependency parse trees (`spaCy`), morphological feature sets (`UralicNLP`), and a grounded rule graph (`NetworkX`).  Tier 2 uses forced-choice truth-conditional matching.
 
 ---
 
@@ -35,7 +35,7 @@ Every test result is linked directly to a formal rule node in a NetworkX graph g
 
 ### 1. Installation & Environment Setup
 ```bash
-git clone [https://github.com/pjlou/Cognitive-Eval.git](https://github.com/pjlou/Cognitive-Eval.git)
+git clone https://github.com/pjlou/Cognitive-Eval.git
 cd Cognitive-Eval
 
 python3.11 -m venv venv
