@@ -16,6 +16,9 @@ def get_model_family(model_name: str | None) -> str:
     family = model.split(":", 1)[0]
     if "/" in family:
         family = family.rsplit("/", 1)[1]
+    family = family.replace("qwen-2.5", "qwen2.5")
+    if family == "qwen2.5" or family.startswith("qwen2.5-"):
+        return "qwen2.5"
     return family
 
 
@@ -27,6 +30,18 @@ def get_model_size(model_name: str | None) -> str:
     if ":" in model:
         return model.split(":", 1)[1]
     return ""
+
+
+def get_models_for_family(df: pd.DataFrame, family: str) -> list[str]:
+    """Return sorted model names belonging to a canonical family."""
+    if df.empty or "model" not in df.columns:
+        return []
+    models = [
+        str(model)
+        for model in df["model"].dropna().unique()
+        if get_model_family(model) == family
+    ]
+    return sorted(models, key=model_sort_key)
 
 
 def model_sort_key(model_name: str | None) -> tuple[str, float]:

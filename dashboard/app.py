@@ -5,7 +5,13 @@ import spacy
 import streamlit as st
 from spacy import displacy
 from src.schema.rule_graph import build_v02_rule_graph
-from utils import build_answer_pattern_summary, get_model_family, load_eval_logs, model_sort_key
+from utils import (
+    build_answer_pattern_summary,
+    get_model_family,
+    get_models_for_family,
+    load_eval_logs,
+    model_sort_key,
+)
 
 # Page Configuration
 st.set_page_config(
@@ -82,9 +88,32 @@ st.divider()
 
 # Sidebar Filters
 st.sidebar.header("Filter Results")
-selected_model = st.sidebar.multiselect("Select Model(s)", options=df["model"].unique(), default=df["model"].unique())
-selected_module = st.sidebar.multiselect("Select Module", options=df["module"].unique(), default=df["module"].unique())
-selected_tier = st.sidebar.multiselect("Select Tier", options=df["tier"].unique(), default=df["tier"].unique())
+model_options = sorted(df["model"].astype(str).unique().tolist(), key=model_sort_key)
+module_options = sorted(df["module"].astype(str).dropna().unique().tolist())
+tier_options = sorted(df["tier"].astype(str).dropna().unique().tolist())
+
+selected_model = st.sidebar.multiselect(
+    "Select Model(s)",
+    options=model_options,
+    default=model_options,
+)
+selected_module = st.sidebar.multiselect(
+    "Select Module",
+    options=module_options,
+    default=module_options,
+)
+selected_tier = st.sidebar.multiselect(
+    "Select Tier",
+    options=tier_options,
+    default=tier_options,
+)
+
+if not selected_model:
+    selected_model = model_options
+if not selected_module:
+    selected_module = module_options
+if not selected_tier:
+    selected_tier = tier_options
 
 filtered_df = df[
     (df["model"].isin(selected_model)) &
@@ -97,11 +126,8 @@ pattern_summary = build_answer_pattern_summary(filtered_df)
 # Section 1: Model-Pattern Comparison Charts
 st.subheader("Answer Pattern Comparison")
 
-qwen_models = sorted(
-    {model for model in filtered_df["model"].unique() if get_model_family(model) == "qwen2.5"},
-    key=lambda name: model_sort_key(name),
-)
-if len(qwen_models) >= 3:
+qwen_models = get_models_for_family(filtered_df, "qwen2.5")
+if len(qwen_models) >= 2:
     st.subheader("Within-family: Qwen 2.5 size scaling")
     qwen_chart = render_answer_pattern_chart(
         pattern_summary,
@@ -111,7 +137,7 @@ if len(qwen_models) >= 3:
     if qwen_chart is not None:
         st.altair_chart(qwen_chart, use_container_width=True)
 else:
-    st.caption("Add at least three Qwen 2.5 models to the active filter to compare intra-family scaling.")
+    st.caption("Add at least two Qwen 2.5 models to the active filter to compare intra-family scaling.")
 
 preferred_cross_family = {"qwen2.5", "ministral-3", "llama3.1"}
 available_cross_family = [

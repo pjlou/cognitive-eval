@@ -57,3 +57,21 @@ def test_fi_object_case_accusative_fail():
     passed, error_code, meta = verify_finnish_object_case("Söin omenan", gold)
     assert passed is False
     assert error_code == "FAIL_CASE_SELECTION_ERROR"
+
+def test_fi_object_case_c4_mass_partitive_pass():
+    # C4: even under a telic/completed framing, an unquantized mass noun
+    # ("vesi") stays Partitive -- telicity alone doesn't license Accusative.
+    gold = {"target_lemma": "vesi", "expected_case": "Partitive", "expected_form": "vettä", "condition": "C4"}
+    passed, error_code, meta = verify_finnish_object_case("Join vettä", gold)
+    assert passed is True
+    assert error_code == "PASS"
+
+def test_fi_object_case_c4_mass_accusative_overgeneralization_fail():
+    # A model over-generalizing "completed action -> Accusative" from C3-style
+    # items would produce the bounded/total-object form 'veden' here, which is
+    # wrong for an unquantized mass noun under C4.
+    gold = {"target_lemma": "vesi", "expected_case": "Partitive", "expected_form": "vettä", "condition": "C4"}
+    passed, error_code, meta = verify_finnish_object_case("Join veden", gold)
+    assert passed is False
+    assert error_code == "FAIL_CASE_SELECTION_ERROR"
+    assert meta["condition_violated"] == "C4"
