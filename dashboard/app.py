@@ -62,10 +62,17 @@ filtered_df = df[
     (df["tier"].isin(selected_tier))
 ]
 
-# Section 1: Accuracy Matrix by Phenomenon & Model
-st.subheader("Accuracy Breakdown by Phenomenon & Model Family")
+# Section 1: Accuracy Matrix by Language, Phenomenon & Model
+st.subheader("Accuracy Breakdown by Language, Phenomenon & Model Family")
 
-pivot_df = filtered_df.groupby(["phenomenon", "model"])["status"].apply(lambda x: (x == "CORRECT").mean() * 100).unstack()
+pivot_df = (
+    filtered_df.groupby(["language", "phenomenon", "model"])["status"]
+    .apply(lambda x: (x == "CORRECT").mean() * 100)
+    .unstack("model")
+    .reset_index()
+)
+pivot_df["phenomenon"] = pivot_df["language"].str.upper() + " - " + pivot_df["phenomenon"]
+pivot_df = pivot_df.drop(columns="language").set_index("phenomenon")
 st.dataframe(pivot_df.style.highlight_max(axis=1, color="lightgreen").format("{:.1f}%"), use_container_width=True)
 
 # Section 2: Error Taxonomy Analysis
@@ -79,8 +86,10 @@ st.divider()
 # Section 3: Interactive Inspector & Dependency Parser Visualizer
 st.subheader("Interactive Inspector & Dependency Parse Audit Trail")
 
-selected_sample_id = st.selectbox("Select Sample ID to Inspect", options=filtered_df["sample_id"].unique())
-sample_data = filtered_df[filtered_df["sample_id"] == selected_sample_id].iloc[0]
+inspector_model = st.selectbox("Select Target Model", options=filtered_df["model"].unique())
+model_samples = filtered_df[filtered_df["model"] == inspector_model]
+selected_sample_id = st.selectbox("Select Sample ID to Inspect", options=model_samples["sample_id"].unique())
+sample_data = model_samples[model_samples["sample_id"] == selected_sample_id].iloc[0]
 
 inspect_col1, inspect_col2 = st.columns(2)
 
@@ -91,6 +100,12 @@ with inspect_col1:
     st.info(sample_data["prompt"])
     st.markdown(f"**Raw Model Response:**")
     st.code(sample_data["raw_output"])
+    status_color = "#1565c0" if sample_data["status"] == "CORRECT" else "#c62828"
+    st.markdown(
+        f"<p style='color: {status_color}; font-weight: 700;'>"
+        f"Scored: {sample_data['status'].lower()}</p>",
+        unsafe_allow_html=True,
+    )
 
 with inspect_col2:
     st.markdown("**Rule Graph Audit Trail (Grounded Explanation):**")

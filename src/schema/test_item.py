@@ -20,6 +20,7 @@ class VerificationMethod(str, Enum):
     DEPENDENCY_PARSE = "dependency_parse"
     MORPHOLOGICAL_FEATURE = "morphological_feature"
     HYBRID_PARSE_MORPH = "hybrid_parse_morph"
+    FORCED_CHOICE_TRUTH_CONDITIONAL = "forced_choice_truth_conditional"
 
 class TestItem(BaseModel):
     id: str = Field(..., description="Unique ID, e.g., 'en-agr-001a' or 'fi-case-001a'")

@@ -5,7 +5,7 @@
     "tier": "tier_1_morphological",
     "phenomenon": "agreement_attraction",
     "language": "en",
-    "prompt": "Complete the sentence by selecting the correct verb ('is' or 'are'): 'The list of changes to the report ___ ready.' Respond with only the correct verb.",
+    "prompt": "Complete the sentence by selecting the correct verb ('is' or 'are'): 'The list of changes to the report ___ ready.' Respond with only the correct verb, no explanation.",
     "gold_structure": {
       "syntactic_head": "list",
       "head_number": "singular",
@@ -25,7 +25,7 @@
     "tier": "tier_1_morphological",
     "phenomenon": "agreement_attraction",
     "language": "en",
-    "prompt": "Complete the sentence by selecting the correct verb ('is' or 'are'): 'The lists of changes to the report ___ ready.' Respond with only the correct verb.",
+    "prompt": "Complete the sentence by selecting the correct verb ('is' or 'are'): 'The lists of changes to the report ___ ready.' Respond with only the correct verb, no explanation.",
     "gold_structure": {
       "syntactic_head": "lists",
       "head_number": "plural",

@@ -1,6 +1,7 @@
 # src/verifiers/finnish_verifiers.py
 from typing import Dict, Any, Tuple
 from uralicNLP import uralicApi as uralicNLP
+import re
 
 def verify_finnish_object_case(model_output: str, gold_structure: Dict[str, Any]) -> Tuple[bool, str, Dict[str, Any]]:
     """
@@ -8,8 +9,7 @@ def verify_finnish_object_case(model_output: str, gold_structure: Dict[str, Any]
     Extracts morphological features for target noun tokens in the model response
     and verifies whether case matches Partitive or Accusative rules (Kiparsky 1998).
     """
-    cleaned_output = model_output.strip().replace(".", "").replace(",", "")
-    words = cleaned_output.split()
+    words = re.findall(r"[a-zA-ZäöåÄÖÅ]+", model_output)
     target_lemma = gold_structure.get("target_lemma")
     expected_case = gold_structure["expected_case"]  # "Partitive" or "Accusative"
     expected_form = gold_structure.get("expected_form")

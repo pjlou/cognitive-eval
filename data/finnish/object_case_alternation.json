@@ -23,7 +23,7 @@
     "tier": "tier_1_morphological",
     "phenomenon": "object_case_alternation",
     "language": "fi",
-    "prompt": "Complete the Finnish sentence to express a fully finished action: 'Söin ___ (omena).'",
+    "prompt": "Complete the Finnish sentence to express a fully finished action: 'Söin ___ (omena).' Respond with only the correct form, no explanation.",
     "gold_structure": {
       "condition": "C3",
       "expected_case": "Accusative",

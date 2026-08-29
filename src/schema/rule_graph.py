@@ -22,6 +22,18 @@ def build_v02_rule_graph() -> nx.DiGraph:
     G.add_node("FEAT_FI_QUANTIZED", type="Feature", label="Quant=Bounded")
     G.add_node("FEAT_FI_PARTITIVE", type="Feature", label="Case=Partitive")
     G.add_node("FEAT_FI_ACCUSATIVE", type="Feature", label="Case=Accusative")
+    G.add_node("FEAT_FI_UNQUANTIZED", type="Feature", label="Quant=Unbounded")
+    G.add_node(
+        "RULE_FI_C4_MASS",
+        type="Rule",
+        citation="Kiparsky (1998:280)",
+        label="C4: Unbounded/Mass Object Rule",
+        explanation="Even under a telic construal, an unquantized (mass-noun) object remains Partitive — telicity alone does not force Accusative without a bounded object."
+    )
+    G.add_edge("FEAT_FI_AFF", "RULE_FI_C4_MASS", relation="REQUIRES")
+    G.add_edge("FEAT_FI_TELIC", "RULE_FI_C4_MASS", relation="REQUIRES")
+    G.add_edge("FEAT_FI_UNQUANTIZED", "RULE_FI_C4_MASS", relation="TRIGGERS")
+    G.add_edge("RULE_FI_C4_MASS", "FEAT_FI_PARTITIVE", relation="ENTAILS")
 
     # Kiparsky (1998) Rule Conditions
     G.add_node(
@@ -72,6 +84,35 @@ def build_v02_rule_graph() -> nx.DiGraph:
         explanation="Verb agreement must track the number feature of the syntactic head noun (nsubj), ignoring linearly intervening attractor nouns."
     )
     G.add_edge("FEAT_EN_SG", "RULE_EN_AGR_HEAD", relation="TRIGGERS")
+
+    
+    # -------------------------------------------------------------------------
+    # ENGLISH TIER 2: Negation Scope
+    # -------------------------------------------------------------------------
+    G.add_node("CAT_EN_NEG_SCOPE", type="Category", label="Negation Scope Domain")
+    G.add_node("FEAT_EN_EXTERNAL_NEG", type="Feature", label="Negation=External(¬∀)")
+    G.add_node(
+        "RULE_EN_NEG_SCOPE",
+        type="Rule",
+        citation="Structural def. per UD c-command (Section 6); items cross-checked against ScoNe (2023)",
+        label="External Negation over Universal Quantifier",
+        explanation="'Not all X verb' negates the universal claim externally (¬∀x.Vx), which is logically equivalent to 'some X don't verb' (∃x.¬Vx) — i.e. at least one member is exempt, not that none satisfy V."
+    )
+    G.add_edge("FEAT_EN_EXTERNAL_NEG", "RULE_EN_NEG_SCOPE", relation="TRIGGERS")
+
+    # -------------------------------------------------------------------------
+    # FINNISH TIER 2: Connegative Construction & Clitic Scope
+    # -------------------------------------------------------------------------
+    G.add_node("CAT_FI_NEG_SCOPE", type="Category", label="Connegative Scope Domain")
+    G.add_node("FEAT_FI_CONNEGATIVE", type="Feature", label="Negation=Connegative(¬∀)")
+    G.add_node(
+        "RULE_FI_NEG_CONNEGATIVE",
+        type="Rule",
+        citation="Iso suomen kielioppi (VISK), connegative + kaikki scope",
+        label="Connegative Negation over Universal Quantifier (kaikki)",
+        explanation="'Kaikki eivät V' realizes the same ¬∀ ≡ ∃¬ scope relation as English external negation, but through the negative auxiliary + connegative verb form rather than a sentential negator — the reading is 'not everybody', not 'nobody'."
+    )
+    G.add_edge("FEAT_FI_CONNEGATIVE", "RULE_FI_NEG_CONNEGATIVE", relation="TRIGGERS")
 
     return G
 
