@@ -4,15 +4,13 @@
 [![Inspect AI Framework](https://img.shields.io/badge/Inspect_AI-UK_AISI-purple.svg)](https://github.com/UKGovernmentBEIS/inspect_ai)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-**Cognitive-Eval** is an open-source diagnostic evaluation framework designed to identify structural semantic and morphosyntactic failure modes in Large Language Models (LLMs).  Its primary purpose is to examine whether LLMs retain cross-linguistic reasoning when reduced to a size that can run on resource-constrained, consumer-grade devices.
-
-This framework does not use "LLM-as-a-judge" evaluation pipelines. Instead, it relies on two sources of truth.  Tier 1 tests in this suite are verified deterministically against dependency parse trees (`spaCy`), morphological feature sets (`UralicNLP`), and a grounded rule graph (`NetworkX`).  Tier 2 uses forced-choice truth-conditional matching.
+**Cognitive-Eval** is an open-source diagnostic evaluation framework designed to identify structural semantic and morphosyntactic failure modes in Large Language Models (LLMs).  Its primary purpose is to examine whether LLMs retain cross-linguistic reasoning when reduced to a size that can run on resource-constrained, consumer-grade devices.  Models in the included evaluation logs cover different sizes within the qwen2.5 family (1.5b, 3b, and 7b parameters) as well as ministral-3:8b and llama3.1:8b
 
 ---
 
 ## Architecture Overview
 
-Cognitive-Eval employs a **2 (Tier) × 2 (Language) crossed experimental design** to test whether a model's linguistic competence is genuinely structural or merely a surface artifact of English-dominant training data.
+Cognitive-Eval employs a **2 (Tier) × 2 (Language) crossed experimental design** to test whether a model's linguistic competence is genuinely structural or merely a surface artifact of English-dominant training data.  Tier 1 tests in this suite are verified deterministically against dependency parse trees (`spaCy`), morphological feature sets (`UralicNLP`), and a grounded rule graph (`NetworkX`).  Tier 2 uses forced-choice truth-conditional matching.
 
                      ┌───────────────────────────────────────────────────────────┐
                      │                Crossed 2x2 Evaluation Grid                │
@@ -27,7 +25,7 @@ Cognitive-Eval employs a **2 (Tier) × 2 (Language) crossed experimental design*
     └────────────────┴─────────────────────────────┴─────────────────────────────┘
 
 
-Every test result is linked directly to a formal rule node in a NetworkX graph grounded in computational linguistics literature (e.g., **Kiparsky 1998** for Finnish aspect/case; **Bock & Miller 1991** for agreement attraction).
+Every test result is linked directly to a formal rule node in a NetworkX graph grounded in computational linguistics literature (e.g., **Kiparsky 1998** for Finnish aspect/case; **Bock & Miller 1991** for agreement attraction).  Finnish sentences are pending native review.
 
 ---
 
