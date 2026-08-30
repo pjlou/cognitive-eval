@@ -5,7 +5,7 @@
     "tier": "tier_1_morphological",
     "phenomenon": "object_case_alternation",
     "language": "fi",
-    "prompt": "Complete the Finnish sentence to express an ongoing, uncompleted action: 'Söin ___ (omena).'",
+    "prompt": "Complete the Finnish sentence to express an ongoing, uncompleted action: 'Söin ___ (omena).' Respond with only the correct form, no explanation.",
     "gold_structure": {
       "condition": "C2",
       "expected_case": "Partitive",
