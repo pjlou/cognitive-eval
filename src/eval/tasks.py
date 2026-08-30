@@ -29,22 +29,6 @@ def convert_test_items_to_inspect_samples():
         )
     return samples
 
-def extract_final_choice(model_output: str, valid_choices=("a", "b", "c")) -> str | None:
-    text = model_output.strip().lower()
-    # Prefer an explicit final-answer marker (boxed, "answer is X", "answer: X")
-    patterns = [
-        r"\\boxed\{([abc])\}",
-        r"final answer[^a-z]*(?:is)?[^a-z]*\(?([abc])\)?",
-        r"answer[^a-z]*(?:is)?[^a-z]*\(?([abc])\)?",
-    ]
-    for pat in patterns:
-        matches = re.findall(pat, text)
-        if matches:
-            return matches[-1]  # last match wins if the model restates itself
-    # Fall back to the last standalone letter token in the whole response
-    standalone = re.findall(r"(?<![a-z])([abc])(?![a-z])", text)
-    return standalone[-1] if standalone else None
-
 @task
 def cognitive_eval_benchmark() -> Task:
     """Main Inspect AI Task for the 2x2 Crossed Cognitive-Eval Benchmark."""
