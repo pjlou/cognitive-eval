@@ -5,7 +5,7 @@
     "tier": "tier_2_clausal",
     "phenomenon": "negation_scope",
     "language": "fi",
-    "prompt": "Read the sentence: 'Kaikki eivät läpäisseet tenttiä.' Does this mean: (a) Nobody passed the exam, (b) Not everybody passed but some did, or (c) Everybody passed? Respond with only the correct letter, no explanation.",
+    "prompt": "Read the sentence: 'Kaikki eivät läpäisseet tenttiä.' Does this mean: (a) Nobody passed the exam, (b) Not everybody passed but some did, or (c) Everybody passed?",
     "gold_structure": {
       "negation_construction": "connegative",
       "quantifier": "kaikki",
@@ -24,7 +24,7 @@
     "tier": "tier_2_clausal",
     "phenomenon": "negation_scope",
     "language": "fi",
-    "prompt": "Read the sentence: 'Kukaan ei läpäissyt tenttiä.' Does this mean: (a) Nobody passed the exam, (b) Not everybody passed but some did, or (c) Everybody passed? Respond with only the correct letter, no explanation.",
+    "prompt": "Read the sentence: 'Kukaan ei läpäissyt tenttiä.' Does this mean: (a) Nobody passed the exam, (b) Not everybody passed but some did, or (c) Everybody passed?",
     "gold_structure": {
       "negation_construction": "connegative",
       "quantifier": "kukaan",
@@ -43,7 +43,7 @@
     "tier": "tier_2_clausal",
     "phenomenon": "negation_scope",
     "language": "fi",
-    "prompt": "Read the sentence: 'Kaikki eiv\u00e4t tulleet kokoukseen ajoissa.' Does this mean: (a) Nobody arrived at the meeting on time, (b) Not everybody arrived on time, but some did, or (c) Everybody arrived on time? Respond with only the correct letter, no explanation.",
+    "prompt": "Read the sentence: 'Kaikki eiv\u00e4t tulleet kokoukseen ajoissa.' Does this mean: (a) Nobody arrived at the meeting on time, (b) Not everybody arrived on time, but some did, or (c) Everybody arrived on time?",
     "gold_structure": {
       "negation_construction": "connegative",
       "quantifier": "kaikki",
@@ -62,7 +62,7 @@
     "tier": "tier_2_clausal",
     "phenomenon": "negation_scope",
     "language": "fi",
-    "prompt": "Read the sentence: 'Kukaan ei tullut kokoukseen ajoissa.' Does this mean: (a) Nobody arrived at the meeting on time, (b) Not everybody arrived on time, but some did, or (c) Everybody arrived on time? Respond with only the correct letter, no explanation.",
+    "prompt": "Read the sentence: 'Kukaan ei tullut kokoukseen ajoissa.' Does this mean: (a) Nobody arrived at the meeting on time, (b) Not everybody arrived on time, but some did, or (c) Everybody arrived on time?",
     "gold_structure": {
       "negation_construction": "connegative",
       "quantifier": "kukaan",

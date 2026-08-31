@@ -5,7 +5,7 @@
     "tier": "tier_1_morphological",
     "phenomenon": "agreement_attraction",
     "language": "en",
-    "prompt": "Complete the sentence by selecting the correct verb ('is' or 'are'): 'The list of changes to the report ___ ready.' Respond with only the correct verb, no explanation.",
+    "prompt": "Complete the sentence by selecting the correct verb ('is' or 'are'): 'The list of changes to the report ___ ready.'",
     "template": "The list of changes to the report {verb} ready.",
     "gold_structure": {
       "syntactic_head": "list",
@@ -27,7 +27,7 @@
     "tier": "tier_1_morphological",
     "phenomenon": "agreement_attraction",
     "language": "en",
-    "prompt": "Complete the sentence by selecting the correct verb ('is' or 'are'): 'The lists of changes to the report ___ ready.' Respond with only the correct verb, no explanation.",
+    "prompt": "Complete the sentence by selecting the correct verb ('is' or 'are'): 'The lists of changes to the report ___ ready.'",
     "template": "The lists of changes to the report {verb} ready.",
     "gold_structure": {
       "syntactic_head": "lists",
@@ -50,7 +50,7 @@
     "phenomenon": "agreement_attraction",
     "language": "en",
     "template": "The key to the cabinets {verb} missing.",
-    "prompt": "Complete the sentence by selecting the correct verb ('is' or 'are'): 'The key to the cabinets ___ missing.' Respond with only the correct verb, no explanation.",
+    "prompt": "Complete the sentence by selecting the correct verb ('is' or 'are'): 'The key to the cabinets ___ missing.'",
     "gold_structure": {
       "syntactic_head": "key",
       "head_number": "singular",
@@ -71,7 +71,7 @@
     "tier": "tier_1_morphological",
     "phenomenon": "agreement_attraction",
     "language": "en",
-    "prompt": "Complete the sentence by selecting the correct verb ('is' or 'are'): 'The keys to the cabinet ___ missing.' Respond with only the correct verb, no explanation.",
+    "prompt": "Complete the sentence by selecting the correct verb ('is' or 'are'): 'The keys to the cabinet ___ missing.'",
     "template": "The keys to the cabinet {verb} missing.",
     "gold_structure": {
       "syntactic_head": "keys",
