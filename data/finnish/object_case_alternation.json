@@ -5,7 +5,7 @@
     "tier": "tier_1_morphological",
     "phenomenon": "object_case_alternation",
     "language": "fi",
-    "prompt": "Complete the Finnish sentence to express an ongoing, uncompleted action: 'Söin ___ (omena).'",
+    "prompt": "Complete the Finnish sentence by selecting the correct case (omenaa or omenan) to express an ongoing, uncompleted action: 'Söin ___ (omena).' Respond with only the correct case, no explanation.",
     "gold_structure": {
       "condition": "C2",
       "expected_case": "Partitive",
@@ -24,7 +24,7 @@
     "tier": "tier_1_morphological",
     "phenomenon": "object_case_alternation",
     "language": "fi",
-    "prompt": "Complete the Finnish sentence to express a fully finished action: 'Söin ___ (omena).'",
+    "prompt": "Complete the Finnish sentence  by selecting the correct case (omenaa or omenan) to express a fully finished action: 'Söin ___ (omena).' Respond with only the correct case, no explanation.",
     "gold_structure": {
       "condition": "C3",
       "expected_case": "Accusative",
@@ -43,7 +43,7 @@
     "tier": "tier_1_morphological",
     "phenomenon": "object_case_alternation",
     "language": "fi",
-    "prompt": "Complete the Finnish sentence to express a completed action of drinking an unspecified amount: 'Join ___ (vesi).'",
+    "prompt": "Complete the Finnish sentence by selecting the correct case (vettä or veden) to express a completed action of drinking an unspecified amount: 'Join ___ (vesi).' Respond with only the correct case, no explanation.",
     "gold_structure": {
       "condition": "C4",
       "expected_case": "Partitive",
@@ -63,7 +63,7 @@
     "tier": "tier_1_morphological",
     "phenomenon": "object_case_alternation",
     "language": "fi",
-    "prompt": "Complete the Finnish sentence to express drinking an entire, bounded quantity: 'Join koko ___ (vesi).'",
+    "prompt": "Complete the Finnish sentence by selecting the correct case (vettä or veden) to express drinking an entire, bounded quantity: 'Join koko ___ (vesi).' Respond with only the correct case, no explanation.",
     "gold_structure": {
       "condition": "C3",
       "expected_case": "Accusative",
@@ -83,7 +83,7 @@
     "tier": "tier_1_morphological",
     "phenomenon": "object_case_alternation",
     "language": "fi",
-    "prompt": "Complete the Finnish sentence to express an ongoing, uncompleted action: 'Luin ___ (kirja).'",
+    "prompt": "Complete the Finnish sentence by selecting the correct case (kirjaa or kirjan) to express an ongoing, uncompleted action: 'Luin ___ (kirja).' Respond with only the correct case, no explanation.",
     "gold_structure": {
       "condition": "C2",
       "expected_case": "Partitive",
@@ -103,7 +103,7 @@
     "tier": "tier_1_morphological",
     "phenomenon": "object_case_alternation",
     "language": "fi",
-    "prompt": "Complete the Finnish sentence to express a fully finished action: 'Luin ___ (kirja).'",
+    "prompt": "Complete the Finnish sentence by selecting the correct case (kirjaa or kirjan) to express a fully finished action: 'Luin ___ (kirja).' Respond with only the correct case, no explanation.",
     "gold_structure": {
       "condition": "C3",
       "expected_case": "Accusative",
