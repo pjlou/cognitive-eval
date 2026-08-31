@@ -5,17 +5,17 @@
     "tier": "tier_1_morphological",
     "phenomenon": "agreement_attraction",
     "language": "en",
-    "prompt": "Complete the sentence by selecting the correct verb ('is' or 'are'): 'The list of changes to the report ___ ready.' Respond with only the correct verb, no explanation.",
+    "prompt": "Complete the English sentence 'The list of changes to the report ___ ready.' (a) is or (b) are. Respond with only the letter, no explanation.",
     "template": "The list of changes to the report {verb} ready.",
     "gold_structure": {
       "syntactic_head": "list",
       "head_number": "singular",
       "attractor": "changes",
       "attractor_number": "plural",
-      "expected_verb": "is"
+      "correct_choice": "a"
     },
     "rule_node_id": "RULE_EN_AGR_HEAD",
-    "verification_method": "dependency_parse",
+    "verification_method": "forced_choice_truth_conditional",
     "difficulty": "medium",
     "source": "Bock & Miller 1991",
     "minimal_pair_of": "en-agr-001b",
@@ -27,17 +27,17 @@
     "tier": "tier_1_morphological",
     "phenomenon": "agreement_attraction",
     "language": "en",
-    "prompt": "Complete the sentence by selecting the correct verb ('is' or 'are'): 'The lists of changes to the report ___ ready.' Respond with only the correct verb, no explanation.",
+    "prompt": "Complete the English sentence 'The lists of changes to the report ___ ready.' (a) is or (b) are. Respond with only the letter, no explanation.",
     "template": "The lists of changes to the report {verb} ready.",
     "gold_structure": {
       "syntactic_head": "lists",
       "head_number": "plural",
       "attractor": "report",
       "attractor_number": "singular",
-      "expected_verb": "are"
+      "correct_choice": "b"
     },
     "rule_node_id": "RULE_EN_AGR_HEAD",
-    "verification_method": "dependency_parse",
+    "verification_method": "forced_choice_truth_conditional",
     "difficulty": "medium",
     "source": "Bock & Miller 1991",
     "minimal_pair_of": "en-agr-001a",
@@ -50,16 +50,16 @@
     "phenomenon": "agreement_attraction",
     "language": "en",
     "template": "The key to the cabinets {verb} missing.",
-    "prompt": "Complete the sentence by selecting the correct verb ('is' or 'are'): 'The key to the cabinets ___ missing.' Respond with only the correct verb, no explanation.",
+    "prompt": "Complete the English sentence 'The key to the cabinets ___ missing.' (a) is (b) are.  Respond with only the letter, no explanation.",
     "gold_structure": {
       "syntactic_head": "key",
       "head_number": "singular",
       "attractor": "cabinets",
       "attractor_number": "plural",
-      "expected_verb": "is"
+      "correct_choice": "a"
     },
     "rule_node_id": "RULE_EN_AGR_HEAD",
-    "verification_method": "dependency_parse",
+    "verification_method": "forced_choice_truth_conditional",
     "difficulty": "medium",
     "source": "Bock & Miller 1991",
     "minimal_pair_of": "en-agr-002b",
@@ -71,17 +71,17 @@
     "tier": "tier_1_morphological",
     "phenomenon": "agreement_attraction",
     "language": "en",
-    "prompt": "Complete the sentence by selecting the correct verb ('is' or 'are'): 'The keys to the cabinet ___ missing.'  Respond with only the correct verb, no explanation.",
+    "prompt": "Complete the English sentence 'The keys to the cabinets ___ missing.' (a) is (b) are.  Respond with only the letter, no explanation.",
     "template": "The keys to the cabinet {verb} missing.",
     "gold_structure": {
       "syntactic_head": "keys",
       "head_number": "plural",
       "attractor": "cabinet",
       "attractor_number": "singular",
-      "expected_verb": "are"
+      "correct_choice": "b"
     },
     "rule_node_id": "RULE_EN_AGR_HEAD",
-    "verification_method": "dependency_parse",
+    "verification_method": "forced_choice_truth_conditional",
     "difficulty": "medium",
     "source": "Bock & Miller 1991",
     "minimal_pair_of": "en-agr-002a",

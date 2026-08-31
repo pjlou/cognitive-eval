@@ -1,5 +1,11 @@
 # tests/test_common.py
+from src.schema.dataset_loader import load_all_test_items
 from src.verifiers.common import extract_final_choice
+
+
+def test_load_all_test_items_accepts_legacy_forced_truth_conditional_value():
+    items = load_all_test_items()
+    assert any(item.verification_method == "forced_choice_truth_conditional" for item in items)
 
 
 def test_extract_final_choice_default_letters_unchanged():

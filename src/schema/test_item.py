@@ -21,6 +21,13 @@ class VerificationMethod(str, Enum):
     MORPHOLOGICAL_FEATURE = "morphological_feature"
     HYBRID_PARSE_MORPH = "hybrid_parse_morph"
     FORCED_CHOICE_TRUTH_CONDITIONAL = "forced_choice_truth_conditional"
+    LEGACY_FORCED_TRUTH_CONDITIONAL = "forced_truth_conditional"
+
+    @classmethod
+    def _missing_(cls, value):
+        if value == "forced_truth_conditional":
+            return cls.FORCED_CHOICE_TRUTH_CONDITIONAL
+        return None
 
 class TestItem(BaseModel):
     id: str = Field(..., description="Unique ID, e.g., 'en-agr-001a' or 'fi-case-001a'")

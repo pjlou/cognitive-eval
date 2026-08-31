@@ -4,44 +4,12 @@ from uralicNLP import uralicApi as uralicNLP
 from src.verifiers.common import extract_final_choice
 import re
 
-def verify_finnish_object_case(model_output: str, gold_structure: Dict[str, Any]) -> Tuple[bool, str, Dict[str, Any]]:
-    """
-    Verifies FI Tier 1 (Object Case Alternation).
-    Extracts morphological features for target noun tokens in the model response
-    and verifies whether case matches Partitive or Accusative rules (Kiparsky 1998).
-    """
-    words = re.findall(r"[a-zA-ZäöåÄÖÅ]+", model_output)
-    target_lemma = gold_structure.get("target_lemma")
-    expected_case = gold_structure["expected_case"]  # "Partitive" or "Accusative"
-    expected_form = gold_structure.get("expected_form")
-    
-    extracted_tags = []
-    found_correct_case = False
-    
-    for word in words:
-        analyses = uralicNLP.analyze(word, "fin")
-        for analysis, cost in analyses:
-            tags = analysis.split("+")
-            lemma_matches = target_lemma is None or analysis.startswith(f"{target_lemma}+")
-            form_matches = expected_form is None or word.lower() == expected_form.lower()
-            # Check morphological tags for target case
-            if lemma_matches and form_matches and expected_case == "Partitive" and "Par" in tags:
-                found_correct_case = True
-                extracted_tags.append(analysis)
-            elif lemma_matches and form_matches and expected_case == "Accusative" and (
-                "Gen" in tags or "Acc" in tags or "Nom" in tags
-            ):
-                found_correct_case = True
-                extracted_tags.append(analysis)
-                
-    if found_correct_case:
-        return True, "PASS", {"expected_case": expected_case, "matched_analyses": extracted_tags}
-    else:
-        return False, "FAIL_CASE_SELECTION_ERROR", {
-            "expected_case": expected_case,
-            "condition_violated": gold_structure.get("condition", "UNKNOWN"),
-            "raw_output": model_output
-        }
+def verify_finnish_object_case(model_output, gold_structure):
+    expected = gold_structure["correct_choice"].lower()
+    selected = extract_final_choice(model_output, valid_choices=("a", "b"))
+    if selected == expected:
+        return True, "PASS", {"matched_choice": expected}
+    return False, "FAIL_CASE_SELECTION_ERROR", {"selected": selected, "expected": expected, "raw_output": model_output}
 
 
 def verify_finnish_negation_scope(model_output: str, gold_structure: Dict[str, Any]) -> Tuple[bool, str, Dict[str, Any]]:
@@ -49,7 +17,7 @@ def verify_finnish_negation_scope(model_output: str, gold_structure: Dict[str, A
     Verifies FI Tier 2 (Connegative / Negation Scope).
     Checks reading selection for scope Interaction with quantifiers (kaikki eivät...).
     """
-    expected_choice = gold_structure["correct_reading"].lower()
+    expected_choice = gold_structure["correct_choice"].lower()
     selected_choice = extract_final_choice(model_output)
 
     if selected_choice == expected_choice:

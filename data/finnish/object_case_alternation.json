@@ -5,14 +5,14 @@
     "tier": "tier_1_morphological",
     "phenomenon": "object_case_alternation",
     "language": "fi",
-    "prompt": "Complete the Finnish sentence by selecting the correct case (omenaa or omenan) to express an ongoing, uncompleted action: 'Söin ___ (omena).' Respond with only the correct case, no explanation.",
+    "prompt": "Complete the Finnish sentence 'Söin ___ (omena)' to express an ongoing, uncompleted action. (a) omenaa (b) omenan. Respond with only the letter, no explanation.",
     "gold_structure": {
       "condition": "C2",
       "expected_case": "Partitive",
-      "expected_form": "omenaa"
+      "correct_choice": "a"
     },
     "rule_node_id": "RULE_FI_C2_ATELIC",
-    "verification_method": "morphological_feature",
+    "verification_method": "forced_choice_truth_conditional",
     "difficulty": "easy",
     "source": "Kiparsky 1998",
     "minimal_pair_of": "fi-case-001b",
@@ -24,14 +24,14 @@
     "tier": "tier_1_morphological",
     "phenomenon": "object_case_alternation",
     "language": "fi",
-    "prompt": "Complete the Finnish sentence  by selecting the correct case (omenaa or omenan) to express a fully finished action: 'Söin ___ (omena).' Respond with only the correct case, no explanation.",
+    "prompt": "Complete the Finnish sentence 'Söin ___ (omena)' to express a fully finished action. (a) omenaa (b) omenan. Respond with only the letter, no explanation.",
     "gold_structure": {
       "condition": "C3",
       "expected_case": "Accusative",
-      "expected_form": "omenan"
+      "correct_choice": "b"
     },
     "rule_node_id": "RULE_FI_C3_TELIC_ACCUSATIVE",
-    "verification_method": "morphological_feature",
+    "verification_method": "forced_choice_truth_conditional",
     "difficulty": "easy",
     "source": "Kiparsky 1998",
     "minimal_pair_of": "fi-case-001a",
@@ -43,15 +43,15 @@
     "tier": "tier_1_morphological",
     "phenomenon": "object_case_alternation",
     "language": "fi",
-    "prompt": "Complete the Finnish sentence by selecting the correct case (vettä or veden) to express a completed action of drinking an unspecified amount: 'Join ___ (vesi).' Respond with only the correct case, no explanation.",
+    "prompt": "Complete the Finnish sentence 'Join ___ (vesi)' to express a completed action of drinking an unspecified amount. (a) vettä (b) veden. Respond with only the letter, no explanation.",
     "gold_structure": {
       "condition": "C4",
       "expected_case": "Partitive",
       "target_lemma": "vesi",
-      "expected_form": "vett\u00e4"
+      "correct_choice": "a"
     },
     "rule_node_id": "RULE_FI_C4_MASS",
-    "verification_method": "morphological_feature",
+    "verification_method": "forced_choice_truth_conditional",
     "difficulty": "hard",
     "source": "Kiparsky 1998",
     "minimal_pair_of": "fi-case-001d",
@@ -63,15 +63,15 @@
     "tier": "tier_1_morphological",
     "phenomenon": "object_case_alternation",
     "language": "fi",
-    "prompt": "Complete the Finnish sentence by selecting the correct case (vettä or veden) to express drinking an entire, bounded quantity: 'Join koko ___ (vesi).' Respond with only the correct case, no explanation.",
+    "prompt": "Complete the Finnish sentence 'Join ___ (vesi)' to express a completed action of drinking a bounded amount. (a) vettä (b) veden. Respond with only the letter, no explanation.",
     "gold_structure": {
       "condition": "C3",
       "expected_case": "Accusative",
       "target_lemma": "vesi",
-      "expected_form": "veden"
+      "correct_choice": "b"
     },
     "rule_node_id": "RULE_FI_C3_TELIC_ACCUSATIVE",
-    "verification_method": "morphological_feature",
+    "verification_method": "forced_choice_truth_conditional",
     "difficulty": "hard",
     "source": "Kiparsky 1998",
     "minimal_pair_of": "fi-case-001c",
@@ -83,15 +83,15 @@
     "tier": "tier_1_morphological",
     "phenomenon": "object_case_alternation",
     "language": "fi",
-    "prompt": "Complete the Finnish sentence by selecting the correct case (kirjaa or kirjan) to express an ongoing, uncompleted action: 'Luin ___ (kirja).' Respond with only the correct case, no explanation.",
+    "prompt": "Complete the Finnish sentence 'Luin ___ (kirja)' to express an ongoing, uncompleted action. (a) kirjaa (b) kirjan. Respond with only the letter, no explanation.",
     "gold_structure": {
       "condition": "C2",
       "expected_case": "Partitive",
       "target_lemma": "kirja",
-      "expected_form": "kirjaa"
+      "correct_choice": "a"
     },
     "rule_node_id": "RULE_FI_C2_ATELIC",
-    "verification_method": "morphological_feature",
+    "verification_method": "forced_choice_truth_conditional",
     "difficulty": "easy",
     "source": "Kiparsky 1998",
     "minimal_pair_of": "fi-case-002b",
@@ -103,15 +103,15 @@
     "tier": "tier_1_morphological",
     "phenomenon": "object_case_alternation",
     "language": "fi",
-    "prompt": "Complete the Finnish sentence by selecting the correct case (kirjaa or kirjan) to express a fully finished action: 'Luin ___ (kirja).' Respond with only the correct case, no explanation.",
+    "prompt": "Complete the Finnish sentence 'Luin ___ (kirja)' to express a fully finished action. (a) kirjaa (b) kirjan. Respond with only the letter, no explanation.",
     "gold_structure": {
       "condition": "C3",
       "expected_case": "Accusative",
       "target_lemma": "kirja",
-      "expected_form": "kirjan"
+      "correct_choice": "b"
     },
     "rule_node_id": "RULE_FI_C3_TELIC_ACCUSATIVE",
-    "verification_method": "morphological_feature",
+    "verification_method": "forced_choice_truth_conditional",
     "difficulty": "easy",
     "source": "Kiparsky 1998",
     "minimal_pair_of": "fi-case-002a",
