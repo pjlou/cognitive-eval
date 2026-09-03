@@ -6,6 +6,30 @@ from typing import Any
 from inspect_ai.log import read_eval_log
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
+CLUSTER_POINTS_PATH = PROJECT_ROOT / "discovery_logs" / "cluster_points.json"
+CLUSTER_SUMMARY_PATH = PROJECT_ROOT / "discovery_logs" / "cluster_summary.json"
+
+
+def load_cluster_points() -> pd.DataFrame:
+    """
+    Loads Tier 2 (statistical discovery) 2D projection points for the
+    dashboard scatter plot. Returns an empty DataFrame if the discovery
+    pipeline hasn't been run yet, rather than raising -- mirrors how
+    load_eval_logs() handles a missing eval_logs directory.
+    """
+    if not CLUSTER_POINTS_PATH.exists():
+        return pd.DataFrame()
+    with CLUSTER_POINTS_PATH.open("r", encoding="utf-8") as f:
+        points = json.load(f)
+    return pd.DataFrame(points)
+
+
+def load_cluster_summary() -> dict[str, Any] | None:
+    """Loads the Tier 2 cluster summary (sizes, distributions, example texts)."""
+    if not CLUSTER_SUMMARY_PATH.exists():
+        return None
+    with CLUSTER_SUMMARY_PATH.open("r", encoding="utf-8") as f:
+        return json.load(f)
 
 
 def get_model_family(model_name: str | None) -> str:

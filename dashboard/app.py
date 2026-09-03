@@ -9,6 +9,8 @@ from utils import (
     build_answer_pattern_summary,
     get_model_family,
     get_models_for_family,
+    load_cluster_points,
+    load_cluster_summary,
     load_eval_logs,
     model_sort_key,
 )
@@ -221,3 +223,56 @@ if sample_data["language"] == "en":
     doc = nlp_en(sample_data["raw_output"])
     html_dep = displacy.render(doc, style="dep", page=False)
     st.components.v1.html(html_dep, height=350, scrolling=True)
+
+st.divider()
+
+# Section 5: Cascade Stage 2 -- Statistical Failure Discovery
+# Unlike Sections 1-4, this is unsupervised and ungraded: no gold label,
+# no pass/fail. It surfaces candidate failure PATTERNS in free-form
+# generation for a human to inspect and, where warranted, promote into a
+# new deterministic rule graph node (Cascade Stage 1). See README.md,
+# "Cascade Stage 2: Statistical Failure Discovery" for the full loop this panel is part of.
+st.subheader("Cascade Stage 2: Statistical Failure Discovery (unsupervised, ungraded)")
+
+cluster_points_df = load_cluster_points()
+cluster_summary = load_cluster_summary()
+
+if cluster_points_df.empty or cluster_summary is None:
+    st.info(
+        "No discovery data yet. Run `python -m src.discovery.generate_free_responses` "
+        "then `python -m src.discovery.cluster_failures` to populate this section."
+    )
+else:
+    method_choice = st.radio(
+        "Clustering method", options=["kmeans", "dbscan"], horizontal=True,
+        help="KMeans assigns every point to a cluster. DBSCAN labels outliers as "
+             "noise (-1) instead of forcing them into a nearby cluster.",
+    )
+    cluster_col = f"{method_choice}_cluster"
+
+    quality = cluster_summary[method_choice]["quality"]
+    st.caption(f"Cluster quality: {quality}")
+
+    scatter = (
+        alt.Chart(cluster_points_df)
+        .mark_circle(size=80)
+        .encode(
+            x="x:Q",
+            y="y:Q",
+            color=f"{cluster_col}:N",
+            shape="family:N",
+            tooltip=["model", "family", "prompt_id", cluster_col, "text"],
+        )
+        .properties(height=400)
+        .interactive()
+    )
+    st.altair_chart(scatter, use_container_width=True)
+
+    st.markdown("**Cluster contents** (nearest-to-centroid examples, for manual review):")
+    for cluster in cluster_summary[method_choice]["clusters"]:
+        label = "Noise (unclustered outliers)" if cluster["is_noise"] else f"Cluster {cluster['cluster_id']}"
+        with st.expander(f"{label} — {cluster['size']} responses"):
+            st.write("Model distribution:", cluster["model_distribution"])
+            st.write("Prompt family distribution:", cluster["prompt_family_distribution"])
+            for example in cluster["example_texts"]:
+                st.code(example, language=None)
