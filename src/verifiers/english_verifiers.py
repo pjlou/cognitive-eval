@@ -1,10 +1,7 @@
 # src/verifiers/english_verifiers.py
-import spacy
 from typing import Dict, Any, Tuple
 from src.verifiers.common import extract_final_choice
 
-# Load transformer pipeline for deterministic parse quality
-nlp_en = spacy.load("en_core_web_trf")
 
 def verify_english_agreement_attraction(model_output: str, gold_structure: Dict[str, Any]) -> Tuple[bool, str, Dict[str, Any]]:
     expected = gold_structure["correct_choice"].lower()
@@ -27,5 +24,5 @@ def verify_english_negation_scope(model_output: str, gold_structure: Dict[str, A
         return False, "FAIL_NEGATION_SCOPE_ERROR", {
             "selected_choice": selected_choice,
             "expected_scope_choice": expected_choice,
-            "scope_subtree": gold_structure["scope_subtree"]
+            "scope_subtree": gold_structure.get("scope_subtree"),
         }
