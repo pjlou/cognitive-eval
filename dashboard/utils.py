@@ -144,7 +144,8 @@ def load_eval_logs(log_dir: str | Path | None = None) -> pd.DataFrame:
                 "rule_node_id": metadata.get("rule_node_id"),
                 "rule_citation": score_meta.get("rule_citation"),
                 "rule_explanation": score_meta.get("rule_explanation"),
-                "verifier_metadata": score_meta.get("verifier_metadata", {})
+                "verifier_metadata": score_meta.get("verifier_metadata", {}),
+                "cascade_stage": score_meta.get("cascade_stage"),
             })
 
     return pd.DataFrame(records)

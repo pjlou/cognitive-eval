@@ -3,10 +3,29 @@ from inspect_ai.scorer import Scorer, Score, Target, accuracy, stderr, scorer
 from inspect_ai.solver import TaskState
 from src.verifiers.english_verifiers import verify_english_agreement_attraction, verify_english_negation_scope
 from src.verifiers.finnish_verifiers import verify_finnish_object_case, verify_finnish_negation_scope
-from src.schema.rule_graph import build_v02_rule_graph, audit_rule
+from src.schema.rule_graph import build_v02_rule_graph
+from src.cascade.dispatcher import evaluate
+from src.cascade.ollama_judge import ollama_judge
 
 # Initialize static rule graph for metadata enrichment
 RULE_GRAPH = build_v02_rule_graph()
+
+
+def _verify_negation_scope(model_output, gold_structure):
+    """Keep the registry keyed by phenomenon while supporting both languages."""
+    verifier = (
+        verify_finnish_negation_scope
+        if gold_structure.get("language") == "finnish"
+        else verify_english_negation_scope
+    )
+    return verifier(model_output, gold_structure)
+
+
+VERIFIER_REGISTRY = {
+    "agreement_attraction": verify_english_agreement_attraction,
+    "object_case_alternation": verify_finnish_object_case,
+    "negation_scope": _verify_negation_scope,
+}
 
 @scorer(metrics=[accuracy(), stderr()])
 def structural_linguistic_scorer() -> Scorer:
@@ -18,38 +37,30 @@ def structural_linguistic_scorer() -> Scorer:
         metadata = state.metadata
         model_output = state.output.completion
         
-        phenomenon = metadata.get("phenomenon")
-        rule_node_id = metadata.get("rule_node_id")
-        gold_structure = metadata.get("gold_structure", {})
-        
-        # Route to deterministic verifier
-        if phenomenon == "agreement_attraction":
-            passed, error_code, meta = verify_english_agreement_attraction(model_output, gold_structure)
-        elif phenomenon == "object_case_alternation":
-            passed, error_code, meta = verify_finnish_object_case(model_output, gold_structure)
-        elif phenomenon == "negation_scope" and metadata.get("module") == "english":
-            passed, error_code, meta = verify_english_negation_scope(model_output, gold_structure)
-        elif phenomenon == "negation_scope" and metadata.get("module") == "finnish":
-            passed, error_code, meta = verify_finnish_negation_scope(model_output, gold_structure)
-        else:
-            passed, error_code, meta = False, "FAIL_UNKNOWN_PHENOMENON", {}
-
-        # Fetch rule graph audit trail
-        if rule_node_id is None:
-            rule_audit = {"label": "N/A", "citation": None, "explanation": None}
-        else:
-            rule_audit = audit_rule(RULE_GRAPH, rule_node_id)
+        item = dict(metadata)
+        item["gold_structure"] = dict(metadata.get("gold_structure", {}))
+        item["gold_structure"]["language"] = metadata.get("module", metadata.get("language"))
+        result = evaluate(
+            item,
+            model_output,
+            verifier_registry=VERIFIER_REGISTRY,
+            rule_graph=RULE_GRAPH,
+            judge_fn=ollama_judge,
+            judge_rubric=(
+                "Assess whether the model output gives the correct answer for the item. "
+                "Use the item metadata and return a score reflecting correctness."
+            ),
+        )
 
         return Score(
-            value=1.0 if passed else 0.0,
+            value=result.score if result.score is not None else 0.0,
             answer=model_output,
-            explanation=f"Verifier Code: {error_code} | Rule: {rule_audit.get('label', 'N/A')}",
+            explanation=f"Cascade: {result.evaluator_name} | Result: {result.category}",
             metadata={
-                "result": "CORRECT" if passed else "INCORRECT",
-                "error_code": error_code,
-                "verifier_metadata": meta,
-                "rule_citation": rule_audit.get("citation"),
-                "rule_explanation": rule_audit.get("explanation")
+                "result": result.status.upper(),
+                "cascade_stage": result.evaluator_name,
+                "error_code": result.category,
+                "cascade_evidence": result.evidence,
             }
         )
         
