@@ -84,7 +84,7 @@ def test_cluster_quality_excludes_dbscan_noise_from_scoring():
 def test_summarize_clusters_reports_correct_sizes_and_distributions():
     embeddings = _synthetic_two_blob_embeddings()
     labels = cluster_embeddings(embeddings, method="kmeans", n_clusters=2)
-    records = _synthetic_records(20, models=["qwen2.5:1.5b", "llama3.1:8b"], families=["case_completion", "negation_paraphrase"])
+    records = _synthetic_records(20, models=["qwen2.5:1.5b", "llama3.1:8b"], families=["agreement_completion", "negation_paraphrase"])
 
     summaries = summarize_clusters(records, embeddings, labels, method="kmeans", max_examples=3)
 
@@ -102,7 +102,7 @@ def test_summarize_clusters_flags_dbscan_noise_cluster():
     outlier = np.array([[50.0, 50.0]])
     embeddings_with_outlier = np.vstack([embeddings, outlier])
     labels = cluster_embeddings(embeddings_with_outlier, method="dbscan", dbscan_eps=1.0, dbscan_min_samples=3)
-    records = _synthetic_records(21, models=["qwen2.5:1.5b"], families=["case_completion"])
+    records = _synthetic_records(21, models=["qwen2.5:1.5b"], families=["agreement_completion"])
 
     summaries = summarize_clusters(records, embeddings_with_outlier, labels, method="dbscan")
     noise_summaries = [s for s in summaries if s.is_noise]

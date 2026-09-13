@@ -1,0 +1,90 @@
+[
+  {
+    "id": "en-qsc-001a",
+    "lexical_condition": "natural",
+    "tier": "tier_2_clausal",
+    "phenomenon": "quantifier_scope",
+    "difficulty": "hard",
+    "prompt": "Read the sentences: 'Every student read some book. It was a different book for each student.' Which reading does the continuation force? (a) No student read a book, (b) Each student read a book, and the books may differ, or (c) There is one book that every student read. Respond with only the letter, no explanation.",
+    "gold_structure": {
+      "scope": "surface",
+      "continuation": "It was a different book for each student.",
+      "correct_choice": "b",
+      "n_options": 3
+    },
+    "rule_node_id": "RULE_EN_QSCOPE_SURFACE",
+    "source": "Ioup 1975; Anderson 2004",
+    "minimal_pair_of": "en-qsc-001b",
+    "notes": "Surface scope (every > some) forced by a distinct-witness continuation. The continuation is what makes a single gold reading defensible. If human raters do not converge on that reading, the context is not disambiguating enough; a human baseline is still out of scope.",
+    "language": "en",
+    "verification_method": "forced_choice_truth_conditional",
+    "lexical_pair_of": "en-qsc-nov-001a",
+    "alternate_prompt": "Read the sentences: 'Every student read some book. It was a different book for each student.' Given the continuation, which scope relation is required? (a) No student read a book, (b) Each student read a book, and the books may differ, or (c) There is one book that every student read. Reply with the letter alone."
+  },
+  {
+    "id": "en-qsc-001b",
+    "lexical_condition": "natural",
+    "tier": "tier_2_clausal",
+    "phenomenon": "quantifier_scope",
+    "difficulty": "hard",
+    "prompt": "Read the sentences: 'Every student read some book. It was the same book for everyone.' Which reading does the continuation force? (a) No student read a book, (b) Each student read a book, and the books may differ, or (c) There is one book that every student read. Respond with only the letter, no explanation.",
+    "gold_structure": {
+      "scope": "inverse",
+      "continuation": "It was the same book for everyone.",
+      "correct_choice": "c",
+      "n_options": 3
+    },
+    "rule_node_id": "RULE_EN_QSCOPE_INVERSE",
+    "source": "Ioup 1975; Anderson 2004",
+    "minimal_pair_of": "en-qsc-001a",
+    "notes": "Inverse scope (some > every) forced by a shared-witness continuation. The continuation is what makes a single gold reading defensible. If human raters do not converge on that reading, the context is not disambiguating enough; a human baseline is still out of scope.",
+    "language": "en",
+    "verification_method": "forced_choice_truth_conditional",
+    "lexical_pair_of": "en-qsc-nov-001b",
+    "alternate_prompt": "Read the sentences: 'Every student read some book. It was the same book for everyone.' Given the continuation, which scope relation is required? (a) No student read a book, (b) Each student read a book, and the books may differ, or (c) There is one book that every student read. Reply with the letter alone."
+  },
+  {
+    "id": "en-qsc-002a",
+    "lexical_condition": "natural",
+    "tier": "tier_2_clausal",
+    "phenomenon": "quantifier_scope",
+    "difficulty": "hard",
+    "prompt": "Read the sentences: 'Every chef tasted some sauce. It was a different sauce for each chef.' Which reading does the continuation force? (a) Each chef tasted a sauce, and the sauces may differ. (b) There is one sauce that every chef tasted. (c) No chef tasted a sauce. Respond with only the letter, no explanation.",
+    "gold_structure": {
+      "scope": "surface",
+      "continuation": "It was a different sauce for each chef.",
+      "correct_choice": "a",
+      "n_options": 3
+    },
+    "rule_node_id": "RULE_EN_QSCOPE_SURFACE",
+    "source": "Ioup 1975; Anderson 2004",
+    "minimal_pair_of": "en-qsc-002b",
+    "notes": "Surface scope (every > some) forced by a distinct-witness continuation. The continuation is what makes a single gold reading defensible. If human raters do not converge on that reading, the context is not disambiguating enough; a human baseline is still out of scope.",
+    "language": "en",
+    "verification_method": "forced_choice_truth_conditional",
+    "lexical_pair_of": "en-qsc-nov-002a",
+    "alternate_prompt": "Read the sentences: 'Every chef tasted some sauce. It was a different sauce for each chef.' Given the continuation, which scope relation is required? (a) Each chef tasted a sauce, and the sauces may differ. (b) There is one sauce that every chef tasted. (c) No chef tasted a sauce. Reply with the letter alone."
+  },
+  {
+    "id": "en-qsc-002b",
+    "lexical_condition": "natural",
+    "tier": "tier_2_clausal",
+    "phenomenon": "quantifier_scope",
+    "difficulty": "hard",
+    "prompt": "Read the sentences: 'Every chef tasted some sauce. It was the same sauce for everyone.' Which reading does the continuation force? (a) Each chef tasted a sauce, and the sauces may differ. (b) There is one sauce that every chef tasted. (c) No chef tasted a sauce. Respond with only the letter, no explanation.",
+    "gold_structure": {
+      "scope": "inverse",
+      "continuation": "It was the same sauce for everyone.",
+      "correct_choice": "b",
+      "n_options": 3
+    },
+    "rule_node_id": "RULE_EN_QSCOPE_INVERSE",
+    "source": "Ioup 1975; Anderson 2004",
+    "minimal_pair_of": "en-qsc-002a",
+    "notes": "Inverse scope (some > every) forced by a shared-witness continuation. The continuation is what makes a single gold reading defensible. If human raters do not converge on that reading, the context is not disambiguating enough; a human baseline is still out of scope.",
+    "language": "en",
+    "verification_method": "forced_choice_truth_conditional",
+    "lexical_pair_of": "en-qsc-nov-002b",
+    "alternate_prompt": "Read the sentences: 'Every chef tasted some sauce. It was the same sauce for everyone.' Given the continuation, which scope relation is required? (a) Each chef tasted a sauce, and the sauces may differ. (b) There is one sauce that every chef tasted. (c) No chef tasted a sauce. Reply with the letter alone."
+  }
+]

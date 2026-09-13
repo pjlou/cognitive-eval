@@ -1,0 +1,110 @@
+[
+  {
+    "id": "en-qsc-nov-001a",
+    "lexical_condition": "novel",
+    "tier": "tier_2_clausal",
+    "phenomenon": "quantifier_scope",
+    "difficulty": "hard",
+    "prompt": "Read the sentences: 'Every frik brerped some swok. It was a different swok for each frik.' Which reading does the continuation force? (a) There is one swok that every frik brerped, (b) No frik brerped a swok, or (c) Each frik brerped a swok, and the swoks may differ. Respond with only the letter, no explanation.",
+    "gold_structure": {
+      "scope": "surface",
+      "continuation": "It was a different swok for each frik.",
+      "correct_choice": "c",
+      "n_options": 3,
+      "novel_stems": [
+        "frik",
+        "swok",
+        "brerp"
+      ]
+    },
+    "rule_node_id": "RULE_EN_QSCOPE_SURFACE",
+    "source": "Ioup 1975; Anderson 2004 (novel-lexical adaptation)",
+    "minimal_pair_of": "en-qsc-nov-001b",
+    "notes": "Surface scope (every > some) forced by a distinct-witness continuation. The continuation is what makes a single gold reading defensible. If human raters do not converge on that reading, the context is not disambiguating enough; a human baseline is still out of scope.",
+    "language": "en",
+    "verification_method": "forced_choice_truth_conditional",
+    "lexical_pair_of": "en-qsc-001a",
+    "alternate_prompt": "Read the sentences: 'Every frik brerped some swok. It was a different swok for each frik.' Given the continuation, which scope relation is required? (a) There is one swok that every frik brerped, (b) No frik brerped a swok, or (c) Each frik brerped a swok, and the swoks may differ. Reply with the letter alone."
+  },
+  {
+    "id": "en-qsc-nov-001b",
+    "lexical_condition": "novel",
+    "tier": "tier_2_clausal",
+    "phenomenon": "quantifier_scope",
+    "difficulty": "hard",
+    "prompt": "Read the sentences: 'Every frik brerped some swok. It was the same swok for every frik.' Which reading does the continuation force? (a) There is one swok that every frik brerped, (b) No frik brerped a swok, or (c) Each frik brerped a swok, and the swoks may differ. Respond with only the letter, no explanation.",
+    "gold_structure": {
+      "scope": "inverse",
+      "continuation": "It was the same swok for every frik.",
+      "correct_choice": "a",
+      "n_options": 3,
+      "novel_stems": [
+        "frik",
+        "swok",
+        "brerp"
+      ]
+    },
+    "rule_node_id": "RULE_EN_QSCOPE_INVERSE",
+    "source": "Ioup 1975; Anderson 2004 (novel-lexical adaptation)",
+    "minimal_pair_of": "en-qsc-nov-001a",
+    "notes": "Inverse scope (some > every) forced by a shared-witness continuation. The continuation is what makes a single gold reading defensible. If human raters do not converge on that reading, the context is not disambiguating enough; a human baseline is still out of scope.",
+    "language": "en",
+    "verification_method": "forced_choice_truth_conditional",
+    "lexical_pair_of": "en-qsc-001b",
+    "alternate_prompt": "Read the sentences: 'Every frik brerped some swok. It was the same swok for every frik.' Given the continuation, which scope relation is required? (a) There is one swok that every frik brerped, (b) No frik brerped a swok, or (c) Each frik brerped a swok, and the swoks may differ. Reply with the letter alone."
+  },
+  {
+    "id": "en-qsc-nov-002a",
+    "lexical_condition": "novel",
+    "tier": "tier_2_clausal",
+    "phenomenon": "quantifier_scope",
+    "difficulty": "hard",
+    "prompt": "Read the sentences: 'Every slest torked some plast. It was a different plast for each slest.' Which reading does the continuation force? (a) No slest torked a plast, (b) Each slest torked a plast, and the plasts may differ, or (c) There is one plast that every slest torked. Respond with only the letter, no explanation.",
+    "gold_structure": {
+      "scope": "surface",
+      "continuation": "It was a different plast for each slest.",
+      "correct_choice": "b",
+      "n_options": 3,
+      "novel_stems": [
+        "slest",
+        "plast",
+        "tork"
+      ]
+    },
+    "rule_node_id": "RULE_EN_QSCOPE_SURFACE",
+    "source": "Ioup 1975; Anderson 2004 (novel-lexical adaptation)",
+    "minimal_pair_of": "en-qsc-nov-002b",
+    "notes": "Surface scope (every > some) forced by a distinct-witness continuation. The continuation is what makes a single gold reading defensible. If human raters do not converge on that reading, the context is not disambiguating enough; a human baseline is still out of scope.",
+    "language": "en",
+    "verification_method": "forced_choice_truth_conditional",
+    "lexical_pair_of": "en-qsc-002a",
+    "alternate_prompt": "Read the sentences: 'Every slest torked some plast. It was a different plast for each slest.' Given the continuation, which scope relation is required? (a) No slest torked a plast, (b) Each slest torked a plast, and the plasts may differ, or (c) There is one plast that every slest torked. Reply with the letter alone."
+  },
+  {
+    "id": "en-qsc-nov-002b",
+    "lexical_condition": "novel",
+    "tier": "tier_2_clausal",
+    "phenomenon": "quantifier_scope",
+    "difficulty": "hard",
+    "prompt": "Read the sentences: 'Every slest torked some plast. It was the same plast for every slest.' Which reading does the continuation force? (a) No slest torked a plast, (b) Each slest torked a plast, and the plasts may differ, or (c) There is one plast that every slest torked. Respond with only the letter, no explanation.",
+    "gold_structure": {
+      "scope": "inverse",
+      "continuation": "It was the same plast for every slest.",
+      "correct_choice": "c",
+      "n_options": 3,
+      "novel_stems": [
+        "slest",
+        "plast",
+        "tork"
+      ]
+    },
+    "rule_node_id": "RULE_EN_QSCOPE_INVERSE",
+    "source": "Ioup 1975; Anderson 2004 (novel-lexical adaptation)",
+    "minimal_pair_of": "en-qsc-nov-002a",
+    "notes": "Inverse scope (some > every) forced by a shared-witness continuation. The continuation is what makes a single gold reading defensible. If human raters do not converge on that reading, the context is not disambiguating enough; a human baseline is still out of scope.",
+    "language": "en",
+    "verification_method": "forced_choice_truth_conditional",
+    "lexical_pair_of": "en-qsc-002b",
+    "alternate_prompt": "Read the sentences: 'Every slest torked some plast. It was the same plast for every slest.' Given the continuation, which scope relation is required? (a) No slest torked a plast, (b) Each slest torked a plast, and the plasts may differ, or (c) There is one plast that every slest torked. Reply with the letter alone."
+  }
+]

@@ -1,0 +1,90 @@
+[
+  {
+    "id": "en-npi-001a",
+    "lexical_condition": "natural",
+    "tier": "tier_2_clausal",
+    "phenomenon": "npi_licensing",
+    "prompt": "Which sentence is acceptable in English? (a) The guests didn't bring any gifts. (b) The guests brought any gifts. Respond with only the letter, no explanation.",
+    "gold_structure": {
+      "licensor": "negation",
+      "polarity_item": "any",
+      "correct_choice": "a",
+      "n_options": 2
+    },
+    "rule_node_id": "RULE_EN_NPI_LICENSE",
+    "source": "Ladusaw 1979",
+    "minimal_pair_of": "en-npi-001b",
+    "notes": "Negation licenses 'any' (guests/gifts). Function words stay real. The other option is the unlicensed affirmative.",
+    "language": "en",
+    "difficulty": "medium",
+    "verification_method": "forced_choice_truth_conditional",
+    "lexical_pair_of": "en-npi-nov-001a",
+    "alternate_prompt": "Which of these would a speaker of English accept? (a) The guests didn't bring any gifts. (b) The guests brought any gifts. Reply with the letter alone."
+  },
+  {
+    "id": "en-npi-001b",
+    "lexical_condition": "natural",
+    "tier": "tier_2_clausal",
+    "phenomenon": "npi_licensing",
+    "prompt": "Which sentence is acceptable in English? (a) The guests brought any gifts or (b) The guests brought some gifts. Respond with only the letter, no explanation.",
+    "gold_structure": {
+      "licensor": "none",
+      "polarity_item": "any",
+      "correct_choice": "b",
+      "n_options": 2
+    },
+    "rule_node_id": "RULE_EN_NPI_LICENSE",
+    "source": "Ladusaw 1979",
+    "minimal_pair_of": "en-npi-001a",
+    "notes": "Affirmative context does not license 'any' (guests/gifts). The acceptable option uses 'some', a real quantifier.",
+    "language": "en",
+    "difficulty": "medium",
+    "verification_method": "forced_choice_truth_conditional",
+    "lexical_pair_of": "en-npi-nov-001b",
+    "alternate_prompt": "Which of these would a speaker of English accept? (a) The guests brought any gifts or (b) The guests brought some gifts. Reply with the letter alone."
+  },
+  {
+    "id": "en-npi-002a",
+    "lexical_condition": "natural",
+    "tier": "tier_2_clausal",
+    "phenomenon": "npi_licensing",
+    "prompt": "Which sentence is acceptable in English? (a) The sailors didn't see any ships. (b) The sailors saw any ships. Respond with only the letter, no explanation.",
+    "gold_structure": {
+      "licensor": "negation",
+      "polarity_item": "any",
+      "correct_choice": "a",
+      "n_options": 2
+    },
+    "rule_node_id": "RULE_EN_NPI_LICENSE",
+    "source": "Ladusaw 1979",
+    "minimal_pair_of": "en-npi-002b",
+    "notes": "Negation licenses 'any' (sailors/ships). Function words stay real. The other option is the unlicensed affirmative.",
+    "language": "en",
+    "difficulty": "medium",
+    "verification_method": "forced_choice_truth_conditional",
+    "lexical_pair_of": "en-npi-nov-002a",
+    "alternate_prompt": "Which of these would a speaker of English accept? (a) The sailors didn't see any ships. (b) The sailors saw any ships. Reply with the letter alone."
+  },
+  {
+    "id": "en-npi-002b",
+    "lexical_condition": "natural",
+    "tier": "tier_2_clausal",
+    "phenomenon": "npi_licensing",
+    "prompt": "Which sentence is acceptable in English? (a) The sailors saw any ships or (b) The sailors saw some ships. Respond with only the letter, no explanation.",
+    "gold_structure": {
+      "licensor": "none",
+      "polarity_item": "any",
+      "correct_choice": "b",
+      "n_options": 2
+    },
+    "rule_node_id": "RULE_EN_NPI_LICENSE",
+    "source": "Ladusaw 1979",
+    "minimal_pair_of": "en-npi-002a",
+    "notes": "Affirmative context does not license 'any' (sailors/ships). The acceptable option uses 'some', a real quantifier.",
+    "language": "en",
+    "difficulty": "medium",
+    "verification_method": "forced_choice_truth_conditional",
+    "lexical_pair_of": "en-npi-nov-002b",
+    "alternate_prompt": "Which of these would a speaker of English accept? (a) The sailors saw any ships or (b) The sailors saw some ships. Reply with the letter alone."
+  }
+]

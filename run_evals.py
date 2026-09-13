@@ -26,6 +26,16 @@ def run_full_suite():
             + ". Install with `ollama pull <model>` or set OLLAMA_MODELS."
         )
 
+    repeats = int(os.getenv("EVAL_CONSISTENCY_REPEATS", "1"))
+    temperature = os.getenv("EVAL_TEMPERATURE")
+    model_args = None
+    if repeats > 1:
+        model_args = {"temperature": float(temperature) if temperature else 0.7}
+        print(
+            f"Consistency repeats={repeats} temperature={model_args['temperature']} "
+            "(nonzero temperature so repeats are not a single greedy decode)",
+            flush=True,
+        )
     sample_count = len(convert_test_items_to_inspect_samples())
     limit = os.getenv("EVAL_LIMIT")
     token_limit = os.getenv("EVAL_TOKEN_LIMIT")
@@ -38,17 +48,20 @@ def run_full_suite():
     for model_name in model_names:
         print(f"\nStarting {model_name}...", flush=True)
         try:
-            eval(
-                tasks="src/eval/tasks.py@cognitive_eval_benchmark",
-                model=f"ollama/{model_name}",
-                log_dir="./eval_logs",
-                display="rich",
-                log_realtime=True,
-                ctl_server=ctl_server,
-                max_subprocesses=1,
-                limit=int(limit) if limit else None,
-                token_limit=int(token_limit) if token_limit else None,
-            )
+            eval_kwargs = {
+                "tasks": "src/eval/tasks.py@cognitive_eval_benchmark",
+                "model": f"ollama/{model_name}",
+                "log_dir": "./eval_logs",
+                "display": "rich",
+                "log_realtime": True,
+                "ctl_server": ctl_server,
+                "max_subprocesses": 1,
+                "limit": int(limit) if limit else None,
+                "token_limit": int(token_limit) if token_limit else None,
+            }
+            if model_args:
+                eval_kwargs["model_args"] = model_args
+            eval(**eval_kwargs)
         finally:
             subprocess.run(["ollama", "stop", model_name], check=False)
             print(f"Finished {model_name}; Ollama memory released.", flush=True)

@@ -1,7 +1,7 @@
 [
   {
     "id": "en-agr-001a",
-    "module": "english",
+    "lexical_condition": "natural",
     "tier": "tier_1_morphological",
     "phenomenon": "agreement_attraction",
     "language": "en",
@@ -12,18 +12,21 @@
       "head_number": "singular",
       "attractor": "changes",
       "attractor_number": "plural",
-      "correct_choice": "a"
+      "correct_choice": "a",
+      "n_options": 2
     },
     "rule_node_id": "RULE_EN_AGR_HEAD",
     "verification_method": "forced_choice_truth_conditional",
     "difficulty": "medium",
     "source": "Bock & Miller 1991",
     "minimal_pair_of": "en-agr-001b",
-    "notes": "Singular head subject with plural distractor noun."
+    "notes": "Singular head subject with plural distractor noun.",
+    "lexical_pair_of": "en-agr-nov-001a",
+    "alternate_prompt": "Which verb form correctly completes 'The list of changes to the report ___ ready.' (a) is or (b) are. Reply with the letter alone."
   },
   {
     "id": "en-agr-001b",
-    "module": "english",
+    "lexical_condition": "natural",
     "tier": "tier_1_morphological",
     "phenomenon": "agreement_attraction",
     "language": "en",
@@ -34,18 +37,21 @@
       "head_number": "plural",
       "attractor": "report",
       "attractor_number": "singular",
-      "correct_choice": "b"
+      "correct_choice": "b",
+      "n_options": 2
     },
     "rule_node_id": "RULE_EN_AGR_HEAD",
     "verification_method": "forced_choice_truth_conditional",
     "difficulty": "medium",
     "source": "Bock & Miller 1991",
     "minimal_pair_of": "en-agr-001a",
-    "notes": "Plural head subject with singular distractor noun."
+    "notes": "Plural head subject with singular distractor noun.",
+    "lexical_pair_of": "en-agr-nov-001b",
+    "alternate_prompt": "Which verb form correctly completes 'The lists of changes to the report ___ ready.' (a) is or (b) are. Reply with the letter alone."
   },
   {
     "id": "en-agr-002a",
-    "module": "english",
+    "lexical_condition": "natural",
     "tier": "tier_1_morphological",
     "phenomenon": "agreement_attraction",
     "language": "en",
@@ -56,18 +62,21 @@
       "head_number": "singular",
       "attractor": "cabinets",
       "attractor_number": "plural",
-      "correct_choice": "a"
+      "correct_choice": "a",
+      "n_options": 2
     },
     "rule_node_id": "RULE_EN_AGR_HEAD",
     "verification_method": "forced_choice_truth_conditional",
     "difficulty": "medium",
     "source": "Bock & Miller 1991",
     "minimal_pair_of": "en-agr-002b",
-    "notes": "Second lexical instantiation of RULE_EN_AGR_HEAD, using 'key to the cabinet(s)' -- one of the canonical stimuli from Bock & Miller (1991) itself, rather than a newly constructed sentence -- so this item is grounded directly in the cited source's own materials."
+    "notes": "Second lexical instantiation of RULE_EN_AGR_HEAD, using 'key to the cabinet(s)' -- one of the canonical stimuli from Bock & Miller (1991) itself, rather than a newly constructed sentence -- so this item is grounded directly in the cited source's own materials. Contamination risk: this is a canonical Bock & Miller (1991) stimulus and may appear verbatim in pretraining corpora. The paired novel-lexical item is the contamination-robust control, because the invented nouns cannot have been memorized.",
+    "lexical_pair_of": "en-agr-nov-002a",
+    "alternate_prompt": "Which verb form correctly completes 'The key to the cabinets ___ missing.' (a) is (b) are.  Reply with the letter alone."
   },
   {
     "id": "en-agr-002b",
-    "module": "english",
+    "lexical_condition": "natural",
     "tier": "tier_1_morphological",
     "phenomenon": "agreement_attraction",
     "language": "en",
@@ -78,13 +87,116 @@
       "head_number": "plural",
       "attractor": "cabinet",
       "attractor_number": "singular",
-      "correct_choice": "b"
+      "correct_choice": "b",
+      "n_options": 2
     },
     "rule_node_id": "RULE_EN_AGR_HEAD",
     "verification_method": "forced_choice_truth_conditional",
     "difficulty": "medium",
     "source": "Bock & Miller 1991",
     "minimal_pair_of": "en-agr-002a",
-    "notes": "Plural head subject with singular distractor noun, mirroring en-agr-001b's structure with the canonical Bock & Miller stimulus."
+    "notes": "Plural head subject with singular distractor noun, mirroring en-agr-001b's structure with the canonical Bock & Miller stimulus. Contamination risk: this is a canonical Bock & Miller (1991) stimulus and may appear verbatim in pretraining corpora. The paired novel-lexical item is the contamination-robust control, because the invented nouns cannot have been memorized.",
+    "lexical_pair_of": "en-agr-nov-002b",
+    "alternate_prompt": "Which verb form correctly completes 'The keys to the cabinets ___ missing.' (a) is (b) are.  Reply with the letter alone."
+  },
+  {
+    "id": "en-agr-003a",
+    "lexical_condition": "natural",
+    "tier": "tier_1_morphological",
+    "phenomenon": "agreement_attraction",
+    "prompt": "Complete the English sentence 'The peg beside the clocks ___ ready.' (a) is or (b) are. Respond with only the letter, no explanation.",
+    "template": "The peg beside the clocks {verb} ready.",
+    "gold_structure": {
+      "syntactic_head": "peg",
+      "head_number": "singular",
+      "attractor": "clocks",
+      "attractor_number": "plural",
+      "correct_choice": "a",
+      "n_options": 2
+    },
+    "rule_node_id": "RULE_EN_AGR_HEAD",
+    "source": "Bock & Miller 1991",
+    "minimal_pair_of": "en-agr-003b",
+    "notes": "Natural-vocabulary counterpart of en-agr-nov-003a. Singular head, plural attractor, matched one-syllable nouns.",
+    "language": "en",
+    "difficulty": "medium",
+    "verification_method": "forced_choice_truth_conditional",
+    "lexical_pair_of": "en-agr-nov-003a",
+    "alternate_prompt": "Which verb form correctly completes 'The peg beside the clocks ___ ready.' (a) is or (b) are. Reply with the letter alone."
+  },
+  {
+    "id": "en-agr-003b",
+    "lexical_condition": "natural",
+    "tier": "tier_1_morphological",
+    "phenomenon": "agreement_attraction",
+    "prompt": "Complete the English sentence 'The pegs beside the clock ___ ready.' (a) is or (b) are. Respond with only the letter, no explanation.",
+    "template": "The pegs beside the clock {verb} ready.",
+    "gold_structure": {
+      "syntactic_head": "pegs",
+      "head_number": "plural",
+      "attractor": "clock",
+      "attractor_number": "singular",
+      "correct_choice": "b",
+      "n_options": 2
+    },
+    "rule_node_id": "RULE_EN_AGR_HEAD",
+    "source": "Bock & Miller 1991",
+    "minimal_pair_of": "en-agr-003a",
+    "notes": "Number-flipped natural counterpart of en-agr-nov-003b.",
+    "language": "en",
+    "difficulty": "medium",
+    "verification_method": "forced_choice_truth_conditional",
+    "lexical_pair_of": "en-agr-nov-003b",
+    "alternate_prompt": "Which verb form correctly completes 'The pegs beside the clock ___ ready.' (a) is or (b) are. Reply with the letter alone."
+  },
+  {
+    "id": "en-agr-004a",
+    "lexical_condition": "natural",
+    "tier": "tier_1_morphological",
+    "phenomenon": "agreement_attraction",
+    "prompt": "Complete the English sentence 'The carton under the rugs ___ visible.' (a) is or (b) are. Respond with only the letter, no explanation.",
+    "template": "The carton under the rugs {verb} visible.",
+    "gold_structure": {
+      "syntactic_head": "carton",
+      "head_number": "singular",
+      "attractor": "rugs",
+      "attractor_number": "plural",
+      "correct_choice": "a",
+      "n_options": 2
+    },
+    "rule_node_id": "RULE_EN_AGR_HEAD",
+    "source": "Bock & Miller 1991",
+    "minimal_pair_of": "en-agr-004b",
+    "notes": "Natural counterpart of en-agr-nov-004a. Head is two syllables, attractor one, matching borgle/snep.",
+    "language": "en",
+    "difficulty": "medium",
+    "verification_method": "forced_choice_truth_conditional",
+    "lexical_pair_of": "en-agr-nov-004a",
+    "alternate_prompt": "Which verb form correctly completes 'The carton under the rugs ___ visible.' (a) is or (b) are. Reply with the letter alone."
+  },
+  {
+    "id": "en-agr-004b",
+    "lexical_condition": "natural",
+    "tier": "tier_1_morphological",
+    "phenomenon": "agreement_attraction",
+    "prompt": "Complete the English sentence 'The cartons under the rug ___ visible.' (a) is or (b) are. Respond with only the letter, no explanation.",
+    "template": "The cartons under the rug {verb} visible.",
+    "gold_structure": {
+      "syntactic_head": "cartons",
+      "head_number": "plural",
+      "attractor": "rug",
+      "attractor_number": "singular",
+      "correct_choice": "b",
+      "n_options": 2
+    },
+    "rule_node_id": "RULE_EN_AGR_HEAD",
+    "source": "Bock & Miller 1991",
+    "minimal_pair_of": "en-agr-004a",
+    "notes": "Number-flipped natural counterpart of en-agr-nov-004b.",
+    "language": "en",
+    "difficulty": "medium",
+    "verification_method": "forced_choice_truth_conditional",
+    "lexical_pair_of": "en-agr-nov-004b",
+    "alternate_prompt": "Which verb form correctly completes 'The cartons under the rug ___ visible.' (a) is or (b) are. Reply with the letter alone."
   }
 ]

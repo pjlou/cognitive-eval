@@ -3,71 +3,8 @@ import networkx as nx
 from typing import Dict, Any
 
 def build_v02_rule_graph() -> nx.DiGraph:
-    """Builds the grounded rule graph for the 2x2 crossed evaluation suite."""
+    """Builds the grounded rule graph for the natural/novel English suite."""
     G = nx.DiGraph()
-
-    # -------------------------------------------------------------------------
-    # FINNISH TIER 1: Object Case Alternation (Kiparsky 1998 Grounded)
-    # -------------------------------------------------------------------------
-    G.add_node("CAT_FI_POLARITY", type="Category", label="Clause Polarity")
-    G.add_node("CAT_FI_ASPECT", type="Category", label="Aspect / Telicity")
-    G.add_node("CAT_FI_QUANT", type="Category", label="NP Quantization")
-    G.add_node("CAT_FI_CASE", type="Category", label="Grammatical Case Target")
-
-    # Features (Universal Dependencies Vocabulary)
-    G.add_node("FEAT_FI_NEG", type="Feature", label="Polarity=Neg")
-    G.add_node("FEAT_FI_AFF", type="Feature", label="Polarity=Pos")
-    G.add_node("FEAT_FI_ATELIC", type="Feature", label="Aspect=Atelic")
-    G.add_node("FEAT_FI_TELIC", type="Feature", label="Aspect=Telic")
-    G.add_node("FEAT_FI_QUANTIZED", type="Feature", label="Quant=Bounded")
-    G.add_node("FEAT_FI_PARTITIVE", type="Feature", label="Case=Partitive")
-    G.add_node("FEAT_FI_ACCUSATIVE", type="Feature", label="Case=Accusative")
-    G.add_node("FEAT_FI_UNQUANTIZED", type="Feature", label="Quant=Unbounded")
-    G.add_node(
-        "RULE_FI_C4_MASS",
-        type="Rule",
-        citation="Kiparsky (1998:280)",
-        label="C4: Unbounded/Mass Object Rule",
-        explanation="Even under a telic construal, an unquantized (mass-noun) object remains Partitive — telicity alone does not force Accusative without a bounded object."
-    )
-    G.add_edge("FEAT_FI_AFF", "RULE_FI_C4_MASS", relation="REQUIRES")
-    G.add_edge("FEAT_FI_TELIC", "RULE_FI_C4_MASS", relation="REQUIRES")
-    G.add_edge("FEAT_FI_UNQUANTIZED", "RULE_FI_C4_MASS", relation="TRIGGERS")
-    G.add_edge("RULE_FI_C4_MASS", "FEAT_FI_PARTITIVE", relation="ENTAILS")
-
-    # Kiparsky (1998) Rule Conditions
-    G.add_node(
-        "RULE_FI_C1_NEGATION",
-        type="Rule",
-        citation="Kiparsky (1998:271)",
-        label="C1: Categorical Negation Rule",
-        explanation="Negation categorically selects Partitive object in Finnish, regardless of aspect or quantization."
-    )
-    G.add_edge("FEAT_FI_NEG", "RULE_FI_C1_NEGATION", relation="TRIGGERS")
-    G.add_edge("RULE_FI_C1_NEGATION", "FEAT_FI_PARTITIVE", relation="ENTAILS")
-
-    G.add_node(
-        "RULE_FI_C2_ATELIC",
-        type="Rule",
-        citation="Kiparsky (1998:275)",
-        label="C2: Atelic Aspect Rule",
-        explanation="Irresultative/ongoing action (Atelic aspect) selects Partitive object case."
-    )
-    G.add_edge("FEAT_FI_AFF", "RULE_FI_C2_ATELIC", relation="REQUIRES")
-    G.add_edge("FEAT_FI_ATELIC", "RULE_FI_C2_ATELIC", relation="TRIGGERS")
-    G.add_edge("RULE_FI_C2_ATELIC", "FEAT_FI_PARTITIVE", relation="ENTAILS")
-
-    G.add_node(
-        "RULE_FI_C3_TELIC_ACCUSATIVE",
-        type="Rule",
-        citation="Kiparsky (1998:278)",
-        label="C3: Telic Bounded Accusative Rule",
-        explanation="Completed action (Telic) with a bounded/quantized object selects Accusative case."
-    )
-    G.add_edge("FEAT_FI_AFF", "RULE_FI_C3_TELIC_ACCUSATIVE", relation="REQUIRES")
-    G.add_edge("FEAT_FI_TELIC", "RULE_FI_C3_TELIC_ACCUSATIVE", relation="REQUIRES")
-    G.add_edge("FEAT_FI_QUANTIZED", "RULE_FI_C3_TELIC_ACCUSATIVE", relation="TRIGGERS")
-    G.add_edge("RULE_FI_C3_TELIC_ACCUSATIVE", "FEAT_FI_ACCUSATIVE", relation="ENTAILS")
 
     # -------------------------------------------------------------------------
     # ENGLISH TIER 1: Agreement Attraction (Bock & Miller 1991 Grounded)
@@ -117,34 +54,82 @@ def build_v02_rule_graph() -> nx.DiGraph:
     G.add_edge("FEAT_EN_NEG_EXISTENTIAL", "RULE_EN_NEG_UNIVERSAL_QUANT", relation="TRIGGERS")
 
     # -------------------------------------------------------------------------
-    # FINNISH TIER 2: Connegative Construction & Clitic Scope
+    # ENGLISH: NPI licensing (Ladusaw 1979)
     # -------------------------------------------------------------------------
-    G.add_node("CAT_FI_NEG_SCOPE", type="Category", label="Connegative Scope Domain")
-    G.add_node("FEAT_FI_CONNEGATIVE", type="Feature", label="Negation=Connegative(¬∀)")
+    G.add_node("CAT_EN_NPI", type="Category", label="Negative Polarity Item Licensing")
+    G.add_node("FEAT_EN_DOWNWARD", type="Feature", label="Licensor=DownwardEntailing")
     G.add_node(
-        "RULE_FI_NEG_CONNEGATIVE",
+        "RULE_EN_NPI_LICENSE",
         type="Rule",
-        citation="Iso suomen kielioppi (VISK), connegative + kaikki scope",
-        label="Connegative Negation over Universal Quantifier (kaikki)",
-        explanation="'Kaikki eivät V' realizes the same ¬∀ ≡ ∃¬ scope relation as English external negation, but through the negative auxiliary + connegative verb form rather than a sentential negator — the reading is 'not everybody', not 'nobody'."
-    )
-    G.add_edge("FEAT_FI_CONNEGATIVE", "RULE_FI_NEG_CONNEGATIVE", relation="TRIGGERS")
-
-    G.add_node("FEAT_FI_NEG_EXISTENTIAL_KUKAAN", type="Feature", label="Negation=OfExistential(kukaan+ei)")
-    G.add_node(
-        "RULE_FI_NEG_KUKAAN_UNIVERSAL",
-        type="Rule",
-        citation="VISK \u00a71154 (kukaan as negative-polarity existential); contrastive design vs. RULE_FI_NEG_CONNEGATIVE",
-        label="Negative-Polarity Existential Negation ('kukaan ei', singular agreement)",
+        citation="Ladusaw (1979)",
+        label="Any licensed only in a downward-entailing context",
         explanation=(
-            "'Kukaan ei V' negates an existential claim over persons (\u00ac\u2203x.Vx) and takes singular "
-            "connegative agreement, unlike the plural 'kaikki eivät' construction which negates a "
-            "universal (\u00ac\u2200x.Vx). This is the minimal contrast to RULE_FI_NEG_CONNEGATIVE: the same "
-            "connegative negation strategy realizes two logically distinct scope relations depending "
-            "on which quantifier host it attaches to."
-        )
+            "The polarity item 'any' is licensed under negation and other downward-entailing "
+            "operators, and is illicit in a plain affirmative clause. Closed-class 'any' and "
+            "negation stay real in the novel-lexical condition."
+        ),
     )
-    G.add_edge("FEAT_FI_NEG_EXISTENTIAL_KUKAAN", "RULE_FI_NEG_KUKAAN_UNIVERSAL", relation="TRIGGERS")
+    G.add_edge("FEAT_EN_DOWNWARD", "RULE_EN_NPI_LICENSE", relation="TRIGGERS")
+
+    # -------------------------------------------------------------------------
+    # ENGLISH: Scalar implicature (Grice 1975; Levinson 2000)
+    # -------------------------------------------------------------------------
+    G.add_node("CAT_EN_SCALAR", type="Category", label="Scalar Implicature")
+    G.add_node("FEAT_EN_SOME", type="Feature", label="Quantifier=Some")
+    G.add_node(
+        "RULE_EN_SCALAR_SOME",
+        type="Rule",
+        citation="Grice (1975); Levinson (2000)",
+        label="Some pragmatically implicates not-all",
+        explanation=(
+            "On its pragmatic reading, 'some' communicates 'not all' by the quantity maxim: "
+            "a cooperative speaker who knew that all was true would have said 'all'. The "
+            "logical reading (at least one, possibly all) is a distractor, not the communicated meaning."
+        ),
+    )
+    G.add_edge("FEAT_EN_SOME", "RULE_EN_SCALAR_SOME", relation="TRIGGERS")
+    G.add_node(
+        "RULE_EN_SCALAR_UNIVERSAL",
+        type="Rule",
+        citation="Grice (1975); Levinson (2000)",
+        label="All does not implicate not-all",
+        explanation=(
+            "A speaker who says 'all' is asserting the stronger scale-mate. The pragmatic "
+            "not-all implicature attaches to 'some', not to 'all'."
+        ),
+    )
+    G.add_edge("FEAT_EN_SOME", "RULE_EN_SCALAR_UNIVERSAL", relation="CONTRASTS")
+
+    # -------------------------------------------------------------------------
+    # ENGLISH: Quantifier-quantifier scope (Ioup 1975; Anderson 2004)
+    # -------------------------------------------------------------------------
+    G.add_node("CAT_EN_QSCOPE", type="Category", label="Quantifier Scope")
+    G.add_node("FEAT_EN_SURFACE", type="Feature", label="Scope=Surface(forall>exists)")
+    G.add_node("FEAT_EN_INVERSE", type="Feature", label="Scope=Inverse(exists>forall)")
+    G.add_node(
+        "RULE_EN_QSCOPE_SURFACE",
+        type="Rule",
+        citation="Ioup (1975); Anderson (2004)",
+        label="Surface scope of every over some",
+        explanation=(
+            "With a continuation that assigns a different witness to each restricter entity "
+            "('a different book for each student'), the only consistent reading is surface "
+            "scope: every student read a possibly different book."
+        ),
+    )
+    G.add_node(
+        "RULE_EN_QSCOPE_INVERSE",
+        type="Rule",
+        citation="Ioup (1975); Anderson (2004)",
+        label="Inverse scope of some over every",
+        explanation=(
+            "With a continuation that identifies a single shared witness ('the same book for "
+            "everyone'), the only consistent reading is inverse scope: there is a book that "
+            "every student read. Scope items are not scored without that disambiguating continuation."
+        ),
+    )
+    G.add_edge("FEAT_EN_SURFACE", "RULE_EN_QSCOPE_SURFACE", relation="TRIGGERS")
+    G.add_edge("FEAT_EN_INVERSE", "RULE_EN_QSCOPE_INVERSE", relation="TRIGGERS")
 
     return G
 

@@ -4,30 +4,35 @@
 [![Inspect AI Framework](https://img.shields.io/badge/Inspect_AI-UK_AISI-purple.svg)](https://github.com/UKGovernmentBEIS/inspect_ai)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-**Cognitive-Eval** is an open-source diagnostic evaluation framework designed to identify structural semantic and morphosyntactic failure modes in Large Language Models (LLMs).  Its primary purpose is to examine whether LLMs retain cross-linguistic reasoning when reduced to a size that can run on resource-constrained, consumer-grade devices.  Models in the included evaluation logs cover different sizes within the qwen2.5 family (1.5b, 3b, and 7b parameters) as well as ministral-3:8b and llama3.1:8b
+**Cognitive-Eval** is an open-source diagnostic evaluation framework designed to identify structural semantic and morphosyntactic failure modes in Large Language Models (LLMs).  Its primary purpose is to examine whether a model's linguistic competence is genuinely structural or a surface artifact of memorized vocabulary, using models small enough to run on consumer-grade devices.  Models in the included evaluation logs cover different sizes within the qwen2.5 family (1.5b, 3b, and 7b parameters) as well as ministral-3:8b and llama3.1:8b
 
 ---
 
 ## Architecture Overview
 
-Cognitive-Eval employs a **2 (Tier) × 2 (Language) crossed experimental design** to test whether a model's linguistic competence is genuinely structural or merely a surface artifact of English-dominant training data. Every phenomenon, in both tiers and both languages, is now verified via **forced-choice truth-conditional matching** against a grounded rule graph (`NetworkX`) — this was a deliberate change from an earlier version, in which Tier 1 (morphological) items required the model to freely generate an inflected word form. That format difference turned out to be a confound: it made Tier 1 and Tier 2 accuracy numbers incomparable, since one measured production ability and the other measured selection/reasoning ability. Forced-choice for everything removes that confound; `spaCy` and `UralicNLP` are still used internally to *ground and validate* each rule graph node's gold label, not to score free-form output at run time.
+Cognitive-Eval employs a **2 (Tier) × 2 (Lexical condition) crossed experimental design** to test whether a model's linguistic competence is genuinely structural or merely a surface artifact of memorized vocabulary. Every phenomenon, in both tiers and both conditions, is verified via **forced-choice truth-conditional matching** against a grounded rule graph (`NetworkX`) — this was a deliberate change from an earlier version, in which Tier 1 (morphological) items required the model to freely generate an inflected word form. That format difference turned out to be a confound: it made Tier 1 and Tier 2 accuracy numbers incomparable, since one measured production ability and the other measured selection/reasoning ability. Forced-choice for everything removes that confound. The second axis is a wug-test contrast (Berko 1958): **natural** items use existing English vocabulary, and **novel** items keep closed-class words real while swapping open-class content words for invented ones with regular morphology. The same English verifier and rule node score both conditions, so a natural-versus-novel accuracy gap is lexical familiarity, not a change in the rule being tested. `spaCy` is used to inspect English structure, not to score free-form output at run time.
 
 Free-form generation hasn't disappeared from the project — it's been moved to where it belongs methodologically. See **"Verification Cascade"** below.
 
                      ┌───────────────────────────────────────────────────────────┐
-                     │                Crossed 2x2 Evaluation Grid                │
+                     │          Crossed Tier x Lexical Evaluation Grid           │
                      ├─────────────────────────────┬─────────────────────────────┤
-                     │           English           │           Finnish           │
+                     │     Natural vocabulary      │     Novel vocabulary        │
     ┌────────────────┼─────────────────────────────┼─────────────────────────────┤
-    │ Tier 1: Local  │ Subject–Verb Agreement      │ Object Case Alternation     │
-    │ Morphosyntax   │ (Attraction Paradigms)      │ (Partitive vs. Accusative)  │
+    │ Tier 1: Local  │ Subject–Verb Agreement      │ Same rule, novel nouns      │
+    │ Morphosyntax   │ (Attraction Paradigms)      │ with regular inflection     │
     ├────────────────┼─────────────────────────────┼─────────────────────────────┤
-    │ Tier 2: Clausal│ Negation Scope              │ Connegative Construction &  │
-    │ Semantics      │ (Subtree Scope Attachment)  │ Focus Clitic Scope          │
+    │ Tier 2: Clausal│ Negation scope, NPI         │ Same rules, novel content   │
+    │ Semantics      │ licensing, scalar           │ words, real function words  │
+    │                │ implicature, quantifier     │                             │
+    │                │ scope (disambiguated)       │                             │
+    ├────────────────┼─────────────────────────────┼─────────────────────────────┤
+    │ Stage 3        │ Quantifier-scope            │ Same continuation, novel    │
+    │                │ justification (judge rubric)│ open-class words            │
     └────────────────┴─────────────────────────────┴─────────────────────────────┘
 
 
-Every test result is linked directly to a formal rule node in a NetworkX graph grounded in computational linguistics literature (e.g., **Kiparsky 1998** for Finnish aspect/case; **Bock & Miller 1991** for agreement attraction).  Finnish sentences are pending native review.
+Every test result is linked directly to a formal rule node in a NetworkX graph grounded in computational linguistics literature (**Bock & Miller 1991** for agreement attraction; **ScoNe 2023** for negation scope; **Ladusaw 1979** for NPI licensing; **Grice 1975 / Levinson 2000** for scalar implicature; **Ioup 1975 / Anderson 2004** for quantifier scope). Novel items reuse those same rule nodes. Item-construction rules, including the novel-word generator and the contamination argument for the novel-lexical control, are in `docs/item-construction.md`. Cross-linguistic comparison remains a deferred stretch goal, not a current axis.
 
 ---
 
@@ -53,10 +58,9 @@ Stage 2 (implemented)   Statistical / embedding-based failure discovery
                             happens once, at Stage 2 cost; detection is cheap
                             (Stage 1) from then on
 
-Stage 3 (planned)       Model-based judgment, deliberately scoped
-                          — reserved for phenomena that don't reduce to a rule
-                            (e.g. compositional logic) — not a general-purpose
-                            "ask an LLM if this is right"
+Stage 3 (scoped)        Model-based judgment against a disclosed rubric
+                          — quantifier-scope justification items only
+                          — not a general-purpose "ask an LLM if this is right"
 
 Stage 4 (documented)    Human review — the fallback when Stage 3 disagrees
                           with itself across runs or confidence is low
@@ -102,7 +106,6 @@ source venv/bin/activate
 
 pip install -r requirements.txt
 python -m spacy download en_core_web_trf
-python -c "import uralicNLP"
 ```
 
 ### 2. Run Evaluations via Inspect AI
@@ -129,7 +132,7 @@ python -m src.discovery.cluster_failures
 ```
 
 ## Citation & Grounding
-Kiparsky, P. (1998). Partitive case and aspect. CSLI Publications.
+Berko, J. (1958). The child's learning of English morphology. Word.
 
 Bock, K., & Miller, C. A. (1991). Broken agreement. Cognitive Psychology.
 

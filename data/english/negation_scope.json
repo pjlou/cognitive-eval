@@ -1,78 +1,178 @@
 [
   {
     "id": "en-neg-001a",
-    "module": "english",
+    "lexical_condition": "natural",
     "tier": "tier_2_clausal",
     "phenomenon": "negation_scope",
     "language": "en",
-    "prompt": "Read the English sentence: 'Not all students failed the exam.' Does this mean: (a) No student passed, (b) At least one student passed, or (c) All students passed? Respond with only the letter, no explanation.",
+    "prompt": "Read the English sentence: 'Not all students failed the exam.' Does this mean: (a) At least one student passed, (b) All students passed, or (c) No student passed? Respond with only the letter, no explanation.",
     "gold_structure": {
       "negation_governor": "failed",
       "scope_subtree": "all students ... failed",
-      "correct_choice": "b"
+      "correct_choice": "a",
+      "n_options": 3
     },
     "rule_node_id": "RULE_EN_NEG_SCOPE",
     "verification_method": "forced_choice_truth_conditional",
     "difficulty": "hard",
     "source": "ScoNe 2023",
     "minimal_pair_of": "en-neg-001b",
-    "notes": "Tests external negation of universal quantifier."
+    "notes": "Tests external negation of universal quantifier.",
+    "lexical_pair_of": "en-neg-nov-001a",
+    "alternate_prompt": "What follows from this sentence: 'Not all students failed the exam.' Does this mean: (a) At least one student passed, (b) All students passed, or (c) No student passed? Reply with the letter alone."
   },
   {
     "id": "en-neg-001b",
-    "module": "english",
+    "lexical_condition": "natural",
     "tier": "tier_2_clausal",
     "phenomenon": "negation_scope",
     "language": "en",
-    "prompt": "Read the English sentence: 'None of the students failed the exam.' Does this mean: (a) No student passed, (b) At least one student passed, or (c) All students passed? Respond with only the letter, no explanation.",
+    "prompt": "Read the English sentence: 'None of the students failed the exam.' Does this mean: (a) At least one student passed, (b) All students passed, or (c) No student passed? Respond with only the letter, no explanation.",
     "gold_structure": {
       "negation_governor": "failed",
       "scope_subtree": "none of the students ... failed",
-      "correct_choice": "c"
+      "correct_choice": "b",
+      "n_options": 3
     },
     "rule_node_id": "RULE_EN_NEG_UNIVERSAL_QUANT",
     "verification_method": "forced_choice_truth_conditional",
     "difficulty": "hard",
     "source": "ScoNe 2023",
     "minimal_pair_of": "en-neg-001a",
-    "notes": "Minimal pair for en-neg-001a: negates an existential ('none of') rather than a universal ('not all'), so the correct reading flips from 'at least one passed' to 'all passed'. Isolates whether the model distinguishes \u00ac\u2203 from \u00ac\u2200 rather than pattern-matching negation+quantifier surface forms to a single default reading."
+    "notes": "Minimal pair for en-neg-001a: negates an existential ('none of') rather than a universal ('not all'), so the correct reading flips from 'at least one passed' to 'all passed'. Isolates whether the model distinguishes ¬∃ from ¬∀ rather than pattern-matching negation+quantifier surface forms to a single default reading.",
+    "lexical_pair_of": "en-neg-nov-001b",
+    "alternate_prompt": "What follows from this sentence: 'None of the students failed the exam.' Does this mean: (a) At least one student passed, (b) All students passed, or (c) No student passed? Reply with the letter alone."
   },
   {
     "id": "en-neg-002a",
-    "module": "english",
+    "lexical_condition": "natural",
     "tier": "tier_2_clausal",
     "phenomenon": "negation_scope",
     "language": "en",
-    "prompt": "Read the English sentence: 'Not all of the buses were late.' Does this mean: (a) No bus was on time, (b) At least one bus was on time, or (c) All buses were on time? Respond with only the letter, no explanation.",
+    "prompt": "Read the English sentence: 'Not all of the buses were late.' Does this mean: (a) All buses were on time, (b) No bus was on time, or (c) At least one bus was on time? Respond with only the letter, no explanation.",
     "gold_structure": {
       "negation_governor": "late",
       "scope_subtree": "all of the buses ... late",
-      "correct_choice": "b"
+      "correct_choice": "c",
+      "n_options": 3
     },
     "rule_node_id": "RULE_EN_NEG_SCOPE",
     "verification_method": "forced_choice_truth_conditional",
     "difficulty": "hard",
     "source": "ScoNe 2023",
     "minimal_pair_of": "en-neg-002b",
-    "notes": "Second lexical instantiation of RULE_EN_NEG_SCOPE, using 'buses/late' instead of 'students/failed' so the category isn't validated on a single vocabulary item."
+    "notes": "Second lexical instantiation of RULE_EN_NEG_SCOPE, using 'buses/late' instead of 'students/failed' so the category isn't validated on a single vocabulary item.",
+    "lexical_pair_of": "en-neg-nov-002a",
+    "alternate_prompt": "What follows from this sentence: 'Not all of the buses were late.' Does this mean: (a) All buses were on time, (b) No bus was on time, or (c) At least one bus was on time? Reply with the letter alone."
   },
   {
     "id": "en-neg-002b",
-    "module": "english",
+    "lexical_condition": "natural",
     "tier": "tier_2_clausal",
     "phenomenon": "negation_scope",
     "language": "en",
-    "prompt": "Read the English sentence: 'None of the buses were late.' Does this mean: (a) No bus was on time, (b) At least one bus was on time, or (c) All buses were on time? Respond with only the letter, no explanation.",
+    "prompt": "Read the English sentence: 'None of the buses were late.' Does this mean: (a) All buses were on time, (b) No bus was on time, or (c) At least one bus was on time? Respond with only the letter, no explanation.",
     "gold_structure": {
       "negation_governor": "late",
       "scope_subtree": "none of the buses ... late",
-      "correct_choice": "c"
+      "correct_choice": "a",
+      "n_options": 3
     },
     "rule_node_id": "RULE_EN_NEG_UNIVERSAL_QUANT",
     "verification_method": "forced_choice_truth_conditional",
     "difficulty": "hard",
     "source": "ScoNe 2023",
     "minimal_pair_of": "en-neg-002a",
-    "notes": "Second lexical instantiation of RULE_EN_NEG_UNIVERSAL_QUANT, paired with en-neg-002a."
+    "notes": "Second lexical instantiation of RULE_EN_NEG_UNIVERSAL_QUANT, paired with en-neg-002a.",
+    "lexical_pair_of": "en-neg-nov-002b",
+    "alternate_prompt": "What follows from this sentence: 'None of the buses were late.' Does this mean: (a) All buses were on time, (b) No bus was on time, or (c) At least one bus was on time? Reply with the letter alone."
+  },
+  {
+    "id": "en-neg-003a",
+    "lexical_condition": "natural",
+    "tier": "tier_2_clausal",
+    "phenomenon": "negation_scope",
+    "difficulty": "hard",
+    "prompt": "Read the English sentence: 'Not all the clerks left.' Does this mean: (a) no clerk left, (b) at least one clerk did not leave, or (c) all clerks left? Respond with only the letter, no explanation.",
+    "gold_structure": {
+      "negation_governor": "left",
+      "scope_subtree": "all the clerks ... left",
+      "correct_choice": "b",
+      "n_options": 3
+    },
+    "rule_node_id": "RULE_EN_NEG_SCOPE",
+    "source": "ScoNe 2023",
+    "minimal_pair_of": "en-neg-003b",
+    "notes": "Natural counterpart of en-neg-nov-003a. 'Not all' is external negation of a universal.",
+    "language": "en",
+    "verification_method": "forced_choice_truth_conditional",
+    "lexical_pair_of": "en-neg-nov-003a",
+    "alternate_prompt": "What follows from this sentence: 'Not all the clerks left.' Does this mean: (a) no clerk left, (b) at least one clerk did not leave, or (c) all clerks left? Reply with the letter alone."
+  },
+  {
+    "id": "en-neg-003b",
+    "lexical_condition": "natural",
+    "tier": "tier_2_clausal",
+    "phenomenon": "negation_scope",
+    "difficulty": "hard",
+    "prompt": "Read the English sentence: 'None of the clerks left.' Does this mean: (a) at least one clerk did not leave, (b) all clerks left, or (c) no clerk left? Respond with only the letter, no explanation.",
+    "gold_structure": {
+      "negation_governor": "left",
+      "scope_subtree": "none of the clerks ... left",
+      "correct_choice": "c",
+      "n_options": 3
+    },
+    "rule_node_id": "RULE_EN_NEG_UNIVERSAL_QUANT",
+    "source": "ScoNe 2023",
+    "minimal_pair_of": "en-neg-003a",
+    "notes": "Natural counterpart of en-neg-nov-003b. 'None of' negates an existential.",
+    "language": "en",
+    "verification_method": "forced_choice_truth_conditional",
+    "lexical_pair_of": "en-neg-nov-003b",
+    "alternate_prompt": "What follows from this sentence: 'None of the clerks left.' Does this mean: (a) at least one clerk did not leave, (b) all clerks left, or (c) no clerk left? Reply with the letter alone."
+  },
+  {
+    "id": "en-neg-004a",
+    "lexical_condition": "natural",
+    "tier": "tier_2_clausal",
+    "phenomenon": "negation_scope",
+    "difficulty": "hard",
+    "prompt": "Read the English sentence: 'Not all the birds slept.' Does this mean: (a) at least one bird did not sleep, (b) all birds slept, or (c) no bird slept? Respond with only the letter, no explanation.",
+    "gold_structure": {
+      "negation_governor": "slept",
+      "scope_subtree": "all the birds ... slept",
+      "correct_choice": "a",
+      "n_options": 3
+    },
+    "rule_node_id": "RULE_EN_NEG_SCOPE",
+    "source": "ScoNe 2023",
+    "minimal_pair_of": "en-neg-004b",
+    "notes": "Natural counterpart of en-neg-nov-004a.",
+    "language": "en",
+    "verification_method": "forced_choice_truth_conditional",
+    "lexical_pair_of": "en-neg-nov-004a",
+    "alternate_prompt": "What follows from this sentence: 'Not all the birds slept.' Does this mean: (a) at least one bird did not sleep, (b) all birds slept, or (c) no bird slept? Reply with the letter alone."
+  },
+  {
+    "id": "en-neg-004b",
+    "lexical_condition": "natural",
+    "tier": "tier_2_clausal",
+    "phenomenon": "negation_scope",
+    "difficulty": "hard",
+    "prompt": "Read the English sentence: 'None of the birds slept.' Does this mean: (a) all birds slept, (b) no bird slept, or (c) at least one bird did not sleep? Respond with only the letter, no explanation.",
+    "gold_structure": {
+      "negation_governor": "slept",
+      "scope_subtree": "none of the birds ... slept",
+      "correct_choice": "b",
+      "n_options": 3
+    },
+    "rule_node_id": "RULE_EN_NEG_UNIVERSAL_QUANT",
+    "source": "ScoNe 2023",
+    "minimal_pair_of": "en-neg-004a",
+    "notes": "Natural counterpart of en-neg-nov-004b.",
+    "language": "en",
+    "verification_method": "forced_choice_truth_conditional",
+    "lexical_pair_of": "en-neg-nov-004b",
+    "alternate_prompt": "What follows from this sentence: 'None of the birds slept.' Does this mean: (a) all birds slept, (b) no bird slept, or (c) at least one bird did not sleep? Reply with the letter alone."
   }
 ]

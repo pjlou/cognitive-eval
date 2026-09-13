@@ -1,0 +1,110 @@
+[
+  {
+    "id": "en-npi-nov-001a",
+    "lexical_condition": "novel",
+    "tier": "tier_2_clausal",
+    "phenomenon": "npi_licensing",
+    "prompt": "Which sentence is acceptable in English? (a) The friks didn't vorp any swoks. (b) The friks vorped any swoks. Respond with only the letter, no explanation.",
+    "gold_structure": {
+      "licensor": "negation",
+      "polarity_item": "any",
+      "correct_choice": "a",
+      "n_options": 2,
+      "novel_stems": [
+        "frik",
+        "swok",
+        "vorp"
+      ]
+    },
+    "rule_node_id": "RULE_EN_NPI_LICENSE",
+    "source": "Ladusaw 1979 (novel-lexical adaptation)",
+    "minimal_pair_of": "en-npi-nov-001b",
+    "notes": "Negation licenses 'any' (frik/swok). Function words stay real. The other option is the unlicensed affirmative.",
+    "language": "en",
+    "difficulty": "medium",
+    "verification_method": "forced_choice_truth_conditional",
+    "lexical_pair_of": "en-npi-001a",
+    "alternate_prompt": "Which of these would a speaker of English accept? (a) The friks didn't vorp any swoks. (b) The friks vorped any swoks. Reply with the letter alone."
+  },
+  {
+    "id": "en-npi-nov-001b",
+    "lexical_condition": "novel",
+    "tier": "tier_2_clausal",
+    "phenomenon": "npi_licensing",
+    "prompt": "Which sentence is acceptable in English? (a) The friks vorped any swoks or (b) The friks vorped some swoks. Respond with only the letter, no explanation.",
+    "gold_structure": {
+      "licensor": "none",
+      "polarity_item": "any",
+      "correct_choice": "b",
+      "n_options": 2,
+      "novel_stems": [
+        "frik",
+        "swok",
+        "vorp"
+      ]
+    },
+    "rule_node_id": "RULE_EN_NPI_LICENSE",
+    "source": "Ladusaw 1979 (novel-lexical adaptation)",
+    "minimal_pair_of": "en-npi-nov-001a",
+    "notes": "Affirmative context does not license 'any' (frik/swok). The acceptable option uses 'some', a real quantifier.",
+    "language": "en",
+    "difficulty": "medium",
+    "verification_method": "forced_choice_truth_conditional",
+    "lexical_pair_of": "en-npi-001b",
+    "alternate_prompt": "Which of these would a speaker of English accept? (a) The friks vorped any swoks or (b) The friks vorped some swoks. Reply with the letter alone."
+  },
+  {
+    "id": "en-npi-nov-002a",
+    "lexical_condition": "novel",
+    "tier": "tier_2_clausal",
+    "phenomenon": "npi_licensing",
+    "prompt": "Which sentence is acceptable in English? (a) The torks didn't brerp any plasts. (b) The torks brerped any plasts. Respond with only the letter, no explanation.",
+    "gold_structure": {
+      "licensor": "negation",
+      "polarity_item": "any",
+      "correct_choice": "a",
+      "n_options": 2,
+      "novel_stems": [
+        "tork",
+        "plast",
+        "brerp"
+      ]
+    },
+    "rule_node_id": "RULE_EN_NPI_LICENSE",
+    "source": "Ladusaw 1979 (novel-lexical adaptation)",
+    "minimal_pair_of": "en-npi-nov-002b",
+    "notes": "Negation licenses 'any' (tork/plast). Function words stay real. The other option is the unlicensed affirmative.",
+    "language": "en",
+    "difficulty": "medium",
+    "verification_method": "forced_choice_truth_conditional",
+    "lexical_pair_of": "en-npi-002a",
+    "alternate_prompt": "Which of these would a speaker of English accept? (a) The torks didn't brerp any plasts. (b) The torks brerped any plasts. Reply with the letter alone."
+  },
+  {
+    "id": "en-npi-nov-002b",
+    "lexical_condition": "novel",
+    "tier": "tier_2_clausal",
+    "phenomenon": "npi_licensing",
+    "prompt": "Which sentence is acceptable in English? (a) The torks brerped any plasts or (b) The torks brerped some plasts. Respond with only the letter, no explanation.",
+    "gold_structure": {
+      "licensor": "none",
+      "polarity_item": "any",
+      "correct_choice": "b",
+      "n_options": 2,
+      "novel_stems": [
+        "tork",
+        "plast",
+        "brerp"
+      ]
+    },
+    "rule_node_id": "RULE_EN_NPI_LICENSE",
+    "source": "Ladusaw 1979 (novel-lexical adaptation)",
+    "minimal_pair_of": "en-npi-nov-002a",
+    "notes": "Affirmative context does not license 'any' (tork/plast). The acceptable option uses 'some', a real quantifier.",
+    "language": "en",
+    "difficulty": "medium",
+    "verification_method": "forced_choice_truth_conditional",
+    "lexical_pair_of": "en-npi-002b",
+    "alternate_prompt": "Which of these would a speaker of English accept? (a) The torks brerped any plasts or (b) The torks brerped some plasts. Reply with the letter alone."
+  }
+]

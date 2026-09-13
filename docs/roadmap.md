@@ -3,20 +3,18 @@
 ## Where this starts
 
 The project currently has one verification tier: rule-based, deterministic,
-forced-choice. Every item — English and Finnish, all phenomena — now runs
-through the same `extract_final_choice` pattern against a hand-authored rule
-graph. That's a real and correct simplification: it puts every phenomenon on
-equal footing and removes the production-vs-selection confound from the
-dataset entirely.
+forced-choice. Every item — natural and novel English vocabulary, all
+phenomena — now runs through the same `extract_final_choice` pattern against
+a hand-authored rule graph. That's a real and correct simplification: it puts
+every phenomenon on equal footing and removes the production-vs-selection
+confound from the dataset entirely.
 
-It also has a side effect worth naming honestly: the project can no longer
-measure whether a model can *produce* a correctly inflected Finnish word form
-from scratch — only whether it can recognize the right one when shown both
-options. That's a deliberate trade-off, not a loss to quietly paper over. The
-plan below reintroduces free-form generation, but as raw material for
-unsupervised discovery rather than as a second graded task — which avoids
-reopening the original confound while still getting value from open-ended
-output.
+It also has a side effect worth naming honestly: the project measures
+selection, not free production of an inflected form. That's a deliberate
+trade-off, not a loss to quietly paper over. The plan below reintroduces
+free-form generation, but as raw material for unsupervised discovery rather
+than as a second graded task — which avoids reopening the original confound
+while still getting value from open-ended output.
 
 ## The organizing idea
 
@@ -62,12 +60,13 @@ code and README when Phase A shipped.)*
 This is the direct fix for the Reducto/ByteDance gap: finding failure
 patterns in large, uncurated output, not just scoring known test items.
 
-**What it does:** generate a much larger set of free-form outputs — have
-models translate, paraphrase, or freely complete Finnish sentences involving
-your existing phenomena (case alternation, negation) without multiple-choice
-scaffolding — embed the outputs (sentence-transformers), cluster them
-(k-means and DBSCAN, compare both), and inspect which clusters correspond to
-genuine, coherent failure types versus noise.
+**What it does:** generate free-form outputs on the same two English
+phenomena as the graded suite (agreement completion and negation paraphrase),
+split into natural-vocabulary and novel-vocabulary prompts that do not reuse
+graded lexical items, without multiple-choice scaffolding — embed the outputs
+(sentence-transformers), cluster them (k-means and DBSCAN, compare both), and
+inspect which clusters correspond to genuine, coherent failure types versus
+noise.
 
 **Why free generation belongs here and not in the graded dataset:**
 clustering is unsupervised — it doesn't need a gold label to be useful. This
@@ -194,6 +193,12 @@ resolves.
 > idea — genuinely worth returning to once Finnish proficiency and
 > priorities make it relevant again — but it should not receive further
 > planning time until then.
+>
+> **Interim replacement (not a cut):** the graded suite now contrasts
+> natural English vocabulary with novel vocabulary on the same two
+> rules, instead of English versus Finnish. That isolates lexical
+> memorization while the cross-linguistic work below stays a deferred
+> stretch goal.
 
 This phase is about replacing hand-labeled gold answers with something that
 *derives* the answer from linguistic structure — a qualitatively different

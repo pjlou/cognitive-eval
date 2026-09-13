@@ -9,7 +9,8 @@ Output: one JSON-lines file per run, appended to across runs, at
 discovery_logs/raw/free_responses.jsonl -- one record per (model, prompt):
 
     {"model": "...", "prompt_id": "...", "family": "...",
-     "prompt": "...", "response": "...", "timestamp": "..."}
+     "lexical_condition": "...", "prompt": "...", "response": "...",
+     "timestamp": "..."}
 
 This file is treated as regenerable raw data (see .gitignore) -- the
 curated output of cluster_failures.py is what's meant to be committed.
@@ -73,6 +74,7 @@ def collect_free_responses(model_names: list[str] | None = None) -> int:
                     "model": model_name,
                     "prompt_id": item.id,
                     "family": item.family,
+                    "lexical_condition": item.lexical_condition,
                     "prompt": item.prompt,
                     "response": response["message"]["content"],
                     "timestamp": datetime.now(timezone.utc).isoformat(),

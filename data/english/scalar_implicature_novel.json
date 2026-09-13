@@ -1,0 +1,102 @@
+[
+  {
+    "id": "en-scl-nov-001a",
+    "lexical_condition": "novel",
+    "tier": "tier_2_clausal",
+    "phenomenon": "scalar_implicature",
+    "difficulty": "hard",
+    "prompt": "A speaker said: 'Some of the plasts were brerped.' What is the speaker most likely communicating? (a) At least one plast was brerped, and possibly all of them. (b) At least one plast was brerped, but not all of them. (c) No plast was brerped. Respond with only the letter, no explanation.",
+    "gold_structure": {
+      "scale": "some",
+      "correct_choice": "b",
+      "n_options": 3,
+      "novel_stems": [
+        "plast",
+        "brerp"
+      ]
+    },
+    "rule_node_id": "RULE_EN_SCALAR_SOME",
+    "source": "Grice 1975; Levinson 2000 (novel-lexical adaptation)",
+    "minimal_pair_of": "en-scl-nov-001b",
+    "notes": "Pragmatic reading of 'some' is not-all. 'Some' stays a real quantifier; open-class words may be novel.",
+    "language": "en",
+    "verification_method": "forced_choice_truth_conditional",
+    "lexical_pair_of": "en-scl-001a",
+    "alternate_prompt": "A speaker said: 'Some of the plasts were brerped.' Which reading is the pragmatic message of this utterance? (a) At least one plast was brerped, and possibly all of them. (b) At least one plast was brerped, but not all of them. (c) No plast was brerped. Reply with the letter alone."
+  },
+  {
+    "id": "en-scl-nov-001b",
+    "lexical_condition": "novel",
+    "tier": "tier_2_clausal",
+    "phenomenon": "scalar_implicature",
+    "difficulty": "hard",
+    "prompt": "A speaker said: 'All of the plasts were brerped.' What is the speaker most likely communicating? (a) At least one plast was brerped, and possibly all of them. (b) At least one plast was brerped, but not all of them. (c) Every plast was brerped. Respond with only the letter, no explanation.",
+    "gold_structure": {
+      "scale": "all",
+      "correct_choice": "c",
+      "n_options": 3,
+      "novel_stems": [
+        "plast",
+        "brerp"
+      ]
+    },
+    "rule_node_id": "RULE_EN_SCALAR_UNIVERSAL",
+    "source": "Grice 1975; Levinson 2000 (novel-lexical adaptation)",
+    "minimal_pair_of": "en-scl-nov-001a",
+    "notes": "Control: 'all' does not implicate not-all. The last option is the universal reading.",
+    "language": "en",
+    "verification_method": "forced_choice_truth_conditional",
+    "lexical_pair_of": "en-scl-001b",
+    "alternate_prompt": "A speaker said: 'All of the plasts were brerped.' Which reading is the pragmatic message of this utterance? (a) At least one plast was brerped, and possibly all of them. (b) At least one plast was brerped, but not all of them. (c) Every plast was brerped. Reply with the letter alone."
+  },
+  {
+    "id": "en-scl-nov-002a",
+    "lexical_condition": "novel",
+    "tier": "tier_2_clausal",
+    "phenomenon": "scalar_implicature",
+    "difficulty": "hard",
+    "prompt": "A speaker said: 'Some of the slests were torked.' What is the speaker most likely communicating? (a) At least one slest was torked, but not all of them, (b) No slest was torked, or (c) At least one slest was torked, and possibly all of them. Respond with only the letter, no explanation.",
+    "gold_structure": {
+      "scale": "some",
+      "correct_choice": "a",
+      "n_options": 3,
+      "novel_stems": [
+        "slest",
+        "tork"
+      ]
+    },
+    "rule_node_id": "RULE_EN_SCALAR_SOME",
+    "source": "Grice 1975; Levinson 2000 (novel-lexical adaptation)",
+    "minimal_pair_of": "en-scl-nov-002b",
+    "notes": "Pragmatic reading of 'some' is not-all. 'Some' stays a real quantifier; open-class words may be novel.",
+    "language": "en",
+    "verification_method": "forced_choice_truth_conditional",
+    "lexical_pair_of": "en-scl-002a",
+    "alternate_prompt": "A speaker said: 'Some of the slests were torked.' Which reading is the pragmatic message of this utterance? (a) At least one slest was torked, but not all of them, (b) No slest was torked, or (c) At least one slest was torked, and possibly all of them. Reply with the letter alone."
+  },
+  {
+    "id": "en-scl-nov-002b",
+    "lexical_condition": "novel",
+    "tier": "tier_2_clausal",
+    "phenomenon": "scalar_implicature",
+    "difficulty": "hard",
+    "prompt": "A speaker said: 'All of the slests were torked.' What is the speaker most likely communicating? (a) At least one slest was torked, but not all of them, (b) Every slest was torked, or (c) At least one slest was torked, and possibly all of them. Respond with only the letter, no explanation.",
+    "gold_structure": {
+      "scale": "all",
+      "correct_choice": "b",
+      "n_options": 3,
+      "novel_stems": [
+        "slest",
+        "tork"
+      ]
+    },
+    "rule_node_id": "RULE_EN_SCALAR_UNIVERSAL",
+    "source": "Grice 1975; Levinson 2000 (novel-lexical adaptation)",
+    "minimal_pair_of": "en-scl-nov-002a",
+    "notes": "Control: 'all' does not implicate not-all. The last option is the universal reading.",
+    "language": "en",
+    "verification_method": "forced_choice_truth_conditional",
+    "lexical_pair_of": "en-scl-002b",
+    "alternate_prompt": "A speaker said: 'All of the slests were torked.' Which reading is the pragmatic message of this utterance? (a) At least one slest was torked, but not all of them, (b) Every slest was torked, or (c) At least one slest was torked, and possibly all of them. Reply with the letter alone."
+  }
+]

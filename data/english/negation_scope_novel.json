@@ -1,0 +1,210 @@
+[
+  {
+    "id": "en-neg-nov-001a",
+    "lexical_condition": "novel",
+    "tier": "tier_2_clausal",
+    "phenomenon": "negation_scope",
+    "language": "en",
+    "prompt": "Read the sentence: 'Not all the glorbs vorped.' Does this mean: (a) all glorbs vorped, (b) no glorb vorped, or (c) at least one glorb did not vorp? Respond with only the letter, no explanation.",
+    "gold_structure": {
+      "negation_governor": "vorped",
+      "scope_subtree": "all the glorbs ... vorped",
+      "correct_choice": "c",
+      "novel_stems": [
+        "glorb",
+        "vorp"
+      ],
+      "n_options": 3
+    },
+    "rule_node_id": "RULE_EN_NEG_SCOPE",
+    "verification_method": "forced_choice_truth_conditional",
+    "difficulty": "hard",
+    "source": "ScoNe 2023 (novel-lexical adaptation)",
+    "minimal_pair_of": "en-neg-nov-001b",
+    "notes": "novel-verb/noun replication of en-neg-001a (Berko 1958). Real function words and quantifiers; invented content words with regular -ed past. Gold is the not-all reading (at least one did not V), not 'at least one did V', which not-all does not entail.",
+    "lexical_pair_of": "en-neg-001a",
+    "alternate_prompt": "What follows from this sentence: 'Not all the glorbs vorped.' Does this mean: (a) all glorbs vorped, (b) no glorb vorped, or (c) at least one glorb did not vorp? Reply with the letter alone."
+  },
+  {
+    "id": "en-neg-nov-001b",
+    "lexical_condition": "novel",
+    "tier": "tier_2_clausal",
+    "phenomenon": "negation_scope",
+    "language": "en",
+    "prompt": "Read the sentence: 'None of the glorbs vorped.' Does this mean: (a) no glorb vorped, (b) at least one glorb did not vorp, or (c) all glorbs vorped? Respond with only the letter, no explanation.",
+    "gold_structure": {
+      "negation_governor": "vorped",
+      "scope_subtree": "none of the glorbs ... vorped",
+      "correct_choice": "a",
+      "novel_stems": [
+        "glorb",
+        "vorp"
+      ],
+      "n_options": 3
+    },
+    "rule_node_id": "RULE_EN_NEG_UNIVERSAL_QUANT",
+    "verification_method": "forced_choice_truth_conditional",
+    "difficulty": "hard",
+    "source": "ScoNe 2023 (novel-lexical adaptation)",
+    "minimal_pair_of": "en-neg-nov-001a",
+    "notes": "Minimal pair for en-neg-nov-001a: 'none of' negates an existential, so the correct reading is that no glorb vorped, not the not-all reading.",
+    "lexical_pair_of": "en-neg-001b",
+    "alternate_prompt": "What follows from this sentence: 'None of the glorbs vorped.' Does this mean: (a) no glorb vorped, (b) at least one glorb did not vorp, or (c) all glorbs vorped? Reply with the letter alone."
+  },
+  {
+    "id": "en-neg-nov-002a",
+    "lexical_condition": "novel",
+    "tier": "tier_2_clausal",
+    "phenomenon": "negation_scope",
+    "language": "en",
+    "prompt": "Read the sentence: 'Not all the swufs zibbed.' Does this mean: (a) no swuf zibbed, (b) at least one swuf did not zib, or (c) all swufs zibbed? Respond with only the letter, no explanation.",
+    "gold_structure": {
+      "negation_governor": "zibbed",
+      "scope_subtree": "all the swufs ... zibbed",
+      "correct_choice": "b",
+      "novel_stems": [
+        "swuf",
+        "zib"
+      ],
+      "n_options": 3
+    },
+    "rule_node_id": "RULE_EN_NEG_SCOPE",
+    "verification_method": "forced_choice_truth_conditional",
+    "difficulty": "hard",
+    "source": "ScoNe 2023 (novel-lexical adaptation)",
+    "minimal_pair_of": "en-neg-nov-002b",
+    "notes": "Second lexical instantiation of RULE_EN_NEG_SCOPE with a new regular -ed novel verb and regular -s novel noun.",
+    "lexical_pair_of": "en-neg-002a",
+    "alternate_prompt": "What follows from this sentence: 'Not all the swufs zibbed.' Does this mean: (a) no swuf zibbed, (b) at least one swuf did not zib, or (c) all swufs zibbed? Reply with the letter alone."
+  },
+  {
+    "id": "en-neg-nov-002b",
+    "lexical_condition": "novel",
+    "tier": "tier_2_clausal",
+    "phenomenon": "negation_scope",
+    "language": "en",
+    "prompt": "Read the sentence: 'None of the swufs zibbed.' Does this mean: (a) at least one swuf did not zib, (b) all swufs zibbed, or (c) no swuf zibbed? Respond with only the letter, no explanation.",
+    "gold_structure": {
+      "negation_governor": "zibbed",
+      "scope_subtree": "none of the swufs ... zibbed",
+      "correct_choice": "c",
+      "novel_stems": [
+        "swuf",
+        "zib"
+      ],
+      "n_options": 3
+    },
+    "rule_node_id": "RULE_EN_NEG_UNIVERSAL_QUANT",
+    "verification_method": "forced_choice_truth_conditional",
+    "difficulty": "hard",
+    "source": "ScoNe 2023 (novel-lexical adaptation)",
+    "minimal_pair_of": "en-neg-nov-002a",
+    "notes": "Second lexical instantiation of RULE_EN_NEG_UNIVERSAL_QUANT, paired with en-neg-nov-002a.",
+    "lexical_pair_of": "en-neg-002b",
+    "alternate_prompt": "What follows from this sentence: 'None of the swufs zibbed.' Does this mean: (a) at least one swuf did not zib, (b) all swufs zibbed, or (c) no swuf zibbed? Reply with the letter alone."
+  },
+  {
+    "id": "en-neg-nov-003a",
+    "lexical_condition": "novel",
+    "tier": "tier_2_clausal",
+    "phenomenon": "negation_scope",
+    "language": "en",
+    "prompt": "Read the sentence: 'Not all the queebs lorked.' Does this mean: (a) at least one queeb did not lork, (b) all queebs lorked, or (c) no queeb lorked? Respond with only the letter, no explanation.",
+    "gold_structure": {
+      "negation_governor": "lorked",
+      "scope_subtree": "all the queebs ... lorked",
+      "correct_choice": "a",
+      "novel_stems": [
+        "queeb",
+        "lork"
+      ],
+      "n_options": 3
+    },
+    "rule_node_id": "RULE_EN_NEG_SCOPE",
+    "verification_method": "forced_choice_truth_conditional",
+    "difficulty": "hard",
+    "source": "ScoNe 2023 (novel-lexical adaptation)",
+    "minimal_pair_of": "en-neg-nov-003b",
+    "notes": "Third regular -ed novel-word pair. Function words stay real so the contrast is lexical unfamiliarity, not missing closed-class morphology.",
+    "lexical_pair_of": "en-neg-003a",
+    "alternate_prompt": "What follows from this sentence: 'Not all the queebs lorked.' Does this mean: (a) at least one queeb did not lork, (b) all queebs lorked, or (c) no queeb lorked? Reply with the letter alone."
+  },
+  {
+    "id": "en-neg-nov-003b",
+    "lexical_condition": "novel",
+    "tier": "tier_2_clausal",
+    "phenomenon": "negation_scope",
+    "language": "en",
+    "prompt": "Read the sentence: 'None of the queebs lorked.' Does this mean: (a) all queebs lorked, (b) no queeb lorked, or (c) at least one queeb did not lork? Respond with only the letter, no explanation.",
+    "gold_structure": {
+      "negation_governor": "lorked",
+      "scope_subtree": "none of the queebs ... lorked",
+      "correct_choice": "b",
+      "novel_stems": [
+        "queeb",
+        "lork"
+      ],
+      "n_options": 3
+    },
+    "rule_node_id": "RULE_EN_NEG_UNIVERSAL_QUANT",
+    "verification_method": "forced_choice_truth_conditional",
+    "difficulty": "hard",
+    "source": "ScoNe 2023 (novel-lexical adaptation)",
+    "minimal_pair_of": "en-neg-nov-003a",
+    "notes": "Paired with en-neg-nov-003a. 'None of' selects the universal-negative reading.",
+    "lexical_pair_of": "en-neg-003b",
+    "alternate_prompt": "What follows from this sentence: 'None of the queebs lorked.' Does this mean: (a) all queebs lorked, (b) no queeb lorked, or (c) at least one queeb did not lork? Reply with the letter alone."
+  },
+  {
+    "id": "en-neg-nov-004a",
+    "lexical_condition": "novel",
+    "tier": "tier_2_clausal",
+    "phenomenon": "negation_scope",
+    "language": "en",
+    "prompt": "Read the sentence: 'Not all the kleks plimped.' Does this mean: (a) all kleks plimped, (b) no klek plimped, or (c) at least one klek did not plimp? Respond with only the letter, no explanation.",
+    "gold_structure": {
+      "negation_governor": "plimped",
+      "scope_subtree": "all the kleks ... plimped",
+      "correct_choice": "c",
+      "novel_stems": [
+        "klek",
+        "plimp"
+      ],
+      "n_options": 3
+    },
+    "rule_node_id": "RULE_EN_NEG_SCOPE",
+    "verification_method": "forced_choice_truth_conditional",
+    "difficulty": "hard",
+    "source": "ScoNe 2023 (novel-lexical adaptation)",
+    "minimal_pair_of": "en-neg-nov-004b",
+    "notes": "Fourth regular -ed novel-word pair, so the novel negation axis is not a single-verb result.",
+    "lexical_pair_of": "en-neg-004a",
+    "alternate_prompt": "What follows from this sentence: 'Not all the kleks plimped.' Does this mean: (a) all kleks plimped, (b) no klek plimped, or (c) at least one klek did not plimp? Reply with the letter alone."
+  },
+  {
+    "id": "en-neg-nov-004b",
+    "lexical_condition": "novel",
+    "tier": "tier_2_clausal",
+    "phenomenon": "negation_scope",
+    "language": "en",
+    "prompt": "Read the sentence: 'None of the kleks plimped.' Does this mean: (a) no klek plimped, (b) at least one klek did not plimp, or (c) all kleks plimped? Respond with only the letter, no explanation.",
+    "gold_structure": {
+      "negation_governor": "plimped",
+      "scope_subtree": "none of the kleks ... plimped",
+      "correct_choice": "a",
+      "novel_stems": [
+        "klek",
+        "plimp"
+      ],
+      "n_options": 3
+    },
+    "rule_node_id": "RULE_EN_NEG_UNIVERSAL_QUANT",
+    "verification_method": "forced_choice_truth_conditional",
+    "difficulty": "hard",
+    "source": "ScoNe 2023 (novel-lexical adaptation)",
+    "minimal_pair_of": "en-neg-nov-004a",
+    "notes": "Paired with en-neg-nov-004a.",
+    "lexical_pair_of": "en-neg-004b",
+    "alternate_prompt": "What follows from this sentence: 'None of the kleks plimped.' Does this mean: (a) no klek plimped, (b) at least one klek did not plimp, or (c) all kleks plimped? Reply with the letter alone."
+  }
+]

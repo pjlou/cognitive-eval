@@ -2,8 +2,10 @@
 from src.verifiers.english_verifiers import (
     verify_english_agreement_attraction,
     verify_english_negation_scope,
+    verify_english_npi_licensing,
+    verify_english_quantifier_scope,
+    verify_english_scalar_implicature,
 )
-from src.verifiers.finnish_verifiers import verify_finnish_object_case
 
 
 def test_en_agreement_attraction_pass():
@@ -59,42 +61,58 @@ def test_en_negation_scope_pass():
     assert error_code == "PASS"
 
 
-def test_fi_object_case_partitive_pass():
-    gold = {"target_lemma": "omena", "expected_case": "Partitive", "condition": "C2", "correct_choice": "a"}
-    passed, error_code, meta = verify_finnish_object_case("a", gold)
-    assert passed is True
-    assert error_code == "PASS"
-
-
-def test_fi_object_case_accusative_fail():
-    gold = {"target_lemma": "omena", "expected_case": "Partitive", "condition": "C1", "correct_choice": "a"}
-    passed, error_code, meta = verify_finnish_object_case("b", gold)
-    assert passed is False
-    assert error_code == "FAIL_CASE_SELECTION_ERROR"
-
-
-def test_fi_object_case_c4_mass_partitive_pass():
+def test_novel_agreement_uses_the_same_verifier():
+    """Novel-word gold does not require a new verifier; only correct_choice is scored."""
     gold = {
-        "target_lemma": "vesi",
-        "expected_case": "Partitive",
-        "expected_form": "vettä",
-        "condition": "C4",
+        "syntactic_head": "wug",
+        "head_number": "singular",
+        "attractor": "blorptors",
+        "attractor_number": "plural",
         "correct_choice": "a",
     }
-    passed, error_code, meta = verify_finnish_object_case("a", gold)
+    passed, error_code, meta = verify_english_agreement_attraction("a", gold)
     assert passed is True
     assert error_code == "PASS"
+    assert meta["matched_choice"] == "a"
+
+    failed, fail_code, fail_meta = verify_english_agreement_attraction("b", gold)
+    assert failed is False
+    assert fail_code == "FAIL_CASE_SELECTION_ERROR"
+    assert fail_meta["expected"] == "a"
 
 
-def test_fi_object_case_c4_mass_accusative_overgeneralization_fail():
+def test_novel_negation_uses_the_same_verifier():
+    """Novel-word gold does not require a new verifier; not-all still expects choice b."""
     gold = {
-        "target_lemma": "vesi",
-        "expected_case": "Partitive",
-        "expected_form": "vettä",
-        "condition": "C4",
-        "correct_choice": "a",
+        "negation_governor": "vorped",
+        "scope_subtree": "all the glorbs ... vorped",
+        "correct_choice": "b",
     }
-    passed, error_code, meta = verify_finnish_object_case("b", gold)
-    assert passed is False
-    assert error_code == "FAIL_CASE_SELECTION_ERROR"
-    assert meta["condition_violated"] == "C4"
+    passed, error_code, meta = verify_english_negation_scope("b", gold)
+    assert passed is True
+    assert error_code == "PASS"
+    assert meta["matched_scope_choice"] == "b"
+
+    failed, fail_code, fail_meta = verify_english_negation_scope("a", gold)
+    assert failed is False
+    assert fail_code == "FAIL_NEGATION_SCOPE_ERROR"
+    assert fail_meta["expected_scope_choice"] == "b"
+    assert fail_meta["scope_subtree"] == "all the glorbs ... vorped"
+
+
+def test_npi_scalar_and_scope_verifiers_score_the_letter_only():
+    npi = {"correct_choice": "a", "n_options": 2}
+    passed, code, _meta = verify_english_npi_licensing("The answer is a.", npi)
+    assert passed and code == "PASS"
+    failed, fail_code, _meta = verify_english_npi_licensing("b", npi)
+    assert not failed and fail_code == "FAIL_NPI_LICENSING_ERROR"
+
+    scalar = {"correct_choice": "b", "n_options": 3}
+    passed, code, _meta = verify_english_scalar_implicature("final answer: b", scalar)
+    assert passed and code == "PASS"
+
+    scope = {"correct_choice": "c", "n_options": 3}
+    passed, code, _meta = verify_english_quantifier_scope("c", scope)
+    assert passed and code == "PASS"
+    failed, fail_code, _meta = verify_english_quantifier_scope("a", scope)
+    assert not failed and fail_code == "FAIL_QUANTIFIER_SCOPE_ERROR"

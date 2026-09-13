@@ -1,0 +1,234 @@
+[
+  {
+    "id": "en-agr-nov-001a",
+    "lexical_condition": "novel",
+    "tier": "tier_1_morphological",
+    "phenomenon": "agreement_attraction",
+    "language": "en",
+    "prompt": "Complete the sentence 'The wug of the blorptors ___ nearby.' (a) is or (b) are. Respond with only the letter, no explanation.",
+    "template": "The wug of the blorptors {verb} nearby.",
+    "gold_structure": {
+      "syntactic_head": "wug",
+      "head_number": "singular",
+      "attractor": "blorptors",
+      "attractor_number": "plural",
+      "correct_choice": "a",
+      "novel_stems": [
+        "wug",
+        "blorptor"
+      ],
+      "n_options": 2
+    },
+    "rule_node_id": "RULE_EN_AGR_HEAD",
+    "verification_method": "forced_choice_truth_conditional",
+    "difficulty": "medium",
+    "source": "Bock & Miller 1991 (novel-lexical adaptation)",
+    "minimal_pair_of": "en-agr-nov-001b",
+    "notes": "Novel-noun replication of en-agr-001a (Berko 1958 wug-test paradigm). Real determiners/prepositions/copula, invented nouns with regular -s plural, to isolate structural agreement from lexical familiarity.",
+    "lexical_pair_of": "en-agr-001a",
+    "alternate_prompt": "Which verb form correctly completes 'The wug of the blorptors ___ nearby.' (a) is or (b) are. Reply with the letter alone."
+  },
+  {
+    "id": "en-agr-nov-001b",
+    "lexical_condition": "novel",
+    "tier": "tier_1_morphological",
+    "phenomenon": "agreement_attraction",
+    "language": "en",
+    "prompt": "Complete the sentence 'The wugs of the blorptor ___ nearby.' (a) is or (b) are. Respond with only the letter, no explanation.",
+    "template": "The wugs of the blorptor {verb} nearby.",
+    "gold_structure": {
+      "syntactic_head": "wugs",
+      "head_number": "plural",
+      "attractor": "blorptor",
+      "attractor_number": "singular",
+      "correct_choice": "b",
+      "novel_stems": [
+        "wug",
+        "blorptor"
+      ],
+      "n_options": 2
+    },
+    "rule_node_id": "RULE_EN_AGR_HEAD",
+    "verification_method": "forced_choice_truth_conditional",
+    "difficulty": "medium",
+    "source": "Bock & Miller 1991 (novel-lexical adaptation)",
+    "minimal_pair_of": "en-agr-nov-001a",
+    "notes": "Number-flipped pair of en-agr-nov-001a. Plural head with a singular novel-word attractor, regular -s morphology only (Berko 1958).",
+    "lexical_pair_of": "en-agr-001b",
+    "alternate_prompt": "Which verb form correctly completes 'The wugs of the blorptor ___ nearby.' (a) is or (b) are. Reply with the letter alone."
+  },
+  {
+    "id": "en-agr-nov-002a",
+    "lexical_condition": "novel",
+    "tier": "tier_1_morphological",
+    "phenomenon": "agreement_attraction",
+    "language": "en",
+    "prompt": "Complete the sentence 'The glorp of the zanths ___ missing.' (a) is or (b) are. Respond with only the letter, no explanation.",
+    "template": "The glorp of the zanths {verb} missing.",
+    "gold_structure": {
+      "syntactic_head": "glorp",
+      "head_number": "singular",
+      "attractor": "zanths",
+      "attractor_number": "plural",
+      "correct_choice": "a",
+      "novel_stems": [
+        "glorp",
+        "zanth"
+      ],
+      "n_options": 2
+    },
+    "rule_node_id": "RULE_EN_AGR_HEAD",
+    "verification_method": "forced_choice_truth_conditional",
+    "difficulty": "medium",
+    "source": "Bock & Miller 1991 (novel-lexical adaptation)",
+    "minimal_pair_of": "en-agr-nov-002b",
+    "notes": "Second lexical instantiation of RULE_EN_AGR_HEAD with regular -s novel-word nouns, so the novel condition is not validated on a single stem (Berko 1958).",
+    "lexical_pair_of": "en-agr-002a",
+    "alternate_prompt": "Which verb form correctly completes 'The glorp of the zanths ___ missing.' (a) is or (b) are. Reply with the letter alone."
+  },
+  {
+    "id": "en-agr-nov-002b",
+    "lexical_condition": "novel",
+    "tier": "tier_1_morphological",
+    "phenomenon": "agreement_attraction",
+    "language": "en",
+    "prompt": "Complete the sentence 'The glorps of the zanth ___ missing.' (a) is or (b) are. Respond with only the letter, no explanation.",
+    "template": "The glorps of the zanth {verb} missing.",
+    "gold_structure": {
+      "syntactic_head": "glorps",
+      "head_number": "plural",
+      "attractor": "zanth",
+      "attractor_number": "singular",
+      "correct_choice": "b",
+      "novel_stems": [
+        "glorp",
+        "zanth"
+      ],
+      "n_options": 2
+    },
+    "rule_node_id": "RULE_EN_AGR_HEAD",
+    "verification_method": "forced_choice_truth_conditional",
+    "difficulty": "medium",
+    "source": "Bock & Miller 1991 (novel-lexical adaptation)",
+    "minimal_pair_of": "en-agr-nov-002a",
+    "notes": "Number-flipped pair of en-agr-nov-002a. Regular -s plural on the head, singular novel-word attractor.",
+    "lexical_pair_of": "en-agr-002b",
+    "alternate_prompt": "Which verb form correctly completes 'The glorps of the zanth ___ missing.' (a) is or (b) are. Reply with the letter alone."
+  },
+  {
+    "id": "en-agr-nov-003a",
+    "lexical_condition": "novel",
+    "tier": "tier_1_morphological",
+    "phenomenon": "agreement_attraction",
+    "language": "en",
+    "prompt": "Complete the sentence 'The snorp beside the flimms ___ ready.' (a) is or (b) are. Respond with only the letter, no explanation.",
+    "template": "The snorp beside the flimms {verb} ready.",
+    "gold_structure": {
+      "syntactic_head": "snorp",
+      "head_number": "singular",
+      "attractor": "flimms",
+      "attractor_number": "plural",
+      "correct_choice": "a",
+      "novel_stems": [
+        "snorp",
+        "flimm"
+      ],
+      "n_options": 2
+    },
+    "rule_node_id": "RULE_EN_AGR_HEAD",
+    "verification_method": "forced_choice_truth_conditional",
+    "difficulty": "medium",
+    "source": "Bock & Miller 1991 (novel-lexical adaptation)",
+    "minimal_pair_of": "en-agr-nov-003b",
+    "notes": "Same head-agreement rule with a different real preposition ('beside') and a new regular -s novel-word pair, so the contrast is not tied to 'of'.",
+    "lexical_pair_of": "en-agr-003a",
+    "alternate_prompt": "Which verb form correctly completes 'The snorp beside the flimms ___ ready.' (a) is or (b) are. Reply with the letter alone."
+  },
+  {
+    "id": "en-agr-nov-003b",
+    "lexical_condition": "novel",
+    "tier": "tier_1_morphological",
+    "phenomenon": "agreement_attraction",
+    "language": "en",
+    "prompt": "Complete the sentence 'The snorps beside the flimm ___ ready.' (a) is or (b) are. Respond with only the letter, no explanation.",
+    "template": "The snorps beside the flimm {verb} ready.",
+    "gold_structure": {
+      "syntactic_head": "snorps",
+      "head_number": "plural",
+      "attractor": "flimm",
+      "attractor_number": "singular",
+      "correct_choice": "b",
+      "novel_stems": [
+        "snorp",
+        "flimm"
+      ],
+      "n_options": 2
+    },
+    "rule_node_id": "RULE_EN_AGR_HEAD",
+    "verification_method": "forced_choice_truth_conditional",
+    "difficulty": "medium",
+    "source": "Bock & Miller 1991 (novel-lexical adaptation)",
+    "minimal_pair_of": "en-agr-nov-003a",
+    "notes": "Number-flipped pair of en-agr-nov-003a.",
+    "lexical_pair_of": "en-agr-003b",
+    "alternate_prompt": "Which verb form correctly completes 'The snorps beside the flimm ___ ready.' (a) is or (b) are. Reply with the letter alone."
+  },
+  {
+    "id": "en-agr-nov-004a",
+    "lexical_condition": "novel",
+    "tier": "tier_1_morphological",
+    "phenomenon": "agreement_attraction",
+    "language": "en",
+    "prompt": "Complete the sentence 'The borgle under the sneps ___ visible.' (a) is or (b) are. Respond with only the letter, no explanation.",
+    "template": "The borgle under the sneps {verb} visible.",
+    "gold_structure": {
+      "syntactic_head": "borgle",
+      "head_number": "singular",
+      "attractor": "sneps",
+      "attractor_number": "plural",
+      "correct_choice": "a",
+      "novel_stems": [
+        "borgle",
+        "snep"
+      ],
+      "n_options": 2
+    },
+    "rule_node_id": "RULE_EN_AGR_HEAD",
+    "verification_method": "forced_choice_truth_conditional",
+    "difficulty": "medium",
+    "source": "Bock & Miller 1991 (novel-lexical adaptation)",
+    "minimal_pair_of": "en-agr-nov-004b",
+    "notes": "Fourth regular -s novel-word pair. Real preposition 'under'; invented nouns only, so agreement cannot be retrieved from a memorized collocation.",
+    "lexical_pair_of": "en-agr-004a",
+    "alternate_prompt": "Which verb form correctly completes 'The borgle under the sneps ___ visible.' (a) is or (b) are. Reply with the letter alone."
+  },
+  {
+    "id": "en-agr-nov-004b",
+    "lexical_condition": "novel",
+    "tier": "tier_1_morphological",
+    "phenomenon": "agreement_attraction",
+    "language": "en",
+    "prompt": "Complete the sentence 'The borgles under the snep ___ visible.' (a) is or (b) are. Respond with only the letter, no explanation.",
+    "template": "The borgles under the snep {verb} visible.",
+    "gold_structure": {
+      "syntactic_head": "borgles",
+      "head_number": "plural",
+      "attractor": "snep",
+      "attractor_number": "singular",
+      "correct_choice": "b",
+      "novel_stems": [
+        "borgle",
+        "snep"
+      ],
+      "n_options": 2
+    },
+    "rule_node_id": "RULE_EN_AGR_HEAD",
+    "verification_method": "forced_choice_truth_conditional",
+    "difficulty": "medium",
+    "source": "Bock & Miller 1991 (novel-lexical adaptation)",
+    "minimal_pair_of": "en-agr-nov-004a",
+    "notes": "Number-flipped pair of en-agr-nov-004a. Regular -s plural; no irregular stem change.",
+    "lexical_pair_of": "en-agr-004b",
+    "alternate_prompt": "Which verb form correctly completes 'The borgles under the snep ___ visible.' (a) is or (b) are. Reply with the letter alone."
+  }
+]

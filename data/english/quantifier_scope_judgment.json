@@ -1,0 +1,47 @@
+[
+  {
+    "id": "en-comp-judge-001",
+    "lexical_condition": "natural",
+    "tier": "tier_3_extension",
+    "phenomenon": "quantifier_scope_judgment",
+    "difficulty": "hard",
+    "verification_method": "llm_judge",
+    "prompt": "Explain whether this most naturally supports a surface reading (every > some) or an inverse reading (some > every), and justify your answer. Sentence: 'Every student read some book. It was the same book for everyone.'",
+    "gold_structure": {
+      "intended_reading": "inverse",
+      "continuation": "the same book for everyone"
+    },
+    "rule_node_id": "RULE_EN_QSCOPE_INVERSE",
+    "source": "Ioup 1975; Anderson 2004",
+    "judge_rubric": "Score 1.0 if the response identifies the inverse-scope reading (some > every: there is one book that every student read) as required by the continuation, and justifies that reading from 'the same book for everyone'. Score 0.0 if it treats surface scope (every > some: different books allowed) as required, or gives no coherent justification. Confidence should reflect how unambiguous the explanation is.",
+    "notes": "Stage 3 item: the continuation forces inverse scope, but the response is a justification, not a letter. If humans would not converge, the context is not yet disambiguating enough.",
+    "language": "en",
+    "lexical_pair_of": "en-comp-judge-nov-001",
+    "alternate_prompt": "In your own words, say whether the continuation requires a surface reading (every > some) or an inverse reading (some > every), and justify your answer. Sentence: 'Every student read some book. It was the same book for everyone.'"
+  },
+  {
+    "id": "en-comp-judge-nov-001",
+    "lexical_condition": "novel",
+    "tier": "tier_3_extension",
+    "phenomenon": "quantifier_scope_judgment",
+    "difficulty": "hard",
+    "verification_method": "llm_judge",
+    "prompt": "Explain whether this most naturally supports a surface reading (every > some) or an inverse reading (some > every), and justify your answer. Sentence: 'Every frik brerped some swok. It was the same swok for every frik.'",
+    "gold_structure": {
+      "intended_reading": "inverse",
+      "continuation": "the same swok for every frik",
+      "novel_stems": [
+        "frik",
+        "swok",
+        "brerp"
+      ]
+    },
+    "rule_node_id": "RULE_EN_QSCOPE_INVERSE",
+    "source": "Ioup 1975; Anderson 2004 (novel-lexical adaptation)",
+    "judge_rubric": "Score 1.0 if the response identifies the inverse-scope reading (some > every: there is one swok that every frik brerped) as required by the continuation, and justifies that reading from 'the same swok for every frik'. Score 0.0 if it treats surface scope (every > some: different swoks allowed) as required, or gives no coherent justification. Confidence should reflect how unambiguous the explanation is. Invented nouns do not change the scope rule.",
+    "notes": "Novel-lexical Stage 3 twin. Invented words cannot have been memorized from a scope textbook example.",
+    "language": "en",
+    "lexical_pair_of": "en-comp-judge-001",
+    "alternate_prompt": "In your own words, say whether the continuation requires a surface reading (every > some) or an inverse reading (some > every), and justify your answer. Sentence: 'Every frik brerped some swok. It was the same swok for every frik.'"
+  }
+]

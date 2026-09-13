@@ -4,15 +4,15 @@ Free-form generation prompts for Cascade Stage 2 (statistical failure discovery)
 
 These are deliberately NOT multiple-choice and NOT scored against a gold
 label. They exist to produce open-ended text that can be embedded and
-clustered to surface failure patterns we haven't already written a Tier 1
-rule for -- including patterns tied to lexical items and phrasings that
-don't appear anywhere in the graded dataset.
+clustered to surface failure patterns we haven't already written a rule
+for -- including patterns tied to lexical items and phrasings that don't
+appear anywhere in the graded dataset.
 
-Two families, mirroring the two Finnish phenomena already in the graded
-suite, but deliberately using nouns/quantifiers NOT already covered there
-(the graded set uses omena/kirja/vesi and kaikki/kukaan -- this set uses
-different lexical items so discovered clusters aren't just re-finding
-memorized graded examples).
+Two phenomenon families (agreement completion and negation paraphrase),
+each split into natural-vocabulary and novel-vocabulary prompts. That
+mirrors the graded natural/novel axis without recycling its nouns or
+verbs, so a discovered cluster is a new observation rather than a
+rediscovery of a scored item.
 """
 
 from typing import NamedTuple
@@ -20,60 +20,132 @@ from typing import NamedTuple
 
 class DiscoveryPrompt(NamedTuple):
     id: str
-    family: str  # "case_completion" | "negation_paraphrase"
+    family: str  # "agreement_completion" | "negation_paraphrase"
+    lexical_condition: str  # "natural" | "novel"
     prompt: str
 
 
 FREE_GENERATION_PROMPTS: list[DiscoveryPrompt] = [
-    # --- Free object-case completion (no options given) ---------------
-    # Atelic / ongoing contexts -> partitive expected
-    DiscoveryPrompt("disc-case-001", "case_completion",
-        "Täytä lause luonnollisesti suomeksi: 'Söin ___ (kala).' "
-        "Vastaa vain täydennetyllä sanalla."),
-    DiscoveryPrompt("disc-case-002", "case_completion",
-        "Täytä lause luonnollisesti suomeksi: 'Join ___ (mehu).' "
-        "Vastaa vain täydennetyllä sanalla."),
-    # Telic / completed contexts -> accusative expected
-    DiscoveryPrompt("disc-case-003", "case_completion",
-        "Täytä lause luonnollisesti suomeksi, kun teko on valmis: "
-        "'Söin koko ___ (kala) illalliseksi.' Vastaa vain täydennetyllä sanalla."),
-    DiscoveryPrompt("disc-case-004", "case_completion",
-        "Täytä lause luonnollisesti suomeksi, kun teko on valmis: "
-        "'Luin ___ (lehti) kokonaan.' Vastaa vain täydennetyllä sanalla."),
-    # Negated contexts -> partitive expected regardless of telicity
-    DiscoveryPrompt("disc-case-005", "case_completion",
-        "Täytä kielteinen lause luonnollisesti suomeksi: 'En syönyt ___ (kala).' "
-        "Vastaa vain täydennetyllä sanalla."),
-    DiscoveryPrompt("disc-case-006", "case_completion",
-        "Täytä kielteinen lause luonnollisesti suomeksi: 'En lukenut ___ (lehti).' "
-        "Vastaa vain täydennetyllä sanalla."),
-    # Mass-noun / unquantized objects -> partitive expected even if telic-sounding
-    DiscoveryPrompt("disc-case-007", "case_completion",
-        "Täytä lause luonnollisesti suomeksi: 'Join koko illan ___ (vesi).' "
-        "Vastaa vain täydennetyllä sanalla."),
+    # --- Natural agreement completion (no options given) ---------------
+    # Lexical items are not in the graded natural set (list/key/report/cabinet).
+    DiscoveryPrompt(
+        "disc-agr-nat-001",
+        "agreement_completion",
+        "natural",
+        "Complete the sentence with the form of 'be' that sounds natural: "
+        "'The captain of the ships ___ delayed.' Reply with only the completed sentence.",
+    ),
+    DiscoveryPrompt(
+        "disc-agr-nat-002",
+        "agreement_completion",
+        "natural",
+        "Complete the sentence with the form of 'be' that sounds natural: "
+        "'The label on the bottles ___ torn.' Reply with only the completed sentence.",
+    ),
+    DiscoveryPrompt(
+        "disc-agr-nat-003",
+        "agreement_completion",
+        "natural",
+        "Complete the sentence with the form of 'be' that sounds natural: "
+        "'The handles of the drawer ___ loose.' Reply with only the completed sentence.",
+    ),
+    DiscoveryPrompt(
+        "disc-agr-nat-004",
+        "agreement_completion",
+        "natural",
+        "Complete the sentence with the form of 'be' that sounds natural: "
+        "'The cover of the manuals ___ missing.' Reply with only the completed sentence.",
+    ),
 
-    # --- Free negation-scope paraphrase (no options given) -------------
-    # kaikki (universal) negated -> "not all" reading expected
-    DiscoveryPrompt("disc-neg-001", "negation_paraphrase",
-        "Selitä omin sanoin englanniksi, mitä tämä lause tarkoittaa: "
-        "'Kaikki eivät tulleet juhliin.'"),
-    DiscoveryPrompt("disc-neg-002", "negation_paraphrase",
-        "Selitä omin sanoin englanniksi, mitä tämä lause tarkoittaa: "
-        "'Kaikki oppilaat eivät osanneet vastausta.'"),
-    # kukaan (negative-polarity existential) negated -> "none" reading expected
-    DiscoveryPrompt("disc-neg-003", "negation_paraphrase",
-        "Selitä omin sanoin englanniksi, mitä tämä lause tarkoittaa: "
-        "'Kukaan ei tullut juhliin.'"),
-    DiscoveryPrompt("disc-neg-004", "negation_paraphrase",
-        "Selitä omin sanoin englanniksi, mitä tämä lause tarkoittaa: "
-        "'Kukaan oppilaista ei osannut vastausta.'"),
-    # moni / harva -- quantifiers NOT covered anywhere in the graded set;
-    # included specifically to see whether new, ungraded failure patterns
-    # show up on quantifiers the rule graph has no node for yet.
-    DiscoveryPrompt("disc-neg-005", "negation_paraphrase",
-        "Selitä omin sanoin englanniksi, mitä tämä lause tarkoittaa: "
-        "'Monet eivät tulleet juhliin.'"),
-    DiscoveryPrompt("disc-neg-006", "negation_paraphrase",
-        "Selitä omin sanoin englanniksi, mitä tämä lause tarkoittaa: "
-        "'Harvat oppilaat osasivat vastauksen.'"),
+    # --- Novel agreement completion: real function words, invented nouns
+    # Novel-word stems are not in the graded novel set.
+    DiscoveryPrompt(
+        "disc-agr-nov-001",
+        "agreement_completion",
+        "novel",
+        "Complete the sentence with 'is' or 'are': "
+        "'The blick of the daxes ___ lost.' Reply with only the completed sentence.",
+    ),
+    DiscoveryPrompt(
+        "disc-agr-nov-002",
+        "agreement_completion",
+        "novel",
+        "Complete the sentence with 'is' or 'are': "
+        "'The toma beside the kazzes ___ broken.' Reply with only the completed sentence.",
+    ),
+    DiscoveryPrompt(
+        "disc-agr-nov-003",
+        "agreement_completion",
+        "novel",
+        "Complete the sentence with 'is' or 'are': "
+        "'The gazzes under the nizz ___ visible.' Reply with only the completed sentence.",
+    ),
+    DiscoveryPrompt(
+        "disc-agr-nov-004",
+        "agreement_completion",
+        "novel",
+        "Complete the sentence with 'is' or 'are': "
+        "'The blickets of the dax ___ ready.' Reply with only the completed sentence.",
+    ),
+
+    # --- Natural negation paraphrase (no options given) ----------------
+    # Quantifiers and nouns are not the graded 'not all students' / 'none of the buses' set.
+    DiscoveryPrompt(
+        "disc-neg-nat-001",
+        "negation_paraphrase",
+        "natural",
+        "Explain in your own words what this sentence means: "
+        "'Not every waiter arrived before the dinner.'",
+    ),
+    DiscoveryPrompt(
+        "disc-neg-nat-002",
+        "negation_paraphrase",
+        "natural",
+        "Explain in your own words what this sentence means: "
+        "'Not every parcel was opened yesterday.'",
+    ),
+    DiscoveryPrompt(
+        "disc-neg-nat-003",
+        "negation_paraphrase",
+        "natural",
+        "Explain in your own words what this sentence means: "
+        "'None of the doctors signed the form.'",
+    ),
+    DiscoveryPrompt(
+        "disc-neg-nat-004",
+        "negation_paraphrase",
+        "natural",
+        "Explain in your own words what this sentence means: "
+        "'None of the parcels were opened yesterday.'",
+    ),
+
+    # --- Novel negation paraphrase: real function words, invented content
+    DiscoveryPrompt(
+        "disc-neg-nov-001",
+        "negation_paraphrase",
+        "novel",
+        "Explain in your own words what this sentence means: "
+        "'Not all the blicks gazzed.'",
+    ),
+    DiscoveryPrompt(
+        "disc-neg-nov-002",
+        "negation_paraphrase",
+        "novel",
+        "Explain in your own words what this sentence means: "
+        "'Not all the tomas nizzed.'",
+    ),
+    DiscoveryPrompt(
+        "disc-neg-nov-003",
+        "negation_paraphrase",
+        "novel",
+        "Explain in your own words what this sentence means: "
+        "'None of the blicks gazzed.'",
+    ),
+    DiscoveryPrompt(
+        "disc-neg-nov-004",
+        "negation_paraphrase",
+        "novel",
+        "Explain in your own words what this sentence means: "
+        "'None of the tomas nizzed.'",
+    ),
 ]

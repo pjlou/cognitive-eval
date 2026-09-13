@@ -1,0 +1,86 @@
+[
+  {
+    "id": "en-scl-001a",
+    "lexical_condition": "natural",
+    "tier": "tier_2_clausal",
+    "phenomenon": "scalar_implicature",
+    "difficulty": "hard",
+    "prompt": "A speaker said: 'Some of the cookies were eaten.' What is the speaker most likely communicating? (a) At least one cookie was eaten, but not all of them, (b) No cookies were eaten, or (c) At least one cookie was eaten, and possibly all of them. Respond with only the letter, no explanation.",
+    "gold_structure": {
+      "scale": "some",
+      "correct_choice": "a",
+      "n_options": 3
+    },
+    "rule_node_id": "RULE_EN_SCALAR_SOME",
+    "source": "Grice 1975; Levinson 2000",
+    "minimal_pair_of": "en-scl-001b",
+    "notes": "Pragmatic reading of 'some' is not-all. 'Some' stays a real quantifier; open-class words may be novel.",
+    "language": "en",
+    "verification_method": "forced_choice_truth_conditional",
+    "lexical_pair_of": "en-scl-nov-001a",
+    "alternate_prompt": "A speaker said: 'Some of the cookies were eaten.' Which reading is the pragmatic message of this utterance? (a) At least one cookie was eaten, but not all of them, (b) No cookies were eaten, or (c) At least one cookie was eaten, and possibly all of them. Reply with the letter alone."
+  },
+  {
+    "id": "en-scl-001b",
+    "lexical_condition": "natural",
+    "tier": "tier_2_clausal",
+    "phenomenon": "scalar_implicature",
+    "difficulty": "hard",
+    "prompt": "A speaker said: 'All of the cookies were eaten.' What is the speaker most likely communicating? (a) At least one cookie was eaten, but not all of them, (b) Every cookie was eaten, or (c) At least one cookie was eaten, and possibly all of them. Respond with only the letter, no explanation.",
+    "gold_structure": {
+      "scale": "all",
+      "correct_choice": "b",
+      "n_options": 3
+    },
+    "rule_node_id": "RULE_EN_SCALAR_UNIVERSAL",
+    "source": "Grice 1975; Levinson 2000",
+    "minimal_pair_of": "en-scl-001a",
+    "notes": "Control: 'all' does not implicate not-all. The last option is the universal reading.",
+    "language": "en",
+    "verification_method": "forced_choice_truth_conditional",
+    "lexical_pair_of": "en-scl-nov-001b",
+    "alternate_prompt": "A speaker said: 'All of the cookies were eaten.' Which reading is the pragmatic message of this utterance? (a) At least one cookie was eaten, but not all of them, (b) Every cookie was eaten, or (c) At least one cookie was eaten, and possibly all of them. Reply with the letter alone."
+  },
+  {
+    "id": "en-scl-002a",
+    "lexical_condition": "natural",
+    "tier": "tier_2_clausal",
+    "phenomenon": "scalar_implicature",
+    "difficulty": "hard",
+    "prompt": "A speaker said: 'Some of the students passed.' What is the speaker most likely communicating? (a) No students passed, (b) At least one student passed, and possibly all of them, or (c) At least one student passed, but not all of them. Respond with only the letter, no explanation.",
+    "gold_structure": {
+      "scale": "some",
+      "correct_choice": "c",
+      "n_options": 3
+    },
+    "rule_node_id": "RULE_EN_SCALAR_SOME",
+    "source": "Grice 1975; Levinson 2000",
+    "minimal_pair_of": "en-scl-002b",
+    "notes": "Pragmatic reading of 'some' is not-all. 'Some' stays a real quantifier; open-class words may be novel.",
+    "language": "en",
+    "verification_method": "forced_choice_truth_conditional",
+    "lexical_pair_of": "en-scl-nov-002a",
+    "alternate_prompt": "A speaker said: 'Some of the students passed.' Which reading is the pragmatic message of this utterance? (a) No students passed, (b) At least one student passed, and possibly all of them, or (c) At least one student passed, but not all of them. Reply with the letter alone."
+  },
+  {
+    "id": "en-scl-002b",
+    "lexical_condition": "natural",
+    "tier": "tier_2_clausal",
+    "phenomenon": "scalar_implicature",
+    "difficulty": "hard",
+    "prompt": "A speaker said: 'All of the students passed.' What is the speaker most likely communicating? (a) Every student passed, (b) At least one student passed, and possibly all of them, or (c) At least one student passed, but not all of them. Respond with only the letter, no explanation.",
+    "gold_structure": {
+      "scale": "all",
+      "correct_choice": "a",
+      "n_options": 3
+    },
+    "rule_node_id": "RULE_EN_SCALAR_UNIVERSAL",
+    "source": "Grice 1975; Levinson 2000",
+    "minimal_pair_of": "en-scl-002a",
+    "notes": "Control: 'all' does not implicate not-all. The last option is the universal reading.",
+    "language": "en",
+    "verification_method": "forced_choice_truth_conditional",
+    "lexical_pair_of": "en-scl-nov-002b",
+    "alternate_prompt": "A speaker said: 'All of the students passed.' Which reading is the pragmatic message of this utterance? (a) Every student passed, (b) At least one student passed, and possibly all of them, or (c) At least one student passed, but not all of them. Reply with the letter alone."
+  }
+]

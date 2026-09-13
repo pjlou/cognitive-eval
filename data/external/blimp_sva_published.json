@@ -1,0 +1,33 @@
+{
+  "phenomenon": "subject_verb_agreement",
+  "notes": "Only English BLiMP subject_verb_agreement scores with a citable source are entered as model scores. Overall BLiMP and non-English MultiBLiMP numbers are not substituted. Suite models with no published SVA field score stay unmatched.",
+  "models": [
+    {
+      "model_keys": ["gpt-2", "gpt2", "gpt-2-large", "gpt2-large"],
+      "display_name": "GPT-2 large",
+      "accuracy": 0.9325,
+      "accuracy_note": "Mean of the four published subject-verb agreement paradigms below (not the full 12-phenomenon BLiMP average). Distractor-agreement paradigms are omitted because the corrected appendix rows used here do not isolate that GPT-2 cell.",
+      "paradigms": {
+        "irregular_plural_subject_verb_agreement_1": 0.93,
+        "irregular_plural_subject_verb_agreement_2": 0.92,
+        "regular_plural_subject_verb_agreement_1": 0.97,
+        "regular_plural_subject_verb_agreement_2": 0.91
+      },
+      "source": "Warstadt et al. (2020), BLiMP, arXiv:1912.00582 corrected appendix"
+    }
+  ],
+  "unmatched_suite_models": [
+    {
+      "model_keys": ["llama3.1:8b", "ollama/llama3.1:8b"],
+      "reason": "Okamoto et al. (ANLP 2026), FreqBLiMP, report Llama-3.1-8B overall original BLiMP accuracy 0.797, not a subject_verb_agreement field score. Not entered as SVA."
+    },
+    {
+      "model_keys": ["qwen2.5:1.5b", "qwen2.5:3b", "qwen2.5:7b"],
+      "reason": "No published English BLiMP subject_verb_agreement score found for these sizes."
+    },
+    {
+      "model_keys": ["ministral-3:8b"],
+      "reason": "No published English BLiMP subject_verb_agreement score found."
+    }
+  ]
+}

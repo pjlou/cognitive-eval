@@ -6,12 +6,10 @@ The verification cascade dispatcher, rescoped for this phase to be:
   (b) directly portable to Evaluation Cascade's FR-3 dispatcher, not a
       Cognitive-Eval-only mechanism.
 
-Explicitly NOT in scope for this pass (see project notes):
-  - No new linguistic phenomena (e.g. compositional logic) were authored
-    to exercise Stage 3. Escalation to Stage 3 is demonstrated with
-    synthetic fixtures in tests/test_cascade.py instead -- this avoids the
-    dataset-authoring and native-speaker-review work that's been
-    deliberately deprioritized.
+Stage 3 is reserved for items with no registered verifier (quantifier-scope
+justification items). Forced-choice scope, NPI, and scalar items stay on
+Stage 1. Escalation routing itself is still covered by synthetic fixtures
+in tests/test_cascade.py.
   - Stage 2 here is a generic, non-linguistic well-formedness check
     (empty/malformed output), not the embedding-based discovery pipeline.
     Discovery (src/discovery/) remains its own batch-level, unsupervised

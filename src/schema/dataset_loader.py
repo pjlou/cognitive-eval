@@ -24,6 +24,8 @@ def load_all_test_items() -> List[TestItem]:
     """Discovers and validates every test item in the data directory."""
     all_items = []
     for json_file in DATA_DIR.glob("**/*.json"):
+        if "probe" in json_file.name or "external" in json_file.parts:
+            continue
         with open(json_file, "r", encoding="utf-8") as f:
             raw_data = json.load(f)
             if isinstance(raw_data, dict):

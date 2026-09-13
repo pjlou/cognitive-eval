@@ -1,5 +1,6 @@
 # dashboard/utils.py
 import json
+import math
 from pathlib import Path
 import pandas as pd
 from typing import Any
@@ -106,6 +107,58 @@ def build_answer_pattern_summary(df: pd.DataFrame) -> pd.DataFrame:
     return aggregated.sort_values(["family", "model", "count"], ascending=[True, True, False]).reset_index(drop=True)
 
 
+def _normalize_status(result: Any, score_value: Any) -> str:
+    text = str(result or "").strip().upper()
+    if text in {"PASS", "CORRECT"}:
+        return "CORRECT"
+    if text in {"FAIL", "INCORRECT"}:
+        return "INCORRECT"
+    return "CORRECT" if score_value == 1.0 else "INCORRECT"
+
+
+def _missing(value: Any) -> bool:
+    if value is None:
+        return True
+    return isinstance(value, float) and math.isnan(value)
+
+
+def _filled(current: Any, fallback: Any) -> Any:
+    return fallback if _missing(current) else current
+
+
+def _as_condition(value: Any) -> str | None:
+    if value is None:
+        return None
+    text = str(getattr(value, "value", value)).strip().lower()
+    if text in {"natural", "novel"}:
+        return text
+    return None
+
+
+def _enrich_from_dataset(records: list[dict]) -> list[dict]:
+    """Fill pairing and condition from the current items when older logs omit them."""
+    if not records:
+        return records
+    from src.schema.dataset_loader import load_all_test_items
+
+    by_id = {item.id: item for item in load_all_test_items()}
+    for row in records:
+        item = by_id.get(str(row.get("sample_id") or ""))
+        condition = _as_condition(row.get("lexical_condition"))
+        if item is not None:
+            gold = item.gold_structure or {}
+            condition = condition or _as_condition(item.lexical_condition)
+            row["lexical_pair_of"] = _filled(row.get("lexical_pair_of"), item.lexical_pair_of)
+            row["correct_choice"] = _filled(row.get("correct_choice"), gold.get("correct_choice"))
+            row["n_options"] = _filled(row.get("n_options"), gold.get("n_options"))
+            if not row.get("phenomenon"):
+                row["phenomenon"] = getattr(item.phenomenon, "value", item.phenomenon)
+            if not row.get("tier"):
+                row["tier"] = getattr(item.tier, "value", item.tier)
+        row["lexical_condition"] = condition
+    return records
+
+
 def load_eval_logs(log_dir: str | Path | None = None) -> pd.DataFrame:
     """Parses Inspect AI log files into a normalized pandas DataFrame."""
     log_path = Path(log_dir) if log_dir else PROJECT_ROOT / "eval_logs"
@@ -127,17 +180,15 @@ def load_eval_logs(log_dir: str | Path | None = None) -> pd.DataFrame:
             score_meta = _get_field(score_info, "metadata", {}) or {}
             score_value = _get_field(score_info, "value")
             result = score_meta.get("result") if isinstance(score_meta, dict) else None
-            if result is None:
-                result = "CORRECT" if score_value == 1.0 else "INCORRECT"
 
             records.append({
                 "model": model_name,
                 "sample_id": _get_field(sample, "id"),
-                "module": metadata.get("module"),
+                "lexical_condition": metadata.get("lexical_condition"),
                 "tier": metadata.get("tier"),
                 "phenomenon": metadata.get("phenomenon"),
                 "language": metadata.get("language"),
-                "status": result,
+                "status": _normalize_status(result, score_value),
                 "error_code": score_meta.get("error_code", "PASS"),
                 "prompt": _get_field(sample, "input"),
                 "raw_output": _get_field(score_info, "answer"),
@@ -146,9 +197,96 @@ def load_eval_logs(log_dir: str | Path | None = None) -> pd.DataFrame:
                 "rule_explanation": score_meta.get("rule_explanation"),
                 "verifier_metadata": score_meta.get("verifier_metadata", {}),
                 "cascade_stage": score_meta.get("cascade_stage"),
+                "consistency": score_meta.get("consistency"),
+                "lexical_pair_of": metadata.get("lexical_pair_of"),
+                "prompt_variant": metadata.get("prompt_variant", "canonical"),
+                "correct_choice": metadata.get("correct_choice"),
+                "n_options": metadata.get("n_options"),
             })
 
-    return pd.DataFrame(records)
+    return pd.DataFrame(_enrich_from_dataset(records))
+
+
+def rigor_records(df: pd.DataFrame) -> list[dict]:
+    """Item-level scored records, joined to the current dataset for gold letters."""
+    if df.empty:
+        return []
+    from src.schema.dataset_loader import load_all_test_items
+
+    by_id = {item.id: item for item in load_all_test_items()}
+    records = []
+    for row in df.to_dict(orient="records"):
+        if str(row.get("prompt_variant") or "canonical") == "alternate":
+            continue
+        sample_id = str(row.get("sample_id") or "")
+        item = by_id.get(sample_id)
+        gold = (item.gold_structure if item else {}) or {}
+        status = row.get("status")
+        if status not in {"CORRECT", "INCORRECT"}:
+            continue
+        condition = _as_condition(row.get("lexical_condition"))
+        if condition is None and item is not None:
+            condition = _as_condition(item.lexical_condition)
+        records.append(
+            {
+                "id": sample_id,
+                "model": row.get("model"),
+                "correct": status == "CORRECT",
+                "final_status": "pass" if status == "CORRECT" else "fail",
+                "correct_choice": _filled(row.get("correct_choice"), gold.get("correct_choice")),
+                "n_options": _filled(row.get("n_options"), gold.get("n_options")),
+                "lexical_pair_of": _filled(row.get("lexical_pair_of"), item.lexical_pair_of if item else None),
+                "lexical_condition": condition,
+                "prompt_variant": "canonical",
+                "phenomenon": row.get("phenomenon"),
+            }
+        )
+    return records
+
+
+def scaling_frame(df: pd.DataFrame) -> pd.DataFrame:
+    """Accuracy versus parameter count, split by lexical condition and family."""
+    from src.analysis.scaling import parameter_billions
+
+    if df.empty:
+        return pd.DataFrame(columns=["model", "family", "lexical_condition", "params", "accuracy"])
+    frame = df.copy()
+    if "prompt_variant" in frame.columns:
+        frame = frame[frame["prompt_variant"].fillna("canonical") != "alternate"]
+    rows = []
+    for (model, condition), group in frame.groupby(["model", "lexical_condition"], dropna=False):
+        params = parameter_billions(str(model))
+        if params is None or not condition:
+            continue
+        rows.append(
+            {
+                "model": model,
+                "family": get_model_family(str(model)),
+                "lexical_condition": str(condition),
+                "params": params,
+                "accuracy": float((group["status"] == "CORRECT").mean()),
+            }
+        )
+    return pd.DataFrame(rows)
+
+
+def agreement_accuracy_by_model(df: pd.DataFrame) -> dict[str, float]:
+    """Natural-condition agreement-attraction accuracy, the BLiMP overlap slice."""
+    if df.empty:
+        return {}
+    frame = df[
+        (df["phenomenon"] == "agreement_attraction")
+        & (df["lexical_condition"].astype(str) == "natural")
+    ]
+    if "prompt_variant" in frame.columns:
+        frame = frame[frame["prompt_variant"].fillna("canonical") != "alternate"]
+    scores = {}
+    for model, group in frame.groupby("model"):
+        scored = group[group["status"].isin(["CORRECT", "INCORRECT"])]
+        if scored.empty:
+            continue
+        scores[str(model)] = float((scored["status"] == "CORRECT").mean())
+    return scores
 
 
 def _get_field(value: Any, field: str, default: Any = None) -> Any:
